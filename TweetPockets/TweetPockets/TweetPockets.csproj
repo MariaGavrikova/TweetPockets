@@ -36,28 +36,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="BatchedObservableCollection.cs" />
+    <Compile Include="Utils\BatchedObservableCollection.cs" />
     <Compile Include="Keys.cs" />
-    <Compile Include="PageViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PhotoStatusViewModel.cs" />
-    <Compile Include="StatusViewModelFactory.cs" />
-    <Compile Include="StatusViewModel.cs" />
-    <Compile Include="TimelineListView.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="ViewModels\PhotoStatusViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModelFactory.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
+    <Compile Include="Controls\TimelineListView.cs" />
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ReadLaterTimelinePage.xaml.cs">
+    <Compile Include="Views\ReadLaterTimelinePage.xaml.cs">
       <DependentUpon>ReadLaterTimelinePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimelinePage.xaml.cs">
+    <Compile Include="Views\TimelinePage.xaml.cs">
       <DependentUpon>TimelinePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimelineViewModel.cs" />
-    <Compile Include="TweetButton.cs" />
-    <Compile Include="UserDetails.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="ViewModels\TimelineViewModel.cs" />
+    <Compile Include="Controls\TweetButton.cs" />
+    <Compile Include="Utils\UserDetails.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="LinqToTwitter.xamarin, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -116,23 +116,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TimelinePage.xaml">
+    <EmbeddedResource Include="Views\TimelinePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainPage.xaml">
+    <EmbeddedResource Include="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ReadLaterTimelinePage.xaml">
+    <EmbeddedResource Include="Views\ReadLaterTimelinePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

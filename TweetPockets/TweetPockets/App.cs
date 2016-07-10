@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TweetPockets.Utils;
+using TweetPockets.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Auth;
 
@@ -12,7 +13,7 @@ namespace TweetPockets
     public class App : Application
     {
         private UserDetails _user;
-        private TimelinePage _timelineView;
+        private Views.TimelinePage _timelineView;
 
         public App()
         {
@@ -21,7 +22,7 @@ namespace TweetPockets
             MessagingCenter.Subscribe<App, Xamarin.Auth.Account>(this, "LoggedIn",
                 async (s, user) => await OnLoggedIn(user));
 
-            var mainPage = new MainPage();
+            var mainPage = new Views.MainPage();
             _timelineView = mainPage.Timeline;
             MainPage = mainPage;
 

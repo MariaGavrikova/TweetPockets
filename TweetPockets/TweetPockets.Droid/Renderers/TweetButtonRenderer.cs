@@ -14,6 +14,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Util;
 using TweetPockets;
+using TweetPockets.Controls;
 using TweetPockets.Droid.PlatformSpecificCode;
 using TweetPockets.Droid.Renderers;
 using Xamarin.Forms;

@@ -11,6 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
+using TweetPockets.Controls;
 
 namespace TweetPockets.Droid.PlatformSpecificCode
 {
