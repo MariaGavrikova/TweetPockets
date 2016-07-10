@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_below="@+id/Text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal">
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/ReplyButton"
+        android:src="@drawable/ic_reply_black_24dp"
+        android:background="@null"
+        android:layout_weight="1" />
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/RetweetButton"
+        android:src="@drawable/ic_repeat_black_24dp"
+        android:background="@null"
+        android:layout_weight="1" />
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/FavoriteButton"
+        android:src="@drawable/ic_favorite_black_24dp"
+        android:background="@null"
+        android:layout_weight="1" />
+</LinearLayout>
