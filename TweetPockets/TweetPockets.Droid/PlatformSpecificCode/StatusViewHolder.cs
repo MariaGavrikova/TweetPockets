@@ -33,8 +33,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             ReplyButton.Click += ReplyClickHandler;
             RetweetButton = itemView.FindViewById<ImageButton>(Resource.Id.RetweetButton);
             FavoriteButton = itemView.FindViewById<ImageButton>(Resource.Id.FavoriteButton);
-            ReadLaterButton = itemView.FindViewById<ImageButton>(Resource.Id.ReadLaterButton);
-            ReadLaterButton.Click += ReadLaterClickHandler;
+            BookmardButton = itemView.FindViewById<ImageButton>(Resource.Id.BookmardButton);
+            BookmardButton.Click += ReadLaterClickHandler;
         }
 
         private void ReadLaterClickHandler(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             
         }
 
-        public ImageButton ReadLaterButton { get; set; }
+        public ImageButton BookmardButton { get; set; }
         public ImageButton FavoriteButton { get; set; }
         public ImageButton RetweetButton { get; set; }
         public ImageButton ReplyButton { get; set; }
@@ -67,7 +67,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             AuthorImage.SetImageBitmap(BitmapUtils.GetImageBitmapFromUrl(data.AuthorImageUrl, 50, 50));
             Text.Text = data.Text;
             Author.Text = data.Author;
-            ReadLaterButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
+            BookmardButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
 
             Card.Tag = new JavaObjectWrapper<StatusViewModel>(data);
         }
