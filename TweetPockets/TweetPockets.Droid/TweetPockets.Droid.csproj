@@ -154,6 +154,7 @@
     <Compile Include="PlatformSpecificCode\AdjustableImageView.cs" />
     <Compile Include="PlatformSpecificCode\BitmapUtils.cs" />
     <Compile Include="PlatformSpecificCode\BitmapWorkerTask.cs" />
+    <Compile Include="PlatformSpecificCode\NotificationController.cs" />
     <Compile Include="PlatformSpecificCode\PhotoViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />
     <Compile Include="PlatformSpecificCode\StatusViewHolder.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Renderers\TimelineListViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\JavaObjectWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -198,7 +200,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\circle.xml" />

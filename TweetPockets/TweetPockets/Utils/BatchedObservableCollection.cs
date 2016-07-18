@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using TweetPockets.ViewModels;
 
 namespace TweetPockets.Utils
 {
@@ -48,6 +49,12 @@ namespace TweetPockets.Utils
             var item = this[i];
             _list.RemoveAt(i);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { item }, i));
+        }
+
+        public void Remove(T item)
+        {
+            _list.Remove(item);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { item }));
         }
 
         public T this[int i]

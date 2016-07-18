@@ -3572,6 +3572,9 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0a015b
 			public const int Base_Widget_Design_TabLayout = 2131362139;
 			
+			// aapt resource value: 0x7f0a0173
+			public const int CardStyle = 2131362163;
+			
 			// aapt resource value: 0x7f0a0017
 			public const int CardView = 2131361815;
 			

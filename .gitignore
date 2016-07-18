@@ -4,3 +4,5 @@ TweetPockets/TweetPockets.Droid/obj/
 TweetPockets/TweetPockets/bin/
 TweetPockets/TweetPockets/obj/
 *.user
+*.suo
+packages/

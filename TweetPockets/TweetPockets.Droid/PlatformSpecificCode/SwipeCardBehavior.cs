@@ -42,8 +42,9 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public override void OnSwiped(RecyclerView.ViewHolder viewHolder, int direction)
         {
-            var i = viewHolder.AdapterPosition;
-            _element.DismissCommand.Execute(i);
+            var statusViewHolder = (StatusViewHolder) viewHolder;
+            var data = statusViewHolder.GetData();
+            _element.DismissCommand.Execute(data);
         }
     }
 }

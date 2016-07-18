@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using LinqToTwitter;
 using TweetPockets.Utils;
 using Xamarin.Forms;
@@ -10,6 +11,7 @@ namespace TweetPockets.ViewModels
 {
     public class TimelineViewModel : PageViewModel
     {
+        private readonly MainViewModel _mainViewModel;
         private TwitterContext _ctx;
         private int ChunkSize = 20;
         private ulong _oldestStatusId;
@@ -17,14 +19,14 @@ namespace TweetPockets.ViewModels
         private ulong _newestStatusId;
         private StatusViewModelFactory _factory;
 
-        public TimelineViewModel()
+        public TimelineViewModel(MainViewModel mainViewModel)
         {
+            _mainViewModel = mainViewModel;
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
             MoveToReadLaterCommand = new Command(MoveToReadLater);
             _factory = new StatusViewModelFactory();
             Timeline = new BatchedObservableCollection<StatusViewModel>();
-            Bookmarks = new BatchedObservableCollection<StatusViewModel>();
         }
 
         public bool IsLoading
@@ -38,8 +40,6 @@ namespace TweetPockets.ViewModels
         }
 
         public BatchedObservableCollection<StatusViewModel> Timeline { get; private set; }
-
-        public BatchedObservableCollection<StatusViewModel> Bookmarks { get; private set; }
 
         public ICommand LoadOldCommand { get; set; }
 
@@ -59,10 +59,8 @@ namespace TweetPockets.ViewModels
                     {
                         ConsumerKey = Keys.TwitterConsumerKey,
                         ConsumerSecret = Keys.TwitterConsumerSecret,
-                        OAuthToken = userDetails.Token,
-                        OAuthTokenSecret = userDetails.TokenSecret,
-                        ScreenName = userDetails.ScreenName,
-                        UserID = ulong.Parse(userDetails.TwitterId)
+                        OAuthToken = "1176857941-Yyy8ZmQgOUO1LK8nlX6iOELXgUGfMmKz2oGoWvd",
+                        OAuthTokenSecret = "sQBZv3f2PBJH90AoX3DRhUJ1RErHDjc3Jdrtv1EvJ7Ijk"
                     },
                 };
                 await auth.AuthorizeAsync();
@@ -70,11 +68,10 @@ namespace TweetPockets.ViewModels
                 _ctx = new TwitterContext(auth);
 
                 Timeline.AddRange(
-                 await
-                 (from tweet in _ctx.Status
-                  where tweet.Type == StatusType.Home && tweet.Count == ChunkSize
-                  select _factory.Create(tweet))
-                 .ToListAsync());
+                    await _ctx.Status
+                        .Where(x => x.Type == StatusType.Home && x.Count == ChunkSize)
+                        .Select((x, i) => _factory.Create(x, i))
+                        .ToListAsync());
 
                 UpdateNewestStatusId();
                 UpdateOldestStatusId();
@@ -106,19 +103,6 @@ namespace TweetPockets.ViewModels
 
         private async void OnLoadOld()
         {
-            var oldStatuses =
-                await
-             (from tweet in _ctx.Status
-              where tweet.Type == StatusType.Home && tweet.Count == ChunkSize && tweet.MaxID == _oldestStatusId
-              select new StatusViewModel(tweet))
-             .ToListAsync();
-
-            foreach (var oldStatus in oldStatuses)
-            {
-                Timeline.Add(oldStatus);
-            }
-
-            UpdateOldestStatusId();
         }
 
         private async void OnLoadNew()
@@ -126,11 +110,10 @@ namespace TweetPockets.ViewModels
             IsLoading = true;
 
             var newStatuses =
-                await
-             (from tweet in _ctx.Status
-              where tweet.Type == StatusType.Home && tweet.SinceID == _newestStatusId
-              select new StatusViewModel(tweet))
-             .ToListAsync();
+                await _ctx.Status
+                    .Where(tweet => tweet.Type == StatusType.Home && tweet.SinceID == _newestStatusId)
+                    .Select((x, i) => _factory.Create(x, i))
+                    .ToListAsync();
 
             for (int i = 0; i < newStatuses.Count; i++)
             {
@@ -144,12 +127,9 @@ namespace TweetPockets.ViewModels
 
         private void MoveToReadLater(object obj)
         {
-            var statusIndex = (int)obj;
-            var item = Timeline[statusIndex];
-            Timeline.RemoveAt(statusIndex);
-            Bookmarks.Add(item);
+            var item = (StatusViewModel) obj;
 
-
+            MessagingCenter.Send(_mainViewModel, "AddBookmark", item);
         }
     }
 }

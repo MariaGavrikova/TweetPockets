@@ -8,10 +8,5 @@ namespace TweetPockets.Views
         {
             InitializeComponent();
         }
-
-        public TimelinePage Timeline
-        {
-            get { return this.TimelinePage; }
-        }
     }
 }

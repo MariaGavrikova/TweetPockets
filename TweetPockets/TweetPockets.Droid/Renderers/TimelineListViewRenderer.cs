@@ -46,6 +46,7 @@ namespace TweetPockets.Droid.Renderers
 
                 _swipeRefreshLayout = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefreshLayout);
                 _swipeRefreshLayout.SetOnRefreshListener(this);
+                _swipeRefreshLayout.Enabled = Element.IsPullToRefreshEnabled;
                 _swipeRefreshLayout.Refreshing = Element.IsRefreshing;
 
                 _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);

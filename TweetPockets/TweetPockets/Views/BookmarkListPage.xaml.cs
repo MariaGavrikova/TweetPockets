@@ -2,9 +2,9 @@
 
 namespace TweetPockets.Views
 {
-    public partial class ReadLaterTimelinePage : ContentPage
+    public partial class BookmarkListPage : ContentPage
     {
-        public ReadLaterTimelinePage()
+        public BookmarkListPage()
         {
             InitializeComponent();
         }

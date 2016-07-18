@@ -36,20 +36,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Interfaces\INotificationController.cs" />
     <Compile Include="Utils\BatchedObservableCollection.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\PhotoStatusViewModel.cs" />
+    <Compile Include="ViewModels\BookmarkListViewModel.cs" />
     <Compile Include="ViewModels\StatusViewModelFactory.cs" />
     <Compile Include="ViewModels\StatusViewModel.cs" />
     <Compile Include="Controls\TimelineListView.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReadLaterTimelinePage.xaml.cs">
-      <DependentUpon>ReadLaterTimelinePage.xaml</DependentUpon>
+    <Compile Include="Views\BookmarkListPage.xaml.cs">
+      <DependentUpon>BookmarkListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimelinePage.xaml.cs">
       <DependentUpon>TimelinePage.xaml</DependentUpon>
@@ -128,7 +131,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ReadLaterTimelinePage.xaml">
+    <EmbeddedResource Include="Views\BookmarkListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

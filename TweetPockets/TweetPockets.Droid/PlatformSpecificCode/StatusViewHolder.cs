@@ -13,6 +13,7 @@ using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
+using TweetPockets.Droid.Utilities;
 using TweetPockets.ViewModels;
 
 namespace TweetPockets.Droid.PlatformSpecificCode
@@ -38,8 +39,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         private void ReadLaterClickHandler(object sender, EventArgs e)
         {
-            var i = AdapterPosition;
-            _element.DismissCommand.Execute(i);
+            var data = GetData();
+            _element.DismissCommand.Execute(data);
         }
 
         private void ReplyClickHandler(object sender, EventArgs e)
@@ -56,6 +57,11 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         public TextView Author { get; private set; }
         public TextView Text { get; private set; }
 
+        public StatusViewModel GetData()
+        {
+            return (Card.Tag as JavaObjectWrapper<StatusViewModel>).Value;
+        }
+
         public virtual void Bind(StatusViewModel data)
         {
             AuthorImage.SetImageBitmap(BitmapUtils.GetImageBitmapFromUrl(data.AuthorImageUrl, 50, 50));
@@ -63,16 +69,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             Author.Text = data.Author;
             ReadLaterButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
 
-            var layoutParams = (RecyclerView.LayoutParams)Card.LayoutParameters;
-            if (this.AdapterPosition == 0)
-            {
-                layoutParams.TopMargin = layoutParams.BottomMargin;
-            }
-            else
-            {
-                layoutParams.TopMargin = 0;
-            }
-            Card.LayoutParameters = layoutParams;
+            Card.Tag = new JavaObjectWrapper<StatusViewModel>(data);
         }
     }
 }

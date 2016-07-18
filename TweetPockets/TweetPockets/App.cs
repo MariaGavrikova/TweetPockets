@@ -13,7 +13,7 @@ namespace TweetPockets
     public class App : Application
     {
         private UserDetails _user;
-        private Views.TimelinePage _timelineView;
+        private MainViewModel _mainViewModel;
 
         public App()
         {
@@ -23,7 +23,8 @@ namespace TweetPockets
                 async (s, user) => await OnLoggedIn(user));
 
             var mainPage = new Views.MainPage();
-            _timelineView = mainPage.Timeline;
+            _mainViewModel = new MainViewModel();
+            mainPage.BindingContext = _mainViewModel;
             MainPage = mainPage;
 
             var savedAccount = AccountStore.Create().FindAccountsForService("Twitter").FirstOrDefault();
@@ -49,10 +50,7 @@ namespace TweetPockets
 
             _user = userDetails;
 
-            var timeline = new TimelineViewModel();
-            _timelineView.BindingContext = timeline;
-
-            await timeline.InitAsync(_user);
+            await _mainViewModel.InitAsync(_user);
 
             AccountStore.Create().Save(account, "Twitter");
         }
