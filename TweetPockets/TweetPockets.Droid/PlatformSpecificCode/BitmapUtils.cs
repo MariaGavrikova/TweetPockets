@@ -23,13 +23,19 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             options.InJustDecodeBounds = true;
             using (var webClient = new WebClient())
             {
-                var imageBytes = webClient.DownloadData(url);
-                if (imageBytes != null && imageBytes.Length > 0)
+                try
                 {
-                    BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length, options);
-                    options.InSampleSize = CalculateInSampleSize(options, width, height);
-                    options.InJustDecodeBounds = false;
-                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length, options);
+                    var imageBytes = webClient.DownloadData(url);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length, options);
+                        options.InSampleSize = CalculateInSampleSize(options, width, height);
+                        options.InJustDecodeBounds = false;
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length, options);
+                    }
+                }
+                catch (Exception)
+                {
                 }
             }
 

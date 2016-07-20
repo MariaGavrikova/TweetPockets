@@ -70,7 +70,7 @@ namespace TweetPockets.ViewModels
                 Timeline.AddRange(
                     await _ctx.Status
                         .Where(x => x.Type == StatusType.Home && x.Count == ChunkSize)
-                        .Select((x, i) => _factory.Create(x, i))
+                        .Select(x => _factory.Create(x))
                         .ToListAsync());
 
                 UpdateNewestStatusId();
@@ -112,7 +112,7 @@ namespace TweetPockets.ViewModels
             var newStatuses =
                 await _ctx.Status
                     .Where(tweet => tweet.Type == StatusType.Home && tweet.SinceID == _newestStatusId)
-                    .Select((x, i) => _factory.Create(x, i))
+                    .Select(x => _factory.Create(x))
                     .ToListAsync();
 
             for (int i = 0; i < newStatuses.Count; i++)

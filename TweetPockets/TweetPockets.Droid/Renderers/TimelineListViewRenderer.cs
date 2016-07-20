@@ -54,9 +54,9 @@ namespace TweetPockets.Droid.Renderers
                 _recyclerView.SetAdapter(_adapter);
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
                 _recyclerView.SetLayoutManager(linearLayoutManager);
-                ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCardBehavior(_adapter, Element));
-                itemTouchHelper.AttachToRecyclerView(_recyclerView);
-                _adapter.ItemTouchHelper = itemTouchHelper;
+                //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCardBehavior(_adapter, Element));
+                //itemTouchHelper.AttachToRecyclerView(_recyclerView);
+                //_adapter.ItemTouchHelper = itemTouchHelper;
 
                 SetNativeControl(view);
             }

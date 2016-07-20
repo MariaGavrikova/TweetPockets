@@ -2242,7 +2242,7 @@ namespace TweetPockets.Droid
 			public const int AuthorImage = 2131165343;
 			
 			// aapt resource value: 0x7f070076
-			public const int BookmardButton = 2131165302;
+			public const int BookmarkButton = 2131165302;
 			
 			// aapt resource value: 0x7f07009d
 			public const int Card = 2131165341;

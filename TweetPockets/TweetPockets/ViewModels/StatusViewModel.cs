@@ -1,31 +1,82 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Reactive;
 using LinqToTwitter;
+using TweetPockets.Utils;
 
 namespace TweetPockets.ViewModels
 {
     public class StatusViewModel : ViewModelBase
     {
-        public StatusViewModel(Status model, int i)
+        public StatusViewModel(Status model)
         {
             Id = model.StatusID;
-            Index = i;
             Author = model.User.Name;
             AuthorImageUrl = model.User.ProfileImageUrl;
             Text = model.Text;
+            CreatedAt = model.CreatedAt;
 
             CanBeReadLater = model.Entities.UrlEntities.Any();
         }
 
-        public int Index { get; set; }
+        public DateTime CreatedAt { get; }
 
-        public ulong Id { get; set; }
+        public string TimestampLabel
+        {
+            get
+            {
+                var timespan = DateTime.UtcNow - CreatedAt;
+                string result;
+                if (timespan.Days > 0)
+                {
+                    result = $"{timespan.Days}d";
+                }
+                else
+                {
+                    if (timespan.Hours > 0)
+                    {
+                        result = $"{timespan.Hours}h";
+                    }
+                    else
+                    {
+                        if (timespan.Minutes > 0)
+                        {
+                            result = $"{timespan.Minutes}m";
+                        }
+                        else
+                        {
+                            result = $"{timespan.Seconds}s";
+                        }
+                    }
+                }
 
-        public string Author { get; set; }
+                return result;
+            }
+        }
 
-        public string AuthorImageUrl { get; set; }
+        public ulong Id { get; }
 
-        public string Text { get; set; }
+        public string Author { get; }
+
+        public string AuthorImageUrl { get; }
+
+        public string Text { get; }
 
         public bool CanBeReadLater { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            bool isEqual = false;
+            if (obj != null)
+            {
+                isEqual = GetHashCode() == obj.GetHashCode();
+            }
+            return isEqual;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

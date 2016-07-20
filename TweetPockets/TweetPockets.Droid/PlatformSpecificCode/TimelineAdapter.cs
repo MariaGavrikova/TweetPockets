@@ -45,7 +45,14 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                NotifyItemInserted(e.NewStartingIndex);
+                if (e.NewItems.Count == 1)
+                {
+                    NotifyItemInserted(e.NewStartingIndex);
+                }
+                else
+                {
+                    NotifyItemRangeInserted(0, e.NewItems.Count);
+                }
             }
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {

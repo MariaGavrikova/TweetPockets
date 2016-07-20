@@ -5,14 +5,14 @@ namespace TweetPockets.ViewModels
 {
     class StatusViewModelFactory
     {
-        public StatusViewModel Create(Status model, int i)
+        public StatusViewModel Create(Status model)
         {
             if (model.Entities.MediaEntities.Any())
             {
-                return new PhotoStatusViewModel(model, i);
+                return new PhotoStatusViewModel(model);
             }
 
-            return new StatusViewModel(model, i);
+            return new StatusViewModel(model);
         }
     }
 }

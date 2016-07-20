@@ -29,7 +29,7 @@ namespace TweetPockets.Utils
         public void Add(T item)
         {
             _list.Add(item);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { item }));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { item }, _list.Count - 1));
         }
 
         public void Insert(int i, T item)
@@ -44,17 +44,11 @@ namespace TweetPockets.Utils
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
         }
 
-        public void RemoveAt(int i)
-        {
-            var item = this[i];
-            _list.RemoveAt(i);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { item }, i));
-        }
-
         public void Remove(T item)
         {
+            var i = _list.IndexOf(item);
             _list.Remove(item);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { item }));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { item }, i));
         }
 
         public T this[int i]

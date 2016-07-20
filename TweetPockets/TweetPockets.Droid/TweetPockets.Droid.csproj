@@ -158,7 +158,6 @@
     <Compile Include="PlatformSpecificCode\PhotoViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />
     <Compile Include="PlatformSpecificCode\StatusViewHolder.cs" />
-    <Compile Include="PlatformSpecificCode\SwipeCardBehavior.cs" />
     <Compile Include="PlatformSpecificCode\TimelineAdapter.cs" />
     <Compile Include="Renderers\TweetButtonRenderer.cs" />
     <Compile Include="Renderers\TimelineListViewRenderer.cs" />

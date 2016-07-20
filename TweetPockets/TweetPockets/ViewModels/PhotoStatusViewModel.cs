@@ -5,7 +5,7 @@ namespace TweetPockets.ViewModels
 {
     public class PhotoStatusViewModel : StatusViewModel
     {
-        public PhotoStatusViewModel(Status model, int i) : base(model, i)
+        public PhotoStatusViewModel(Status model) : base(model)
         {
             var photos = new List<string>();
             foreach (var mediaEntity in model.Entities.MediaEntities)

@@ -21,6 +21,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
     class StatusViewHolder : RecyclerView.ViewHolder
     {
         private readonly TimelineListView _element;
+        private StatusViewModel _data;
 
         public StatusViewHolder(View itemView, TimelineListView element) : base(itemView)
         {
@@ -29,18 +30,18 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             AuthorImage = itemView.FindViewById<ImageView>(Resource.Id.AuthorImage);
             Author = itemView.FindViewById<TextView>(Resource.Id.Author);
             Text = itemView.FindViewById<TextView>(Resource.Id.Text);
+            Timestamp = itemView.FindViewById<TextView>(Resource.Id.Timestamp);
             ReplyButton = itemView.FindViewById<ImageButton>(Resource.Id.ReplyButton);
             ReplyButton.Click += ReplyClickHandler;
             RetweetButton = itemView.FindViewById<ImageButton>(Resource.Id.RetweetButton);
             FavoriteButton = itemView.FindViewById<ImageButton>(Resource.Id.FavoriteButton);
-            BookmardButton = itemView.FindViewById<ImageButton>(Resource.Id.BookmardButton);
-            BookmardButton.Click += ReadLaterClickHandler;
+            BookmarkButton = itemView.FindViewById<ImageButton>(Resource.Id.BookmarkButton);
+            BookmarkButton.Click += ReadLaterClickHandler;
         }
 
         private void ReadLaterClickHandler(object sender, EventArgs e)
         {
-            var data = GetData();
-            _element.DismissCommand.Execute(data);
+            _element.DismissCommand.Execute(_data);
         }
 
         private void ReplyClickHandler(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             
         }
 
-        public ImageButton BookmardButton { get; set; }
+        public ImageButton BookmarkButton { get; set; }
         public ImageButton FavoriteButton { get; set; }
         public ImageButton RetweetButton { get; set; }
         public ImageButton ReplyButton { get; set; }
@@ -56,11 +57,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         public ImageView AuthorImage { get; private set; }
         public TextView Author { get; private set; }
         public TextView Text { get; private set; }
-
-        public StatusViewModel GetData()
-        {
-            return (Card.Tag as JavaObjectWrapper<StatusViewModel>).Value;
-        }
+        public TextView Timestamp { get; private set; }
 
         public virtual void Bind(StatusViewModel data)
         {
@@ -69,9 +66,9 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
             Text.Text = data.Text;
             Author.Text = data.Author;
-            BookmardButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
-
-            Card.Tag = new JavaObjectWrapper<StatusViewModel>(data);
+            Timestamp.Text = data.TimestampLabel;
+            BookmarkButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
+            _data = data;
         }
     }
 }

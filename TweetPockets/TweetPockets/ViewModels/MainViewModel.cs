@@ -11,6 +11,8 @@ namespace TweetPockets.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private int StatusTextLength = 15;
+
         public MainViewModel()
         {
             Timeline = new TimelineViewModel(this);
@@ -32,10 +34,15 @@ namespace TweetPockets.ViewModels
         private void OnAddBookmark(StatusViewModel status)
         {
             Timeline.Timeline.Remove(status);
-            BookmarkList.Bookmarks.Insert(0, status);
+            BookmarkList.Bookmarks.Add(status);
 
             var manager = DependencyService.Get<INotificationController>();
-            manager.ShowToast("Added to Bookmarks");
+            manager.ShowToast(String.Format("\"{0}\" added to Bookmarks", GetShortStatusText(status.Text)));
+        }
+
+        private string GetShortStatusText(string text)
+        {
+            return text.Length > StatusTextLength ? text.Substring(0, StatusTextLength - 3) + "..." : text;
         }
     }
 }
