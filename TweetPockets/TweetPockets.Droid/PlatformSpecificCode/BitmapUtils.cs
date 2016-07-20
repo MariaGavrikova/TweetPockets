@@ -16,7 +16,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 {
     public static class BitmapUtils
     {
-        public static Bitmap GetImageBitmapFromUrl(string url, int width, int height)
+        public static Bitmap GetImageBitmapFromUrl(string url, float width, float height)
         {
             Bitmap imageBitmap = null;
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -36,7 +36,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             return imageBitmap;
         }
 
-        private static int CalculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)
+        private static int CalculateInSampleSize(BitmapFactory.Options options, float reqWidth, float reqHeight)
         {
             // Raw height and width of image
             int height = options.OutHeight;

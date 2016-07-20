@@ -64,7 +64,9 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public virtual void Bind(StatusViewModel data)
         {
-            AuthorImage.SetImageBitmap(BitmapUtils.GetImageBitmapFromUrl(data.AuthorImageUrl, 50, 50));
+            var worker = new BitmapWorkerTask(AuthorImage);
+            worker.Execute(data.AuthorImageUrl);
+
             Text.Text = data.Text;
             Author.Text = data.Author;
             BookmardButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
