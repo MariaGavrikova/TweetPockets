@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using TweetPockets.Droid.PlatformSpecificCode.Cache;
 using Xamarin.Forms;
 using Object = Java.Lang.Object;
 
@@ -19,19 +20,19 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 {
     class BitmapWorkerTask : AsyncTask<string, Java.Lang.Void, Bitmap>
     {
-        private readonly WeakReference<ImageView> imageViewReference;
-        private string _data;
+        private readonly WeakReference<ImageView> _imageViewReference;
+        private BitmapCache _cache = new BitmapCache();
 
         public BitmapWorkerTask(ImageView imageView)
         {
-            imageViewReference = new WeakReference<ImageView>(imageView);
+            _imageViewReference = new WeakReference<ImageView>(imageView);
         }
 
         protected override Bitmap RunInBackground(params string[] native_parms)
         {
-            _data = (string) native_parms[0];
-            var main = MainActivity.Instance;
-            return BitmapUtils.GetImageBitmapFromUrl(_data, main.Width, main.Height);
+            var imageUrl = (string) native_parms[0];
+            return _cache.Get(imageUrl);
+            
         }
 
         protected override void OnPostExecute(Bitmap bitmap)
@@ -42,10 +43,10 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             }
             else
             {
-                if (imageViewReference != null && bitmap != null)
+                if (_imageViewReference != null && bitmap != null)
                 {
                     ImageView imageView;
-                    if (imageViewReference.TryGetTarget(out imageView))
+                    if (_imageViewReference.TryGetTarget(out imageView))
                     {
                         imageView.SetImageBitmap(bitmap);
                     }

@@ -59,8 +59,8 @@ namespace TweetPockets.ViewModels
                     {
                         ConsumerKey = Keys.TwitterConsumerKey,
                         ConsumerSecret = Keys.TwitterConsumerSecret,
-                        OAuthToken = "1176857941-Yyy8ZmQgOUO1LK8nlX6iOELXgUGfMmKz2oGoWvd",
-                        OAuthTokenSecret = "sQBZv3f2PBJH90AoX3DRhUJ1RErHDjc3Jdrtv1EvJ7Ijk"
+                        OAuthToken = userDetails.Token,
+                        OAuthTokenSecret = userDetails.TokenSecret,
                     },
                 };
                 await auth.AuthorizeAsync();
