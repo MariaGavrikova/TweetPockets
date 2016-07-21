@@ -25,6 +25,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         private readonly TimelineListView _element;
         private const int DefaultViewType = 0;
         private const int PhotoViewType = 1;
+        private const int FooterViewType = -1;
 
         private readonly BatchedObservableCollection<StatusViewModel> _items;
         private readonly Dictionary<int, int> _viewTypes;
@@ -37,7 +38,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             _viewTypes = new Dictionary<int, int>()
             {
                 { DefaultViewType, Resource.Layout.StatusCard },
-                { PhotoViewType, Resource.Layout.PhotoCard }
+                { PhotoViewType, Resource.Layout.PhotoCard },
+                { FooterViewType, Resource.Layout.RecyclerViewFooter }
             };
         }
 
@@ -62,20 +64,27 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            var data = _items[position];
-            StatusViewHolder vh = (StatusViewHolder) holder;
-            vh.Bind(data);
+            if (position != _items.Count)
+            {
+                var data = _items[position];
+                StatusViewHolder vh = (StatusViewHolder) holder;
+                vh.Bind(data);
+            }
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View itemView = LayoutInflater.From(parent.Context).Inflate(_viewTypes[viewType], parent, false);
-            StatusViewHolder vh = Create(itemView, viewType);
-            return vh;
+            return Create(itemView, viewType);
         }
 
-        private StatusViewHolder Create(View itemView, int viewType)
+        private RecyclerView.ViewHolder Create(View itemView, int viewType)
         {
+            if (viewType == FooterViewType)
+            {
+                return new FooterViewHolder(itemView);
+            }
+
             if (viewType == PhotoViewType)
             {
                 return new PhotoViewHolder(itemView, _element);
@@ -85,6 +94,11 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public override int GetItemViewType(int position)
         {
+            if (position == _items.Count)
+            {
+                return FooterViewType;
+            }
+
             var data = _items[position];
             if (data is PhotoStatusViewModel)
             {
@@ -95,7 +109,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public override int ItemCount
         {
-            get { return _items.Count; }
+            get { return _items.Count + 1; }
         }
 
         public ItemTouchHelper ItemTouchHelper { get; set; }

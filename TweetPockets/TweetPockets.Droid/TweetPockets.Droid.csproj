@@ -162,6 +162,7 @@
     <Compile Include="PlatformSpecificCode\NotificationController.cs" />
     <Compile Include="PlatformSpecificCode\PhotoViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />
+    <Compile Include="PlatformSpecificCode\FooterViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\StatusViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\TimelineAdapter.cs" />
     <Compile Include="Renderers\TweetButtonRenderer.cs" />
@@ -188,6 +189,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\layout1.axml" />
+    <AndroidResource Include="Resources\layout\RecyclerViewFooter.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
