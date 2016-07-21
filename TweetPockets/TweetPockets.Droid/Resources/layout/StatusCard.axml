@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:id="@+id/Timestamp"
+            android:minLines="2"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/Placeholder"
             android:layout_alignParentEnd="true" />

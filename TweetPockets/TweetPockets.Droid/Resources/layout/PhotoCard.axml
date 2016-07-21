@@ -47,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Text"
+            android:minLines="2"
             android:layout_toRightOf="@+id/AuthorImage"
             android:layout_marginRight="32dp"
             android:layout_below="@+id/Author"
@@ -104,7 +105,7 @@
                 android:src="@drawable/ic_book_black_24dp"
                 android:background="@null"
                 android:layout_weight="1" />
-         <LinearLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
