@@ -23,6 +23,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
     class TimelineAdapter : RecyclerView.Adapter
     {
         private readonly TimelineListView _element;
+        private readonly RecyclerView _recycler;
         private const int DefaultViewType = 0;
         private const int PhotoViewType = 1;
         private const int FooterViewType = -1;
@@ -30,9 +31,10 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         private readonly BatchedObservableCollection<StatusViewModel> _items;
         private readonly Dictionary<int, int> _viewTypes;
 
-        public TimelineAdapter(TimelineListView element)
+        public TimelineAdapter(TimelineListView element, RecyclerView recycler)
         {
             _element = element;
+            _recycler = recycler;
             _items = (BatchedObservableCollection<StatusViewModel>) element.ItemsSource;
             _items.CollectionChanged += CollectionChangedHandler;
             _viewTypes = new Dictionary<int, int>()
@@ -53,7 +55,16 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                 }
                 else
                 {
-                    NotifyItemRangeInserted(0, e.NewItems.Count);
+                    NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
+                }
+
+                if (ItemCount - 1 == e.NewItems.Count)
+                {
+                    _recycler.ScrollToPosition(0);
+                }
+                else if (e.NewStartingIndex == 0)
+                {
+                    _recycler.SmoothScrollBy(0, -20);                
                 }
             }
             if (e.Action == NotifyCollectionChangedAction.Remove)

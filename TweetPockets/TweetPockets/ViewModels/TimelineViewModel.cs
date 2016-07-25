@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -115,10 +116,7 @@ namespace TweetPockets.ViewModels
                     .Select(x => _factory.Create(x))
                     .ToListAsync();
 
-            for (int i = 0; i < newStatuses.Count; i++)
-            {
-                Timeline.Insert(i, newStatuses[i]);
-            }
+            Timeline.InsertRange(newStatuses);
 
             UpdateNewestStatusId();
 

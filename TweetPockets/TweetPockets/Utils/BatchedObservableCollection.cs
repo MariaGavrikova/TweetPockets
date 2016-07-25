@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using TweetPockets.ViewModels;
 
 namespace TweetPockets.Utils
@@ -38,10 +39,20 @@ namespace TweetPockets.Utils
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { item }, i));
         }
 
-        public void AddRange(IEnumerable<T> items)
+        public void AddRange(List<T> items)
         {
+            var startingIndex = _list.Count;
             _list.AddRange(items);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items, startingIndex));
+        }
+
+        public void InsertRange(List<T> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                _list.Insert(i, items[i]);
+            }
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items, 0));
         }
 
         public void Remove(T item)

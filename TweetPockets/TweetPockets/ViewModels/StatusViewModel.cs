@@ -8,6 +8,11 @@ namespace TweetPockets.ViewModels
 {
     public class StatusViewModel : ViewModelBase
     {
+        public StatusViewModel()
+        {
+            AuthorImageUrl = "https://pbs.twimg.com/profile_images/550285117454049280/u_XoHwmS_bigger.jpeg";
+        }
+
         public StatusViewModel(Status model)
         {
             Id = model.StatusID;

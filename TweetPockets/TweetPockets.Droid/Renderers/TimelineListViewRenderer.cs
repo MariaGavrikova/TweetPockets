@@ -50,7 +50,7 @@ namespace TweetPockets.Droid.Renderers
                 _swipeRefreshLayout.Refreshing = Element.IsRefreshing;
 
                 _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
-                _adapter = new TimelineAdapter(Element);
+                _adapter = new TimelineAdapter(Element, _recyclerView);
                 _recyclerView.SetAdapter(_adapter);
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
                 _recyclerView.SetLayoutManager(linearLayoutManager);
