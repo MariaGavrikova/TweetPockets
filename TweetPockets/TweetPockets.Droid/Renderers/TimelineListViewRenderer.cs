@@ -39,24 +39,22 @@ namespace TweetPockets.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e.NewElement != null)
+            var element = e.NewElement;
+            if (element != null)
             {
                 var parent = new LinearLayout(Forms.Context);
                 var view = (Forms.Context as Activity).LayoutInflater.Inflate(Resource.Layout.TimelineList, parent);
 
                 _swipeRefreshLayout = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefreshLayout);
                 _swipeRefreshLayout.SetOnRefreshListener(this);
-                _swipeRefreshLayout.Enabled = Element.IsPullToRefreshEnabled;
-                _swipeRefreshLayout.Refreshing = Element.IsRefreshing;
-
+                _swipeRefreshLayout.Enabled = element.IsPullToRefreshEnabled;
+                _swipeRefreshLayout.Post(() => _swipeRefreshLayout.Refreshing = element.IsRefreshing);
+                
                 _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
-                _adapter = new TimelineAdapter(Element, _recyclerView);
+                _adapter = new TimelineAdapter(element, _recyclerView);
                 _recyclerView.SetAdapter(_adapter);
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
                 _recyclerView.SetLayoutManager(linearLayoutManager);
-                //ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeCardBehavior(_adapter, Element));
-                //itemTouchHelper.AttachToRecyclerView(_recyclerView);
-                //_adapter.ItemTouchHelper = itemTouchHelper;
 
                 SetNativeControl(view);
             }
