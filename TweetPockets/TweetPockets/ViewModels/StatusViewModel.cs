@@ -18,13 +18,22 @@ namespace TweetPockets.ViewModels
 
         public StatusViewModel(Status model)
         {
-            Id = (long) model.StatusID;
+            Id = (long)model.StatusID;
             Author = model.User.Name;
             AuthorImageUrl = model.User.ProfileImageUrl;
             Text = model.Text;
             CreatedAt = model.CreatedAt;
 
-            CanBeReadLater = model.Entities.UrlEntities.Any();
+            var urls = new List<ResourceUrlViewModel>();
+            foreach (var urlEntity in model.Entities.UrlEntities)
+            {
+                urls.Add(new ResourceUrlViewModel()
+                {
+                    StatusId = Id,
+                    Url = urlEntity.ExpandedUrl
+                });
+            }
+            ResourceUrls = urls;
 
             var photos = new List<PhotoUrlViewModel>();
             foreach (var mediaEntity in model.Entities.MediaEntities)
@@ -84,10 +93,16 @@ namespace TweetPockets.ViewModels
         public string Text { get; set; }
 
         [Ignore]
-        public bool CanBeReadLater { get; set; }
+        public bool CanBeReadLater
+        {
+            get { return ResourceUrls != null && ResourceUrls.Any(); }
+        }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<PhotoUrlViewModel> PhotoUrls { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<ResourceUrlViewModel> ResourceUrls { get; set; }
 
         public override bool Equals(object obj)
         {

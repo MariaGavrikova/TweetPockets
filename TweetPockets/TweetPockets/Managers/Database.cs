@@ -15,6 +15,7 @@ namespace TweetPockets.Managers
         {
             CreateTable<StatusViewModel>();
             CreateTable<PhotoUrlViewModel>();
+            CreateTable<ResourceUrlViewModel>();
         }
     }
 }
