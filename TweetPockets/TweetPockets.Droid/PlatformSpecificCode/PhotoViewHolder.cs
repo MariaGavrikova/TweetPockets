@@ -30,12 +30,10 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         {
             base.Bind(data);
 
-            var photoData = (PhotoStatusViewModel) data;
-
             Photo.SetImageBitmap(null);
 
             var worker = new BitmapWorkerTask(Photo);
-            worker.Execute(photoData.PhotoUrls.FirstOrDefault());
+            worker.Execute(data.PhotoUrls.FirstOrDefault().Url);
         }
     }
 }

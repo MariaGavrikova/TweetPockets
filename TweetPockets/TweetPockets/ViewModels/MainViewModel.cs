@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Interfaces;
+using TweetPockets.Managers;
 using TweetPockets.Utils;
 using Xamarin.Forms;
 
@@ -15,7 +16,9 @@ namespace TweetPockets.ViewModels
 
         public MainViewModel()
         {
-            Timeline = new TimelineViewModel(this);
+            var persistingManager = new StatusPersistingManager();
+            var loadingManager = new StatusLoadingManager(persistingManager);
+            Timeline = new TimelineViewModel(this, persistingManager, loadingManager);
             BookmarkList = new BookmarkListViewModel(this);
 
             MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "AddBookmark",

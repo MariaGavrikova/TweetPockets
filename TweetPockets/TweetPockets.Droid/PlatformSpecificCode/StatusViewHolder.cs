@@ -67,7 +67,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             Text.Text = data.Text;
             Author.Text = data.Author;
             Timestamp.Text = data.TimestampLabel;
-            BookmarkButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Gone;
+            BookmarkButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Invisible;
             _data = data;
         }
     }

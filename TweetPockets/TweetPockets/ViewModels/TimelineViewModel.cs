@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using LinqToTwitter;
+using TweetPockets.Managers;
 using TweetPockets.Utils;
 using Xamarin.Forms;
 
@@ -13,20 +14,20 @@ namespace TweetPockets.ViewModels
     public class TimelineViewModel : PageViewModel
     {
         private readonly MainViewModel _mainViewModel;
-        private TwitterContext _ctx;
-        private int ChunkSize = 20;
-        private ulong _oldestStatusId;
+        private readonly StatusPersistingManager _persistingManager;
+        private readonly StatusLoadingManager _loadingManager;
         private bool _isLoading;
-        private ulong _newestStatusId;
-        private StatusViewModelFactory _factory;
-
-        public TimelineViewModel(MainViewModel mainViewModel)
+        
+        public TimelineViewModel(MainViewModel mainViewModel,
+            StatusPersistingManager persistingManager,
+            StatusLoadingManager loadingManager)
         {
             _mainViewModel = mainViewModel;
+            _persistingManager = persistingManager;
+            _loadingManager = loadingManager;
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
             MoveToReadLaterCommand = new Command(MoveToReadLater);
-            _factory = new StatusViewModelFactory();
             Timeline = new BatchedObservableCollection<StatusViewModel>();
         }
 
@@ -54,28 +55,14 @@ namespace TweetPockets.ViewModels
             {
                 IsLoading = true;
 
-                var auth = new SingleUserAuthorizer()
-                {
-                    CredentialStore = new InMemoryCredentialStore()
-                    {
-                        ConsumerKey = Keys.TwitterConsumerKey,
-                        ConsumerSecret = Keys.TwitterConsumerSecret,
-                        OAuthToken = userDetails.Token,
-                        OAuthTokenSecret = userDetails.TokenSecret,
-                    },
-                };
-                await auth.AuthorizeAsync();
+                await _loadingManager.Init(userDetails);
 
-                _ctx = new TwitterContext(auth);
+                var oldStatuses = _persistingManager.Load();
+                Timeline.AddRange(oldStatuses);
 
-                Timeline.AddRange(
-                    await _ctx.Status
-                        .Where(x => x.Type == StatusType.Home && x.Count == ChunkSize)
-                        .Select(x => _factory.Create(x))
-                        .ToListAsync());
-
-                UpdateNewestStatusId();
-                UpdateOldestStatusId();
+                var newStatuses = await _loadingManager.Load();
+                Timeline.InsertRange(newStatuses);
+                _persistingManager.Save(newStatuses);
 
                 IsLoading = false;
             }
@@ -83,22 +70,6 @@ namespace TweetPockets.ViewModels
             {
 
                 throw;
-            }
-        }
-
-        private void UpdateNewestStatusId()
-        {
-            if (Timeline.Any())
-            {
-                _newestStatusId = Timeline[0].Id;
-            }
-        }
-
-        private void UpdateOldestStatusId()
-        {
-            if (Timeline.Any())
-            {
-                _oldestStatusId = Timeline[Timeline.Count - 1].Id;
             }
         }
 
@@ -110,15 +81,9 @@ namespace TweetPockets.ViewModels
         {
             IsLoading = true;
 
-            var newStatuses =
-                await _ctx.Status
-                    .Where(tweet => tweet.Type == StatusType.Home && tweet.SinceID == _newestStatusId)
-                    .Select(x => _factory.Create(x))
-                    .ToListAsync();
-
+            var newStatuses = await _loadingManager.Load();
             Timeline.InsertRange(newStatuses);
-
-            UpdateNewestStatusId();
+            _persistingManager.Save(newStatuses);
 
             IsLoading = false;
         }

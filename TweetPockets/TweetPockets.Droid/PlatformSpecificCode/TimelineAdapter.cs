@@ -58,7 +58,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                     NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
                 }
 
-                if (ItemCount - 1 == e.NewItems.Count)
+                if (_items.Count == e.NewItems.Count)
                 {
                     _recycler.ScrollToPosition(0);
                 }
@@ -111,7 +111,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             }
 
             var data = _items[position];
-            if (data is PhotoStatusViewModel)
+            if (data.PhotoUrls.Any())
             {
                 return PhotoViewType;
             }

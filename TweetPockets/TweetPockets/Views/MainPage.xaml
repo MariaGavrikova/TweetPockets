@@ -4,5 +4,5 @@
              xmlns:views="clr-namespace:TweetPockets.Views;assembly=TweetPockets"
              x:Class="TweetPockets.Views.MainPage">
   <views:TimelinePage BindingContext="{Binding Timeline}" />
-  <views:BookmarkListPage BindingContext="{Binding BookmarkList}" />
+  <!--<views:BookmarkListPage BindingContext="{Binding BookmarkList}" />-->
 </TabbedPage>

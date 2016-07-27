@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using LinqToTwitter;
+using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 using TweetPockets.Utils;
 
 namespace TweetPockets.ViewModels
@@ -15,17 +18,32 @@ namespace TweetPockets.ViewModels
 
         public StatusViewModel(Status model)
         {
-            Id = model.StatusID;
+            Id = (long) model.StatusID;
             Author = model.User.Name;
             AuthorImageUrl = model.User.ProfileImageUrl;
             Text = model.Text;
             CreatedAt = model.CreatedAt;
 
             CanBeReadLater = model.Entities.UrlEntities.Any();
+
+            var photos = new List<PhotoUrlViewModel>();
+            foreach (var mediaEntity in model.Entities.MediaEntities)
+            {
+                photos.Add(new PhotoUrlViewModel()
+                {
+                    StatusId = Id,
+                    Url = mediaEntity.MediaUrl
+                });
+            }
+            PhotoUrls = photos;
         }
 
-        public DateTime CreatedAt { get; }
+        [PrimaryKey]
+        public long Id { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
+        [Ignore]
         public string TimestampLabel
         {
             get
@@ -59,15 +77,17 @@ namespace TweetPockets.ViewModels
             }
         }
 
-        public ulong Id { get; }
+        public string Author { get; set; }
 
-        public string Author { get; }
+        public string AuthorImageUrl { get; set; }
 
-        public string AuthorImageUrl { get; }
+        public string Text { get; set; }
 
-        public string Text { get; }
-
+        [Ignore]
         public bool CanBeReadLater { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<PhotoUrlViewModel> PhotoUrls { get; set; }
 
         public override bool Equals(object obj)
         {
