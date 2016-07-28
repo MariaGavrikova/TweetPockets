@@ -5,6 +5,7 @@ using System.Reactive;
 using LinqToTwitter;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
+using TweetPockets.Resources;
 using TweetPockets.Utils;
 
 namespace TweetPockets.ViewModels
@@ -61,23 +62,23 @@ namespace TweetPockets.ViewModels
                 string result;
                 if (timespan.Days > 0)
                 {
-                    result = $"{timespan.Days}d";
+                    result = String.Format(AppResources.DaysLabel, timespan.Days);
                 }
                 else
                 {
                     if (timespan.Hours > 0)
                     {
-                        result = $"{timespan.Hours}h";
+                        result = String.Format(AppResources.HoursLabel, timespan.Hours);
                     }
                     else
                     {
                         if (timespan.Minutes > 0)
                         {
-                            result = $"{timespan.Minutes}m";
+                            result = String.Format(AppResources.MinutesLabel, timespan.Minutes);
                         }
                         else
                         {
-                            result = $"{timespan.Seconds}s";
+                            result = String.Format(AppResources.SecondsLabel, timespan.Seconds);
                         }
                     }
                 }

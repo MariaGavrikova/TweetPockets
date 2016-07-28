@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Interfaces;
 using TweetPockets.Managers;
+using TweetPockets.Resources;
 using TweetPockets.Utils;
 using Xamarin.Forms;
 
@@ -40,7 +41,7 @@ namespace TweetPockets.ViewModels
             BookmarkList.Bookmarks.Add(status);
 
             var manager = DependencyService.Get<INotificationController>();
-            manager.ShowToast(String.Format("\"{0}\" added to Bookmarks", GetShortStatusText(status.Text)));
+            manager.ShowToast(String.Format(AppResources.AddedToBookmarksNotificationPattern, GetShortStatusText(status.Text)));
         }
 
         private string GetShortStatusText(string text)

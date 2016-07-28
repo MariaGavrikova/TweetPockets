@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TweetPockets.Interfaces;
+using TweetPockets.Resources;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using Xamarin.Forms;
@@ -18,6 +20,11 @@ namespace TweetPockets
         public App()
         {
             Instance = this;
+
+            if (Device.OS != TargetPlatform.WinPhone)
+            {
+                AppResources.Culture = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+            }
 
             MessagingCenter.Subscribe<App, Xamarin.Auth.Account>(this, "LoggedIn",
                 async (s, user) => await OnLoggedIn(user));

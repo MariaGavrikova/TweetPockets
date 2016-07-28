@@ -175,6 +175,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlatformSpecificCode\Cache\MemoryCache.cs" />
+    <Compile Include="PlatformSpecificCode\Localize.cs" />
     <Compile Include="PlatformSpecificCode\NotificationController.cs" />
     <Compile Include="PlatformSpecificCode\PhotoViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />

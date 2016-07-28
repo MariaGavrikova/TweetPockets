@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:tweetPockets="clr-namespace:TweetPockets;assembly=TweetPockets"
              xmlns:controls="clr-namespace:TweetPockets.Controls"
+             xmlns:resources="clr-namespace:TweetPockets.Resources;assembly=TweetPockets"
              x:Class="TweetPockets.Views.BookmarkListPage"
-             Title="READ LATER">
+             Title="{resources:Translate BookmarksPageTitle}">
   <controls:TimelineListView ItemsSource="{Binding Bookmarks}"
                              LoadOldCommand="{Binding LoadOldCommand}"
                              DismissCommand="{Binding MoveToHomeTimelineCommand}"/>
