@@ -19,7 +19,7 @@ namespace TweetPockets.ViewModels
 
         public StatusViewModel(Status model)
         {
-            Id = (long)model.StatusID;
+            Id = (long) model.StatusID;
             Author = model.User.Name;
             AuthorImageUrl = model.User.ProfileImageUrl;
             Text = model.Text;

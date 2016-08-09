@@ -29,7 +29,8 @@ using ListView = Android.Widget.ListView;
 
 namespace TweetPockets.Droid.Renderers
 {
-    public class TimelineListViewRenderer : ViewRenderer<TimelineListView, Android.Views.View>, SwipeRefreshLayout.IOnRefreshListener
+    public class TimelineListViewRenderer : ViewRenderer<TimelineListView, Android.Views.View>,
+        SwipeRefreshLayout.IOnRefreshListener
     {
         private RecyclerView _recyclerView;
         private SwipeRefreshLayout _swipeRefreshLayout;
@@ -51,10 +52,12 @@ namespace TweetPockets.Droid.Renderers
                 _swipeRefreshLayout.Post(() => _swipeRefreshLayout.Refreshing = element.IsRefreshing);
                 
                 _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
+               
                 _adapter = new TimelineAdapter(element, _recyclerView);
                 _recyclerView.SetAdapter(_adapter);
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
                 _recyclerView.SetLayoutManager(linearLayoutManager);
+                _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
 
                 SetNativeControl(view);
             }

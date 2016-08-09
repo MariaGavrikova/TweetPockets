@@ -6,9 +6,10 @@
              x:Class="TweetPockets.Views.TimelinePage"
              Title="{resources:Translate TimelinePageTitle}">
   <Grid>
-    <controls:TimelineListView ItemsSource="{Binding Timeline}"
+    <controls:TimelineListView x:Name="List" ItemsSource="{Binding Timeline}"
                                    IsPullToRefreshEnabled="True"
-                                   IsRefreshing="{Binding IsLoading}"
+                                   IsRefreshing="{Binding IsLoadingNew}"
+                                   IsLoadingMore="{Binding IsLoadingOld}"
                                    RefreshCommand="{Binding LoadNewCommand}"
                                    LoadOldCommand="{Binding LoadOldCommand}"
                                    DismissCommand="{Binding MoveToReadLaterCommand}"/>

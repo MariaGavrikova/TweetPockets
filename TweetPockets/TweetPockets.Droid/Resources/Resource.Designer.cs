@@ -2221,8 +2221,11 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0200a6
 			public const int mr_ic_play_light = 2130837670;
 			
+			// aapt resource value: 0x7f0200a8
+			public const int notification_template_icon_bg = 2130837672;
+			
 			// aapt resource value: 0x7f0200a7
-			public const int notification_template_icon_bg = 2130837671;
+			public const int progress = 2130837671;
 			
 			static Drawable()
 			{
@@ -2249,17 +2252,20 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07009d
 			public const int Card = 2131165341;
 			
+			// aapt resource value: 0x7f0700a2
+			public const int CircularProgress = 2131165346;
+			
 			// aapt resource value: 0x7f070075
 			public const int FavoriteButton = 2131165301;
 			
 			// aapt resource value: 0x7f07009e
 			public const int Photo = 2131165342;
 			
-			// aapt resource value: 0x7f0700a2
-			public const int Placeholder = 2131165346;
+			// aapt resource value: 0x7f0700a3
+			public const int Placeholder = 2131165347;
 			
-			// aapt resource value: 0x7f0700a4
-			public const int RecyclerView = 2131165348;
+			// aapt resource value: 0x7f0700a5
+			public const int RecyclerView = 2131165349;
 			
 			// aapt resource value: 0x7f070073
 			public const int ReplyButton = 2131165299;
@@ -2267,8 +2273,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070074
 			public const int RetweetButton = 2131165300;
 			
-			// aapt resource value: 0x7f0700a3
-			public const int SwipeRefreshLayout = 2131165347;
+			// aapt resource value: 0x7f0700a4
+			public const int SwipeRefreshLayout = 2131165348;
 			
 			// aapt resource value: 0x7f070072
 			public const int Text = 2131165298;

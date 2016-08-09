@@ -14,29 +14,43 @@ namespace TweetPockets.ViewModels
     public class TimelineViewModel : PageViewModel
     {
         private readonly MainViewModel _mainViewModel;
-        private readonly StatusPersistingManager _persistingManager;
-        private readonly StatusLoadingManager _loadingManager;
-        private bool _isLoading;
-        
-        public TimelineViewModel(MainViewModel mainViewModel,
-            StatusPersistingManager persistingManager,
-            StatusLoadingManager loadingManager)
+        private readonly TimelineManager _timelineManager = new TimelineManager();
+        private bool _isLoadingNew;
+        private bool _isLoadingOld;
+
+        private const int TimelineLimit = 200;
+
+        public TimelineViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-            _persistingManager = persistingManager;
-            _loadingManager = loadingManager;
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
             MoveToReadLaterCommand = new Command(MoveToReadLater);
             Timeline = new BatchedObservableCollection<StatusViewModel>();
+            _timelineManager.LoadingNewStarted += LoadingNewStartedHandler;
+            _timelineManager.LoadingNewEnded += LoadingNewEndedHandler;
+            _timelineManager.LoadedNewItems += LoadedNewItemsHandler;
+            _timelineManager.LoadingOldStarted += LoadingOldStartedHandler;
+            _timelineManager.LoadingOldEnded += LoadingOldEndedHandler;
+            _timelineManager.LoadedOldItems += LoadedOldItemsHandler;
         }
 
-        public bool IsLoading
+        public bool IsLoadingNew
         {
-            get { return _isLoading; }
+            get { return _isLoadingNew; }
             set
             {
-                _isLoading = value;
+                _isLoadingNew = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsLoadingOld
+        {
+            get { return _isLoadingOld; }
+            set
+            {
+                _isLoadingOld = value;
                 OnPropertyChanged();
             }
         }
@@ -49,48 +63,77 @@ namespace TweetPockets.ViewModels
 
         public ICommand MoveToReadLaterCommand { get; set; }
 
-        public async Task InitAsync(UserDetails userDetails)
+        private void LoadingNewStartedHandler(object sender, EventArgs e)
         {
-            try
+            IsLoadingNew = true;
+        }
+
+        private void LoadingNewEndedHandler(object sender, EventArgs e)
+        {
+            IsLoadingNew = false;
+        }
+
+        private void LoadedNewItemsHandler(object sender, NewItemsEventArgs e)
+        {
+            if (e.TooManyNewItems)
             {
-                IsLoading = true;
-
-                await _loadingManager.Init(userDetails);
-
-                var oldStatuses = _persistingManager.Load();
-                Timeline.AddRange(oldStatuses);
-
-                var newStatuses = await _loadingManager.Load();
-                Timeline.InsertRange(newStatuses);
-                _persistingManager.Save(newStatuses);
-
-                IsLoading = false;
+                Timeline.ReplaceRange(e.Items);
             }
-            catch (Exception ex)
+            else
             {
+                Timeline.InsertRange(e.Items);
 
-                throw;
+                if (Timeline.Count > TimelineLimit)
+                {
+                    Timeline.RemoveLast(TimelineLimit - Timeline.Count);
+                }
             }
         }
 
-        private async void OnLoadOld()
+        private void LoadingOldStartedHandler(object sender, EventArgs e)
         {
+            IsLoadingOld = true;
+        }
+
+        private void LoadingOldEndedHandler(object sender, EventArgs e)
+        {
+            IsLoadingOld = false;
+        }
+
+        private void LoadedOldItemsHandler(object sender, ItemsEventArgs e)
+        {
+            Timeline.AddRange(e.Items);
+
+            if (Timeline.Count > TimelineLimit)
+            {
+                Timeline.RemoveFirst(TimelineLimit - Timeline.Count);
+            }
+        }
+
+        public async Task InitAsync(UserDetails userDetails)
+        {
+            await _timelineManager.Init(userDetails);
+            Timeline.AddRange(await _timelineManager.GetCachedAsync());
+            await _timelineManager.TriggerLoadingNew();
         }
 
         private async void OnLoadNew()
         {
-            IsLoading = true;
+            await _timelineManager.TriggerLoadingNew();
+        }
 
-            var newStatuses = await _loadingManager.Load();
-            Timeline.InsertRange(newStatuses);
-            _persistingManager.Save(newStatuses);
-
-            IsLoading = false;
+        private async void OnLoadOld()
+        {
+            var last = Timeline.LastOrDefault();
+            if (last != null)
+            {
+                await _timelineManager.TriggerLoadingOld(last.Id);
+            }
         }
 
         private void MoveToReadLater(object obj)
         {
-            var item = (StatusViewModel) obj;
+            var item = (StatusViewModel)obj;
 
             MessagingCenter.Send(_mainViewModel, "AddBookmark", item);
         }

@@ -18,8 +18,8 @@ namespace TweetPockets.Managers
 {
     public class StatusPersistingManager
     {
-        private int ChunkSize = 20;
         private const string DatabaseFileName = "data.db";
+        private const int TotalItemsLimit = 30;
         private readonly Database _db;
 
         public StatusPersistingManager()
@@ -28,29 +28,59 @@ namespace TweetPockets.Managers
             _db = new Database(platformFactory.CreatePlatform(), platformFactory.CreateDatabaseFile(DatabaseFileName));
         }
 
-        public long? NewestStatusId { get; private set; }
+        public long NewestStatusId { get; private set; }
 
-        public IList<StatusViewModel> Load()
-        {
-            var list = _db.GetAllWithChildren<StatusViewModel>().OrderByDescending(x => x.CreatedAt).Take(ChunkSize).ToList();
-            var firstItem = list.FirstOrDefault();
-            if (firstItem != null)
-            {
-                NewestStatusId = firstItem.Id;
-            }
-
-            return list;
-        }
+        public long ControlStatusId { get; private set; }
 
         public void Save(IList<StatusViewModel> statuses)
         {
-            _db.InsertAllWithChildren(statuses);
-
-            var firstItem = statuses.FirstOrDefault();
-            if (firstItem != null)
+            if (statuses != null && statuses.Any())
             {
-                NewestStatusId = firstItem.Id;
+                if (statuses.Count == 1)
+                {
+                    _db.Insert(statuses[0]);
+                    ControlStatusId = NewestStatusId;
+                    NewestStatusId = statuses[0].Id;
+                }
+                else
+                {
+                    _db.InsertAllWithChildren(statuses);
+                    NewestStatusId = statuses[0].Id;
+                    ControlStatusId = statuses[1].Id;
+                }
+
+                var statusesTable = _db.Table<StatusViewModel>();
+                var totalCount = statusesTable.Count();
+
+                if (totalCount > TotalItemsLimit)
+                {
+                    _db.DeleteAll(statusesTable.OrderBy(x => x.CreatedAt).Take(totalCount - TotalItemsLimit), true);
+                }
             }
+        }
+
+        public IList<StatusViewModel> GetMostRecent(int count)
+        {
+            var items =
+                _db.GetAllWithChildren<StatusViewModel>()
+                .OrderByDescending(x => x.CreatedAt)
+                .Take(count)
+                .ToList();
+
+            if (items.Any())
+            {
+                NewestStatusId = items[0].Id;
+                if (items.Count > 1)
+                {
+                    ControlStatusId = items[1].Id;
+                }
+            }
+            return items;
+        }
+
+        public void RemoveAll()
+        {
+            _db.DeleteAll<StatusViewModel>();
         }
     }
 }

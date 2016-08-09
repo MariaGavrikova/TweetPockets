@@ -15,6 +15,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Net;
 using TweetPockets.Controls;
+using TweetPockets.Droid.PlatformSpecificCode.ViewHolders;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 
@@ -35,7 +36,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         {
             _element = element;
             _recycler = recycler;
-            _items = (BatchedObservableCollection<StatusViewModel>) element.ItemsSource;
+            _items = (BatchedObservableCollection<StatusViewModel>)element.ItemsSource;
             _items.CollectionChanged += CollectionChangedHandler;
             _viewTypes = new Dictionary<int, int>()
             {
@@ -49,27 +50,20 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                if (e.NewItems.Count == 1)
-                {
-                    NotifyItemInserted(e.NewStartingIndex);
-                }
-                else
-                {
-                    NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
-                }
+                NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
 
-                if (_items.Count == e.NewItems.Count)
+                if (e.NewStartingIndex == 0)
                 {
-                    _recycler.ScrollToPosition(0);
-                }
-                else if (e.NewStartingIndex == 0)
-                {
-                    _recycler.SmoothScrollBy(0, -20);                
+                    _recycler.SmoothScrollBy(0, -40);
                 }
             }
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 NotifyItemRemoved(e.OldStartingIndex);
+            }
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                NotifyItemRangeChanged(0, Math.Max(e.OldItems.Count, e.NewItems.Count));
             }
         }
 
@@ -78,8 +72,13 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             if (position != _items.Count)
             {
                 var data = _items[position];
-                StatusViewHolder vh = (StatusViewHolder) holder;
+                StatusViewHolder vh = (StatusViewHolder)holder;
                 vh.Bind(data);
+            }
+            else
+            {
+                FooterViewHolder vh = (FooterViewHolder) holder;
+                vh.Bind(_element);
             }
         }
 

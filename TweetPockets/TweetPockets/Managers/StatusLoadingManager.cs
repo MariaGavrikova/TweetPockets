@@ -13,14 +13,11 @@ namespace TweetPockets.Managers
 {
     public class StatusLoadingManager
     {
-        private int ChunkSize = 20;
-        private readonly StatusPersistingManager _persistingManager;
         private TwitterContext _ctx;
+        private object _syncRoot = new object();
+        private DateTime? _timestamp;
 
-        public StatusLoadingManager(StatusPersistingManager persistingManager)
-        {
-            _persistingManager = persistingManager;
-        }
+        public long? OldestStatusId { get; private set; }
 
         public async Task Init(UserDetails userDetails)
         {
@@ -39,28 +36,51 @@ namespace TweetPockets.Managers
             _ctx = new TwitterContext(auth);
         }
 
-        public async Task<IList<StatusViewModel>> Load()
+        public async Task<IList<StatusViewModel>> GetNewerThan(long minId, int count)
         {
-            IList<StatusViewModel> newStatuses;
-
-            var newestStatusId = _persistingManager.NewestStatusId;
-            if (newestStatusId.HasValue)
+            bool allowRequest = true;
+            lock (_syncRoot)
             {
-                newStatuses =
-                await _ctx.Status
-                    .Where(tweet => tweet.Type == StatusType.Home && tweet.SinceID == (ulong)newestStatusId.Value)
-                    .Select(x => new StatusViewModel(x))
-                    .ToListAsync();
+                if (!_timestamp.HasValue)
+                {
+                    _timestamp = DateTime.UtcNow;
+                }
+                else
+                {
+                    allowRequest = DateTime.UtcNow - _timestamp > TimeSpan.FromSeconds(30);
+                }
             }
-            else
+
+            IList<StatusViewModel> newStatuses = new List<StatusViewModel>();
+            if (allowRequest)
             {
-                newStatuses = await _ctx.Status
-                    .Where(x => x.Type == StatusType.Home && x.Count == ChunkSize)
-                    .Select(x => new StatusViewModel(x))
-                    .ToListAsync();
+                if (minId != 0)
+                {
+                    newStatuses =
+                        await _ctx.Status
+                            .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong)minId && x.Count == count)
+                            .Select(x => new StatusViewModel(x))
+                            .ToListAsync();
+                }
+                else
+                {
+                    newStatuses = await _ctx.Status
+                        .Where(x => x.Type == StatusType.Home && x.Count == count)
+                        .Select(x => new StatusViewModel(x))
+                        .ToListAsync();
+                }
             }
 
             return newStatuses;
+        }
+
+        public async Task<IList<StatusViewModel>> GetOlderThan(long maxId, int count)
+        {
+            var oldStatuses = await _ctx.Status
+                            .Where(x => x.Type == StatusType.Home && x.MaxID == (ulong)maxId && x.Count == count)
+                            .Select(x => new StatusViewModel(x))
+                            .ToListAsync();
+            return oldStatuses;
         }
     }
 }

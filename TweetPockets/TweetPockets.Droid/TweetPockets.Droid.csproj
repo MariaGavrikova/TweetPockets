@@ -177,12 +177,13 @@
     <Compile Include="PlatformSpecificCode\Cache\MemoryCache.cs" />
     <Compile Include="PlatformSpecificCode\Localize.cs" />
     <Compile Include="PlatformSpecificCode\NotificationController.cs" />
-    <Compile Include="PlatformSpecificCode\PhotoViewHolder.cs" />
+    <Compile Include="PlatformSpecificCode\ViewHolders\PhotoViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />
-    <Compile Include="PlatformSpecificCode\FooterViewHolder.cs" />
+    <Compile Include="PlatformSpecificCode\ViewHolders\FooterViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\SQLitePlatformFactory.cs" />
-    <Compile Include="PlatformSpecificCode\StatusViewHolder.cs" />
+    <Compile Include="PlatformSpecificCode\ViewHolders\StatusViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\TimelineAdapter.cs" />
+    <Compile Include="PlatformSpecificCode\TimelineScrollListener.cs" />
     <Compile Include="Renderers\TweetButtonRenderer.cs" />
     <Compile Include="Renderers\TimelineListViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -207,7 +208,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\layout1.axml" />
-    <AndroidResource Include="Resources\layout\RecyclerViewFooter.axml" />
+    <AndroidResource Include="Resources\layout\RecyclerViewFooter.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -305,6 +308,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_reply_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\progress.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

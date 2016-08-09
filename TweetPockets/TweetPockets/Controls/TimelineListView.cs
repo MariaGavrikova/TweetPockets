@@ -34,5 +34,20 @@ namespace TweetPockets.Controls
                 SetValue(DismissCommandProperty, value);
             }
         }
+
+        public static readonly BindableProperty IsLoadingMoreProperty =
+            BindableProperty.Create<TimelineListView, bool>(p => p.IsLoadingMore, false);
+
+        public bool IsLoadingMore
+        {
+            get
+            {
+                return (bool)GetValue(IsLoadingMoreProperty);
+            }
+            set
+            {
+                SetValue(IsLoadingMoreProperty, value);
+            }
+        }
     }
 }

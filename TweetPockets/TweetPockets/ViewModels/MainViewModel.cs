@@ -17,9 +17,7 @@ namespace TweetPockets.ViewModels
 
         public MainViewModel()
         {
-            var persistingManager = new StatusPersistingManager();
-            var loadingManager = new StatusLoadingManager(persistingManager);
-            Timeline = new TimelineViewModel(this, persistingManager, loadingManager);
+            Timeline = new TimelineViewModel(this);
             BookmarkList = new BookmarkListViewModel(this);
 
             MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "AddBookmark",

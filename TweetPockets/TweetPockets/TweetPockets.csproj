@@ -40,8 +40,11 @@
     <Compile Include="Interfaces\INotificationController.cs" />
     <Compile Include="Interfaces\ISQLitePlatformFactory.cs" />
     <Compile Include="Managers\Database.cs" />
+    <Compile Include="Managers\ItemsEventArgs.cs" />
+    <Compile Include="Managers\NewItemsEventArgs.cs" />
     <Compile Include="Managers\StatusLoadingManager.cs" />
     <Compile Include="Managers\StatusPersistingManager.cs" />
+    <Compile Include="Managers\TimelineManager.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

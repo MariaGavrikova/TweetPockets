@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using TweetPockets.ViewModels;
+using Xamarin.Forms;
 
 namespace TweetPockets.Views
 {

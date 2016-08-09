@@ -49,6 +49,8 @@ namespace TweetPockets
         {
             IsLoggedIn = true;
 
+            AccountStore.Create().Save(account, "Twitter");
+
             var userDetails = new UserDetails();
             userDetails.Token = account.Properties["oauth_token"];
             userDetails.TokenSecret = account.Properties["oauth_token_secret"];
@@ -58,8 +60,6 @@ namespace TweetPockets
             _user = userDetails;
 
             await _mainViewModel.InitAsync(_user);
-
-            AccountStore.Create().Save(account, "Twitter");
         }
     }
 }
