@@ -39,32 +39,31 @@ namespace TweetPockets.Managers
 
         public async Task<IList<StatusViewModel>> GetNewerThan(long minId, int count)
         {
+            bool requestAllowed = true;
             if (_loadNewRequestTimestamp.HasValue)
             {
-                var currentTimeout = DateTime.UtcNow - _loadNewRequestTimestamp.Value;
-                if (currentTimeout < Timeout)
-                {
-                    await Task.Delay(Timeout - currentTimeout);
-                }
+                requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value < Timeout;
             }
-
-            _loadNewRequestTimestamp = DateTime.UtcNow;
 
             IList<StatusViewModel> newStatuses = new List<StatusViewModel>();
-            if (minId != 0)
+            if (requestAllowed)
             {
-                newStatuses =
-                    await _ctx.Status
-                        .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong)minId && x.Count == count)
+                _loadNewRequestTimestamp = DateTime.UtcNow;
+                if (minId != 0)
+                {
+                    newStatuses =
+                        await _ctx.Status
+                            .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong) minId && x.Count == count)
+                            .Select(x => new StatusViewModel(x))
+                            .ToListAsync();
+                }
+                else
+                {
+                    newStatuses = await _ctx.Status
+                        .Where(x => x.Type == StatusType.Home && x.Count == count)
                         .Select(x => new StatusViewModel(x))
                         .ToListAsync();
-            }
-            else
-            {
-                newStatuses = await _ctx.Status
-                    .Where(x => x.Type == StatusType.Home && x.Count == count)
-                    .Select(x => new StatusViewModel(x))
-                    .ToListAsync();
+                }
             }
 
             return newStatuses;
