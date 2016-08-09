@@ -26,8 +26,11 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
                 {
                     var main = MainActivity.Instance;
                     result = BitmapUtils.GetImageBitmapFromUrl(imageUrl, main.Width, main.Height);
-                    _memoryCache.Put(imageUrl, result);
-                    _diskCache.AddOrUpdate(imageUrl, result, TimeSpan.FromDays(3));
+                    if (result != null)
+                    {
+                        _memoryCache.Put(imageUrl, result);
+                        _diskCache.AddOrUpdate(imageUrl, result, TimeSpan.FromDays(3));
+                    }
                 }
             }
             return result;

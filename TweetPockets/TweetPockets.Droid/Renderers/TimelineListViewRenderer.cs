@@ -53,10 +53,10 @@ namespace TweetPockets.Droid.Renderers
                 
                 _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
                
-                _adapter = new TimelineAdapter(element, _recyclerView);
-                _recyclerView.SetAdapter(_adapter);
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
                 _recyclerView.SetLayoutManager(linearLayoutManager);
+                _adapter = new TimelineAdapter(element, _recyclerView, linearLayoutManager);
+                _recyclerView.SetAdapter(_adapter);
                 _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
 
                 SetNativeControl(view);

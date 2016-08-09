@@ -12,7 +12,9 @@ namespace TweetPockets.Managers
     {
         private readonly StatusPersistingManager _persistingManager;
         private readonly StatusLoadingManager _loadingManager;
-       
+        private bool _loadingNewStarted;
+        private bool _loadingOldStarted;
+
         private const int ItemsChunk = 20;
 
         public TimelineManager()
@@ -33,21 +35,21 @@ namespace TweetPockets.Managers
 
         public event EventHandler<ItemsEventArgs> LoadedOldItems;
 
-        public async Task Init(UserDetails userDetails)
-        {
-            OnLoadingStarted();
-
-            await _loadingManager.Init(userDetails);
-        }
-
         public Task<IList<StatusViewModel>> GetCachedAsync()
         {
             return Task.FromResult(_persistingManager.GetMostRecent(ItemsChunk));
         }
 
-        public async Task TriggerLoadingNew()
+        public async Task TriggerLoadingNew(UserDetails userDetails = null)
         {
-            OnLoadingStarted();
+            if (_loadingNewStarted) return;
+
+            OnLoadingNewStarted();
+
+            if (userDetails != null)
+            {
+                await _loadingManager.Init(userDetails);
+            }
 
             var controlStatusId = _persistingManager.ControlStatusId;
             try
@@ -77,7 +79,7 @@ namespace TweetPockets.Managers
                     });
                 }
 
-                OnLoadingEnded();
+                OnLoadingNewEnded();
             }
             catch (Exception ex)
             {
@@ -88,6 +90,8 @@ namespace TweetPockets.Managers
 
         public async Task TriggerLoadingOld(long maxId)
         {
+            if (_loadingOldStarted) return;
+
             OnLoadingOldStarted();
 
             var items = await _loadingManager.GetOlderThan(maxId, ItemsChunk);
@@ -100,13 +104,15 @@ namespace TweetPockets.Managers
             OnLoadingOldEnded();
         }
 
-        protected virtual void OnLoadingStarted()
+        protected virtual void OnLoadingNewStarted()
         {
+            _loadingNewStarted = true;
             LoadingNewStarted?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnLoadingEnded()
+        protected virtual void OnLoadingNewEnded()
         {
+            _loadingNewStarted = false;
             LoadingNewEnded?.Invoke(this, EventArgs.Empty);
         }
 
@@ -117,11 +123,13 @@ namespace TweetPockets.Managers
 
         protected virtual void OnLoadingOldStarted()
         {
+            _loadingOldStarted = true;
             LoadingOldStarted?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void OnLoadingOldEnded()
         {
+            _loadingOldStarted = false;
             LoadingOldEnded?.Invoke(this, EventArgs.Empty);
         }
 

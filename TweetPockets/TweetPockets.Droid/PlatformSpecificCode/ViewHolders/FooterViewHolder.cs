@@ -9,14 +9,14 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
     {
         public FooterViewHolder(View itemView) : base(itemView)
         {
-            CircularProgress = itemView.FindViewById<ProgressBar>(Resource.Id.CircularProgress);
+            //CircularProgress = itemView.FindViewById<ProgressBar>(Resource.Id.CircularProgress);
         }
 
         public ProgressBar CircularProgress { get; set; }
 
         public void Bind(TimelineListView element)
         {
-            CircularProgress.Visibility = element.IsLoadingMore ? ViewStates.Visible : ViewStates.Gone;
+            //CircularProgress.Visibility = element.IsLoadingMore ? ViewStates.Visible : ViewStates.Gone;
         }
     }
 }

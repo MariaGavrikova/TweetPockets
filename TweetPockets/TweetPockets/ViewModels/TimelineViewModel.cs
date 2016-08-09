@@ -112,9 +112,8 @@ namespace TweetPockets.ViewModels
 
         public async Task InitAsync(UserDetails userDetails)
         {
-            await _timelineManager.Init(userDetails);
             Timeline.AddRange(await _timelineManager.GetCachedAsync());
-            await _timelineManager.TriggerLoadingNew();
+            await _timelineManager.TriggerLoadingNew(userDetails);
         }
 
         private async void OnLoadNew()

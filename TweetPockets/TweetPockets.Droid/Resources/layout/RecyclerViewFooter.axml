@@ -4,15 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:gravity="center_horizontal"
     style="@style/FooterStyle">
     <ProgressBar
-        android:id="@+id/CircularProgress"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="false"
-        android:progress="75"
-        android:max="100"
-        android:secondaryProgress="100"
-        android:progressDrawable="@drawable/progress" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Base.Widget.AppCompat.ProgressBar" />
 </LinearLayout>

@@ -25,22 +25,25 @@ namespace TweetPockets.Droid.PlatformSpecificCode
     {
         private readonly TimelineListView _element;
         private readonly RecyclerView _recycler;
-        private const int DefaultViewType = 0;
+        private readonly LinearLayoutManager _layoutManager;
+        private const int StatusViewType = 0;
         private const int PhotoViewType = 1;
         private const int FooterViewType = -1;
 
         private readonly BatchedObservableCollection<StatusViewModel> _items;
         private readonly Dictionary<int, int> _viewTypes;
+        private const int ScrollingOffset = 40;
 
-        public TimelineAdapter(TimelineListView element, RecyclerView recycler)
+        public TimelineAdapter(TimelineListView element, RecyclerView recycler, LinearLayoutManager layoutManager)
         {
             _element = element;
             _recycler = recycler;
+            _layoutManager = layoutManager;
             _items = (BatchedObservableCollection<StatusViewModel>)element.ItemsSource;
             _items.CollectionChanged += CollectionChangedHandler;
             _viewTypes = new Dictionary<int, int>()
             {
-                { DefaultViewType, Resource.Layout.StatusCard },
+                { StatusViewType, Resource.Layout.StatusCard },
                 { PhotoViewType, Resource.Layout.PhotoCard },
                 { FooterViewType, Resource.Layout.RecyclerViewFooter }
             };
@@ -50,11 +53,24 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
-
                 if (e.NewStartingIndex == 0)
                 {
-                    _recycler.SmoothScrollBy(0, -40);
+                    NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
+
+                    if (_layoutManager.FindFirstCompletelyVisibleItemPosition() == 0)
+                    {
+                        _recycler.SmoothScrollBy(0, -ScrollingOffset);
+                    }
+                }
+                else
+                {
+                    NotifyItemRemoved(e.NewStartingIndex);
+                    NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
+
+                    //if (_layoutManager.FindLastCompletelyVisibleItemPosition() == e.NewStartingIndex)
+                    //{
+                    //    _recycler.SmoothScrollBy(0, ScrollingOffset);
+                    //}
                 }
             }
             if (e.Action == NotifyCollectionChangedAction.Remove)
@@ -114,7 +130,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             {
                 return PhotoViewType;
             }
-            return DefaultViewType;
+            return StatusViewType;
         }
 
         public override int ItemCount
