@@ -17,10 +17,10 @@ namespace TweetPockets.Managers
 
         private const int ItemsChunk = 20;
 
-        public TimelineManager()
+        public TimelineManager(StatusLoadingManager loadingManager)
         {
             _persistingManager = new StatusPersistingManager();
-            _loadingManager = new StatusLoadingManager();
+            _loadingManager = loadingManager;
         }
 
         public event EventHandler LoadingNewStarted;

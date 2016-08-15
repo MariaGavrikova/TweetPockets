@@ -184,6 +184,7 @@
     <Compile Include="PlatformSpecificCode\ViewHolders\StatusViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\TimelineAdapter.cs" />
     <Compile Include="PlatformSpecificCode\TimelineScrollListener.cs" />
+    <Compile Include="Renderers\CircleImageRenderer.cs" />
     <Compile Include="Renderers\TweetButtonRenderer.cs" />
     <Compile Include="Renderers\TimelineListViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -230,9 +231,6 @@
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\circle.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_add_white_24dp.png" />
@@ -310,7 +308,22 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_reply_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\progress.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

@@ -2,9 +2,9 @@
 
 namespace TweetPockets.Views
 {
-    public partial class MainPage
+    public partial class SideMenuPage : ContentPage
     {
-        public MainPage()
+        public SideMenuPage()
         {
             InitializeComponent();
         }

@@ -14,15 +14,16 @@ namespace TweetPockets.ViewModels
     public class TimelineViewModel : PageViewModel
     {
         private readonly MainViewModel _mainViewModel;
-        private readonly TimelineManager _timelineManager = new TimelineManager();
+        private readonly TimelineManager _timelineManager;
         private bool _isLoadingNew;
         private bool _isLoadingOld;
 
         private const int TimelineLimit = 200;
 
-        public TimelineViewModel(MainViewModel mainViewModel)
+        public TimelineViewModel(MainViewModel mainViewModel, StatusLoadingManager loadingManager)
         {
             _mainViewModel = mainViewModel;
+            _timelineManager = new TimelineManager(loadingManager);
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
             MoveToReadLaterCommand = new Command(MoveToReadLater);

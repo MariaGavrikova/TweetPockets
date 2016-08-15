@@ -49,8 +49,6 @@ namespace TweetPockets.Droid.Renderers
                 _swipeRefreshLayout = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefreshLayout);
                 _swipeRefreshLayout.SetOnRefreshListener(this);
                 _swipeRefreshLayout.Enabled = element.IsPullToRefreshEnabled;
-                _swipeRefreshLayout.Post(() => _swipeRefreshLayout.Refreshing = element.IsRefreshing);
-                
                 _recyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
                
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
@@ -58,6 +56,9 @@ namespace TweetPockets.Droid.Renderers
                 _adapter = new TimelineAdapter(element, _recyclerView, linearLayoutManager);
                 _recyclerView.SetAdapter(_adapter);
                 _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
+
+                var title = view.FindViewById<TextView>(Resource.Id.Title);
+                title.Text = (App.Instance.MainPage as MasterDetailPage).Detail.Title;
 
                 SetNativeControl(view);
             }

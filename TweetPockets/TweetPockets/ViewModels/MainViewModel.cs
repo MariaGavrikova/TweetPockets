@@ -14,14 +14,49 @@ namespace TweetPockets.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private int StatusTextLength = 15;
+        private StatusLoadingManager _loadingManager;
+        private string _avatarUrl;
+        private string _screenName;
+        private string _name;
 
         public MainViewModel()
         {
-            Timeline = new TimelineViewModel(this);
+            _loadingManager = new StatusLoadingManager();
+            Timeline = new TimelineViewModel(this, _loadingManager);
             BookmarkList = new BookmarkListViewModel(this);
 
             MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "AddBookmark",
                 (s, status) => OnAddBookmark(status));
+        }
+
+        public string AvatarUrl
+        {
+            get { return _avatarUrl; }
+            set
+            {
+                _avatarUrl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ScreenName
+        {
+            get { return _screenName; }
+            set
+            {
+                _screenName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
         }
 
         public TimelineViewModel Timeline { get; set; }
@@ -31,6 +66,10 @@ namespace TweetPockets.ViewModels
         public async Task InitAsync(UserDetails user)
         {
             await Timeline.InitAsync(user);
+            var userInfo = await _loadingManager.GetUserInfo(user.ScreenName);
+            AvatarUrl = userInfo.ProfileImageUrl;
+            ScreenName = userInfo.ScreenName;
+            Name = userInfo.Name;
         }
 
         private void OnAddBookmark(StatusViewModel status)

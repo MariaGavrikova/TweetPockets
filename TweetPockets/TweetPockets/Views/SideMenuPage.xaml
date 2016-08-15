@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TweetPockets.Controls"
+             x:Class="TweetPockets.Views.SideMenuPage"
+             Title="Menu" Padding="0,24,0,0"
+             BackgroundColor="White">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    <!--List items-->
+    </Grid.RowDefinitions>
+    
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="16" />
+      <ColumnDefinition Width="40" />
+      <ColumnDefinition Width="16" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="16" />
+    </Grid.ColumnDefinitions>
+  
+    <BoxView/>
+  
+    <controls:CircleImage Source="{Binding AvatarUrl}"
+           HorizontalOptions="StartAndExpand"
+           Margin="0,16,0,16" HeightRequest="74"
+           Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3"/>
+  
+    <Label Text="{Binding ScreenName}"
+           Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3"/>
+    <Label Text="{Binding Name}"
+           Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3"/>
+  </Grid>
+</ContentPage>

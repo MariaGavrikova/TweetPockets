@@ -13,10 +13,11 @@ namespace TweetPockets.Managers
 {
     public class StatusLoadingManager
     {
-        private TwitterContext _ctx;
-        private TimeSpan Timeout = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan Timeout = TimeSpan.FromSeconds(30);
         private DateTime? _loadNewRequestTimestamp;
         private DateTime? _loadOldRequestTimestamp;
+
+        public TwitterContext Context { get; private set; }
 
         public long? OldestStatusId { get; private set; }
 
@@ -34,7 +35,7 @@ namespace TweetPockets.Managers
             };
             await auth.AuthorizeAsync();
 
-            _ctx = new TwitterContext(auth);
+            Context = new TwitterContext(auth);
         }
 
         public async Task<IList<StatusViewModel>> GetNewerThan(long minId, int count)
@@ -52,14 +53,14 @@ namespace TweetPockets.Managers
                 if (minId != 0)
                 {
                     newStatuses =
-                        await _ctx.Status
+                        await Context.Status
                             .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong) minId && x.Count == count)
                             .Select(x => new StatusViewModel(x))
                             .ToListAsync();
                 }
                 else
                 {
-                    newStatuses = await _ctx.Status
+                    newStatuses = await Context.Status
                         .Where(x => x.Type == StatusType.Home && x.Count == count)
                         .Select(x => new StatusViewModel(x))
                         .ToListAsync();
@@ -82,7 +83,7 @@ namespace TweetPockets.Managers
 
             _loadOldRequestTimestamp = DateTime.UtcNow;
 
-            IList<StatusViewModel> oldStatuses = await _ctx.Status
+            IList<StatusViewModel> oldStatuses = await Context.Status
                     .Where(x => x.Type == StatusType.Home && x.MaxID == (ulong)maxId && x.Count == count)
                     .Select(x => new StatusViewModel(x))
                     .ToListAsync();
@@ -91,6 +92,19 @@ namespace TweetPockets.Managers
                 oldStatuses.RemoveAt(0);
             }
             return oldStatuses;
+        }
+
+        public async Task<User> GetUserInfo(string screenName)
+        {
+            var user =
+                 await
+                 (from tweet in Context.User
+                  where tweet.Type == UserType.Show &&
+                        tweet.ScreenName == screenName
+                  select tweet)
+                 .SingleOrDefaultAsync();
+
+            return user;
         }
     }
 }

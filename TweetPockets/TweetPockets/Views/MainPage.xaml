@@ -1,8 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:TweetPockets.Views;assembly=TweetPockets"
              x:Class="TweetPockets.Views.MainPage">
-  <views:TimelinePage BindingContext="{Binding Timeline}" />
-  <!--<views:BookmarkListPage BindingContext="{Binding BookmarkList}" />-->
-</TabbedPage>
+  <MasterDetailPage.Master>
+    <views:SideMenuPage />
+  </MasterDetailPage.Master>
+
+  <MasterDetailPage.Detail>
+    <!--<NavigationPage>
+      <x:Arguments>-->
+    
+    <views:TimelinePage BindingContext="{Binding Timeline}" />
+      <!--</x:Arguments>
+    </NavigationPage>-->
+  </MasterDetailPage.Detail>
+</MasterDetailPage>
