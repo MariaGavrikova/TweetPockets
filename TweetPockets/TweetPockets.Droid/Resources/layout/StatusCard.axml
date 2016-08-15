@@ -32,7 +32,7 @@
             android:id="@+id/Author"
             android:layout_toRightOf="@+id/AuthorImage"
             android:layout_marginRight="32dp"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:text="long author name long author name long author name long author name"
             android:singleLine="true" />
         <TextView

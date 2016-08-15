@@ -60,8 +60,25 @@ namespace TweetPockets.Droid.Renderers
                 var title = view.FindViewById<TextView>(Resource.Id.Title);
                 title.Text = (App.Instance.MainPage as MasterDetailPage).Detail.Title;
 
+                var menuIcon = view.FindViewById<ImageView>(Resource.Id.MenuIcon);
+                menuIcon.Click += MenuIconClickHandler;
+
+                var scrollToTopIcon = view.FindViewById<ImageView>(Resource.Id.ScrollToTopIcon);
+                scrollToTopIcon.Click += ScrollToTopHandler;
+
                 SetNativeControl(view);
             }
+        }
+
+        private void ScrollToTopHandler(object sender, EventArgs e)
+        {
+            _recyclerView.SmoothScrollToPosition(0);
+        }
+
+        private void MenuIconClickHandler(object sender, EventArgs e)
+        {
+            var page = (App.Instance.MainPage as MasterDetailPage);
+            page.IsPresented = true;
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
