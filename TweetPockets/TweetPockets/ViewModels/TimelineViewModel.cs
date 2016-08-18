@@ -6,12 +6,14 @@ using System.Windows.Input;
 using System.Xml.Serialization;
 using LinqToTwitter;
 using TweetPockets.Managers;
+using TweetPockets.Resources;
 using TweetPockets.Utils;
+using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
 
 namespace TweetPockets.ViewModels
 {
-    public class TimelineViewModel : PageViewModel
+    public class TimelineViewModel : MenuItemViewModel
     {
         private readonly MainViewModel _mainViewModel;
         private readonly TimelineManager _timelineManager;
@@ -21,6 +23,7 @@ namespace TweetPockets.ViewModels
         private const int TimelineLimit = 200;
 
         public TimelineViewModel(MainViewModel mainViewModel, StatusLoadingManager loadingManager)
+            : base(AppResources.TimelineMenuItem, "ic_book_black_24dp.png")
         {
             _mainViewModel = mainViewModel;
             _timelineManager = new TimelineManager(loadingManager);
@@ -111,10 +114,10 @@ namespace TweetPockets.ViewModels
             }
         }
 
-        public async Task InitAsync(UserDetails userDetails)
+        public async Task InitAsync()
         {
             Timeline.AddRange(await _timelineManager.GetCachedAsync());
-            await _timelineManager.TriggerLoadingNew(userDetails);
+            await _timelineManager.TriggerLoadingNew();
         }
 
         private async void OnLoadNew()

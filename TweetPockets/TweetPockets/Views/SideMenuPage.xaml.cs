@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using TweetPockets.ViewModels;
+using Xamarin.Forms;
 
 namespace TweetPockets.Views
 {
@@ -7,6 +9,20 @@ namespace TweetPockets.Views
         public SideMenuPage()
         {
             InitializeComponent();
+
+            MostImportantItemsList.ItemSelected += OnItemSelected;
+        }
+
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem as MenuItemViewModel;
+            if (item != null)
+            {
+                var mainPage = (App.Instance.MainPage as MainPage);
+                mainPage.Detail = App.Instance.ViewManager.GetView(item);
+                MostImportantItemsList.SelectedItem = null;
+                mainPage.IsPresented = false;
+            }
         }
     }
 }

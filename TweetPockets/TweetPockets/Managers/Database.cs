@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SQLite.Net;
 using SQLite.Net.Interop;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Managers
 {
@@ -16,6 +17,7 @@ namespace TweetPockets.Managers
             CreateTable<StatusViewModel>();
             CreateTable<PhotoUrlViewModel>();
             CreateTable<ResourceUrlViewModel>();
+            CreateTable<UserInfoViewModel>();
         }
     }
 }

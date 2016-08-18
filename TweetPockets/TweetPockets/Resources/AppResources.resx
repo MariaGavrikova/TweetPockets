@@ -120,6 +120,9 @@
   <data name="AddedToBookmarksNotificationPattern" xml:space="preserve">
     <value>{0} added to Bookmarks</value>
   </data>
+  <data name="BookmarksMenuItem" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
   <data name="BookmarksPageTitle" xml:space="preserve">
     <value>Bookmarks</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="SecondsLabel" xml:space="preserve">
     <value>{0}s</value>
+  </data>
+  <data name="TimelineMenuItem" xml:space="preserve">
+    <value>Timeline</value>
   </data>
   <data name="TimelinePageTitle" xml:space="preserve">
     <value>Timeline</value>

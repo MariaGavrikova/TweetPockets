@@ -2,35 +2,85 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TweetPockets.Controls"
+             xmlns:resources="clr-namespace:TweetPockets.Resources;assembly=TweetPockets"
              x:Class="TweetPockets.Views.SideMenuPage"
-             Title="Menu" Padding="0,24,0,0"
-             BackgroundColor="White">
-  <Grid>
+             Title="Menu"
+             BackgroundColor="#30FFFFFF">
+  <Grid ColumnSpacing="0" RowSpacing="0">
     <Grid.RowDefinitions>
+      <RowDefinition Height="24" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-    <!--List items-->
+      <RowDefinition Height="64" />
+      <!--List items-->
+      <RowDefinition Height="112" />
+      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    
+
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="16" />
-      <ColumnDefinition Width="40" />
       <ColumnDefinition Width="16" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="16" />
     </Grid.ColumnDefinitions>
-  
-    <BoxView/>
-  
-    <controls:CircleImage Source="{Binding AvatarUrl}"
-           HorizontalOptions="StartAndExpand"
-           Margin="0,16,0,16" HeightRequest="74"
-           Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3"/>
-  
-    <Label Text="{Binding ScreenName}"
-           Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3"/>
-    <Label Text="{Binding Name}"
-           Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3"/>
+
+    <BoxView Color="#E0E0E0"
+           Grid.Column="0" Grid.Row="0"
+           Grid.RowSpan="3" Grid.ColumnSpan="3" />
+
+    <BoxView Color="#50000000"
+            Grid.Column="0" Grid.Row="0"
+            Grid.ColumnSpan="3" />
+
+    <controls:CircleImage Source="{Binding Info.User.AvatarUrl}"
+             Margin="0,16,0,0"
+             Grid.Row="1" Grid.Column="1"
+             Grid.ColumnSpan="2"
+             HeightRequest="74" WidthRequest="74" />
+
+    <StackLayout Grid.Row="2" Grid.Column="1" Spacing="0"
+                 Grid.ColumnSpan="2" Margin="0,0,0,8"
+                 VerticalOptions="CenterAndExpand">
+      <Label Text="{Binding Info.User.Name}"
+             TextColor="#686C70"
+             FontFamily="Roboto-Medium"
+             FontSize="14" />
+      <Label Text="{Binding Info.User.ScreenName, StringFormat='@{0}'}"
+             TextColor="#686C70" VerticalOptions="Start"
+             FontFamily="Roboto-Regular"
+             FontSize="14" />
+    </StackLayout>
+
+    <BoxView Color="#FFFFFF"
+            Grid.Column="0" Grid.Row="3"
+             Grid.RowSpan="2"
+            Grid.ColumnSpan="3" />
+
+    <ListView x:Name="MostImportantItemsList"
+              Grid.Column="0" Grid.Row="3"
+              Grid.ColumnSpan="3"
+              SeparatorVisibility="None"
+              ItemsSource="{Binding MostImportantItems}"
+              Margin="0,8,0,8" RowHeight="48">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Orientation="Horizontal"
+                         Spacing="0">
+              <Image HorizontalOptions="Start"
+                     Aspect="AspectFit" Margin="16,0,0,0"
+                     Source="{Binding Image}" />
+              <Label Text="{Binding Title}" Margin="32,0,16,0"
+                     TextColor="Black"
+                     VerticalOptions="Center"
+                     FontFamily="Roboto-Medium" FontSize="14" />
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+    <BoxView Color="#D7D7D7" HeightRequest="1"
+             VerticalOptions="End"
+             Grid.Column="0" Grid.Row="3"
+              Grid.ColumnSpan="3" />
   </Grid>
 </ContentPage>

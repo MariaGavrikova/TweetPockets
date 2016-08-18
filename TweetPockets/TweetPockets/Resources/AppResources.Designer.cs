@@ -73,6 +73,15 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Bookmarks.
         /// </summary>
+        internal static string BookmarksMenuItem {
+            get {
+                return ResourceManager.GetString("BookmarksMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks.
+        /// </summary>
         internal static string BookmarksPageTitle {
             get {
                 return ResourceManager.GetString("BookmarksPageTitle", resourceCulture);
@@ -112,6 +121,15 @@ namespace TweetPockets.Resources {
         internal static string SecondsLabel {
             get {
                 return ResourceManager.GetString("SecondsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeline.
+        /// </summary>
+        internal static string TimelineMenuItem {
+            get {
+                return ResourceManager.GetString("TimelineMenuItem", resourceCulture);
             }
         }
         

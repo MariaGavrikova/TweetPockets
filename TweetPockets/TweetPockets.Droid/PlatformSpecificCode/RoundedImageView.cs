@@ -72,7 +72,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
             int w = Width, h = Height;
 
-            Bitmap roundBitmap = GetCroppedBitmap(bitmapCopy, w);
+            Bitmap roundBitmap = GetCroppedBitmap(bitmapCopy, System.Math.Min(h, w));
             canvas.DrawBitmap(roundBitmap, 0, 0, null);
         }
 

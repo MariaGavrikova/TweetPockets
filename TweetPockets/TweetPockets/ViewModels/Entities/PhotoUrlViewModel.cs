@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite.Net.Attributes;
+﻿using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 
-namespace TweetPockets.ViewModels
+namespace TweetPockets.ViewModels.Entities
 {
-    public class ResourceUrlViewModel : ViewModelBase
+    public class PhotoUrlViewModel : ViewModelBase
     {
         [PrimaryKey, AutoIncrement]
         public long Id { get; set; }

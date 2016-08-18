@@ -185,6 +185,7 @@
     <Compile Include="PlatformSpecificCode\TimelineAdapter.cs" />
     <Compile Include="PlatformSpecificCode\TimelineScrollListener.cs" />
     <Compile Include="Renderers\CircleImageRenderer.cs" />
+    <Compile Include="Renderers\CustomLabelRenderer.cs" />
     <Compile Include="Renderers\TweetButtonRenderer.cs" />
     <Compile Include="Renderers\TimelineListViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -193,6 +194,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\Roboto-Medium.ttf" />
+    <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

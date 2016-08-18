@@ -12,6 +12,7 @@ using SQLiteNetExtensions.Extensions;
 using TweetPockets.Interfaces;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
 
 namespace TweetPockets.Managers

@@ -16,7 +16,6 @@ namespace TweetPockets.Droid
 {
     [Activity(Label = "Tweet Pockets", Icon = "@drawable/icon", MainLauncher = true,
         Theme = "@style/Theme.MaterialExtended",
-        ScreenOrientation = ScreenOrientation.Portrait,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

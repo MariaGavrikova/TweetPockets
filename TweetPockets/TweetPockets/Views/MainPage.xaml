@@ -8,11 +8,6 @@
   </MasterDetailPage.Master>
 
   <MasterDetailPage.Detail>
-    <!--<NavigationPage>
-      <x:Arguments>-->
-    
     <views:TimelinePage BindingContext="{Binding Timeline}" />
-      <!--</x:Arguments>
-    </NavigationPage>-->
   </MasterDetailPage.Detail>
 </MasterDetailPage>

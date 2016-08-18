@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Managers
 {
@@ -40,16 +41,11 @@ namespace TweetPockets.Managers
             return Task.FromResult(_persistingManager.GetMostRecent(ItemsChunk));
         }
 
-        public async Task TriggerLoadingNew(UserDetails userDetails = null)
+        public async Task TriggerLoadingNew()
         {
             if (_loadingNewStarted) return;
 
             OnLoadingNewStarted();
-
-            if (userDetails != null)
-            {
-                await _loadingManager.Init(userDetails);
-            }
 
             var controlStatusId = _persistingManager.ControlStatusId;
             try

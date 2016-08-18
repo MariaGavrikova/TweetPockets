@@ -18,6 +18,7 @@ using TweetPockets.Controls;
 using TweetPockets.Droid.PlatformSpecificCode.ViewHolders;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Droid.PlatformSpecificCode
 {
@@ -66,11 +67,6 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                 {
                     NotifyItemRemoved(e.NewStartingIndex);
                     NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
-
-                    //if (_layoutManager.FindLastCompletelyVisibleItemPosition() == e.NewStartingIndex)
-                    //{
-                    //    _recycler.SmoothScrollBy(0, ScrollingOffset);
-                    //}
                 }
             }
             if (e.Action == NotifyCollectionChangedAction.Remove)

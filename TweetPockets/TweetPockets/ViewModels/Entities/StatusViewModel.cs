@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using LinqToTwitter;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using TweetPockets.Resources;
-using TweetPockets.Utils;
 
-namespace TweetPockets.ViewModels
+namespace TweetPockets.ViewModels.Entities
 {
     public class StatusViewModel : ViewModelBase
     {

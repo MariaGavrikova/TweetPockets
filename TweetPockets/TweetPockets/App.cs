@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Interfaces;
+using TweetPockets.Managers;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
+using TweetPockets.Views;
 using Xamarin.Forms;
 using Xamarin.Auth;
 
@@ -34,12 +36,23 @@ namespace TweetPockets
             mainPage.BindingContext = _mainViewModel;
             MainPage = mainPage;
 
+            InitPages(_mainViewModel);
+
             var savedAccount = AccountStore.Create().FindAccountsForService("Twitter").FirstOrDefault();
             if (savedAccount != null)
             {
                 OnLoggedIn(savedAccount);
             }
         }
+
+        private void InitPages(MainViewModel mainViewModel)
+        {
+            ViewManager = new ViewManager();
+            ViewManager.Register(mainViewModel.Timeline, new TimelinePage());
+            ViewManager.Register(mainViewModel.BookmarkList, new BookmarkListPage());
+        }
+
+        public ViewManager ViewManager { get; private set; }
 
         public bool IsLoggedIn { get; private set; }
 
@@ -54,7 +67,9 @@ namespace TweetPockets
             var userDetails = new UserDetails();
             userDetails.Token = account.Properties["oauth_token"];
             userDetails.TokenSecret = account.Properties["oauth_token_secret"];
-            userDetails.TwitterId = account.Properties["user_id"];
+            ulong id;
+            ulong.TryParse(account.Properties["user_id"], out id);
+            userDetails.TwitterId = id;
             userDetails.ScreenName = account.Properties["screen_name"];
 
             _user = userDetails;

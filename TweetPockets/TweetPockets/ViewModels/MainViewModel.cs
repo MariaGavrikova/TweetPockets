@@ -7,6 +7,7 @@ using TweetPockets.Interfaces;
 using TweetPockets.Managers;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
+using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
 
 namespace TweetPockets.ViewModels
@@ -14,50 +15,28 @@ namespace TweetPockets.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private int StatusTextLength = 15;
-        private StatusLoadingManager _loadingManager;
-        private string _avatarUrl;
-        private string _screenName;
-        private string _name;
+        private readonly StatusLoadingManager _loadingManager;
 
         public MainViewModel()
         {
             _loadingManager = new StatusLoadingManager();
+            Info = new InfoViewModel(_loadingManager);
             Timeline = new TimelineViewModel(this, _loadingManager);
             BookmarkList = new BookmarkListViewModel(this);
+
+            MostImportantItems = new List<MenuItemViewModel>()
+            {
+                Timeline,
+                BookmarkList
+            };
 
             MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "AddBookmark",
                 (s, status) => OnAddBookmark(status));
         }
 
-        public string AvatarUrl
-        {
-            get { return _avatarUrl; }
-            set
-            {
-                _avatarUrl = value;
-                OnPropertyChanged();
-            }
-        }
+        public InfoViewModel Info { get; set; }
 
-        public string ScreenName
-        {
-            get { return _screenName; }
-            set
-            {
-                _screenName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
+        public IList<MenuItemViewModel> MostImportantItems { get; private set; }
 
         public TimelineViewModel Timeline { get; set; }
 
@@ -65,11 +44,10 @@ namespace TweetPockets.ViewModels
 
         public async Task InitAsync(UserDetails user)
         {
-            await Timeline.InitAsync(user);
-            var userInfo = await _loadingManager.GetUserInfo(user.ScreenName);
-            AvatarUrl = userInfo.ProfileImageUrl;
-            ScreenName = userInfo.ScreenName;
-            Name = userInfo.Name;
+            await _loadingManager.Init(user);
+
+            Info.InitAsync(user);
+            Timeline.InitAsync();
         }
 
         private void OnAddBookmark(StatusViewModel status)

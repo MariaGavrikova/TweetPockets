@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 {

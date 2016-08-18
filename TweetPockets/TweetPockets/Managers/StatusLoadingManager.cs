@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LinqToTwitter;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Managers
 {
@@ -94,13 +95,13 @@ namespace TweetPockets.Managers
             return oldStatuses;
         }
 
-        public async Task<User> GetUserInfo(string screenName)
+        public async Task<User> GetUserInfo(ulong id, string screenName)
         {
             var user =
                  await
                  (from tweet in Context.User
                   where tweet.Type == UserType.Show &&
-                        tweet.ScreenName == screenName
+                        tweet.UserID == id
                   select tweet)
                  .SingleOrDefaultAsync();
 

@@ -41,11 +41,13 @@
     <Compile Include="Interfaces\INotificationController.cs" />
     <Compile Include="Interfaces\ISQLitePlatformFactory.cs" />
     <Compile Include="Managers\Database.cs" />
+    <Compile Include="Managers\InfoPersistingManager.cs" />
     <Compile Include="Managers\ItemsEventArgs.cs" />
     <Compile Include="Managers\NewItemsEventArgs.cs" />
     <Compile Include="Managers\StatusLoadingManager.cs" />
     <Compile Include="Managers\StatusPersistingManager.cs" />
     <Compile Include="Managers\TimelineManager.cs" />
+    <Compile Include="Managers\ViewManager.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -54,15 +56,17 @@
     <Compile Include="Resources\TranslateExtension.cs" />
     <Compile Include="Utils\BatchedObservableCollection.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BookmarkListViewModel.cs" />
-    <Compile Include="ViewModels\PhotoUrlViewModel.cs" />
-    <Compile Include="ViewModels\ResourceUrlViewModel.cs" />
-    <Compile Include="ViewModels\StatusViewModel.cs" />
+    <Compile Include="ViewModels\MenuItemViewModel.cs" />
+    <Compile Include="ViewModels\Entities\PhotoUrlViewModel.cs" />
+    <Compile Include="ViewModels\Entities\ResourceUrlViewModel.cs" />
+    <Compile Include="ViewModels\Entities\StatusViewModel.cs" />
     <Compile Include="Controls\TimelineListView.cs" />
+    <Compile Include="ViewModels\Entities\UserInfoViewModel.cs" />
     <Compile Include="Views\SideMenuPage.xaml.cs">
       <DependentUpon>SideMenuPage.xaml</DependentUpon>
     </Compile>
