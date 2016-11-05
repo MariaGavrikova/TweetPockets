@@ -10,6 +10,8 @@ namespace TweetPockets.ViewModels.Entities
 {
     public class StatusViewModel : ViewModelBase
     {
+        private bool _isFavorite;
+
         public StatusViewModel()
         {
             AuthorImageUrl = "https://pbs.twimg.com/profile_images/550285117454049280/u_XoHwmS_bigger.jpeg";
@@ -22,6 +24,7 @@ namespace TweetPockets.ViewModels.Entities
             AuthorImageUrl = model.User.ProfileImageUrl;
             Text = model.Text;
             CreatedAt = model.CreatedAt;
+            IsFavorite = model.Favorited;
 
             var urls = new List<ResourceUrlViewModel>();
             foreach (var urlEntity in model.Entities.UrlEntities)
@@ -102,6 +105,16 @@ namespace TweetPockets.ViewModels.Entities
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<ResourceUrlViewModel> ResourceUrls { get; set; }
+
+        public bool IsFavorite
+        {
+            get { return _isFavorite; }
+            set
+            {
+                _isFavorite = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override bool Equals(object obj)
         {

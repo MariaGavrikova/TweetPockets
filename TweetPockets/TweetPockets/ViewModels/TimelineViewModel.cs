@@ -19,17 +19,23 @@ namespace TweetPockets.ViewModels
         private readonly TimelineManager _timelineManager;
         private bool _isLoadingNew;
         private bool _isLoadingOld;
+        private RetweetsFavoritesManager _retweetsFavoritesManager;
 
         private const int TimelineLimit = 200;
 
-        public TimelineViewModel(MainViewModel mainViewModel, StatusLoadingManager loadingManager)
+        public TimelineViewModel(
+            MainViewModel mainViewModel,
+            StatusLoadingManager loadingManager,
+            StatusPersistingManager persistingManager)
             : base(AppResources.TimelineMenuItem, "ic_book_black_24dp.png")
         {
             _mainViewModel = mainViewModel;
-            _timelineManager = new TimelineManager(loadingManager);
+            _retweetsFavoritesManager = new RetweetsFavoritesManager(loadingManager, persistingManager);
+            _timelineManager = new TimelineManager(loadingManager, persistingManager);
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
             MoveToReadLaterCommand = new Command(MoveToReadLater);
+            FavoriteCommand = new Command(async (o) => await OnFavorite(o));
             Timeline = new BatchedObservableCollection<StatusViewModel>();
             _timelineManager.LoadingNewStarted += LoadingNewStartedHandler;
             _timelineManager.LoadingNewEnded += LoadingNewEndedHandler;
@@ -66,6 +72,8 @@ namespace TweetPockets.ViewModels
         public ICommand LoadNewCommand { get; set; }
 
         public ICommand MoveToReadLaterCommand { get; set; }
+
+        public ICommand FavoriteCommand { get; set; }
 
         private void LoadingNewStartedHandler(object sender, EventArgs e)
         {
@@ -139,6 +147,13 @@ namespace TweetPockets.ViewModels
             var item = (StatusViewModel)obj;
 
             MessagingCenter.Send(_mainViewModel, "AddBookmark", item);
+        }
+
+        private async Task OnFavorite(object obj)
+        {
+            var item = (StatusViewModel)obj;
+            item.IsFavorite = !item.IsFavorite;
+            await _retweetsFavoritesManager.AddFavorite(item);
         }
     }
 }

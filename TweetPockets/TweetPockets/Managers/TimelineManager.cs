@@ -18,9 +18,9 @@ namespace TweetPockets.Managers
 
         private const int ItemsChunk = 20;
 
-        public TimelineManager(StatusLoadingManager loadingManager)
+        public TimelineManager(StatusLoadingManager loadingManager, StatusPersistingManager persistingManager)
         {
-            _persistingManager = new StatusPersistingManager();
+            _persistingManager = persistingManager;
             _loadingManager = loadingManager;
         }
 

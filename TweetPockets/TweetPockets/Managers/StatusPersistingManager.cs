@@ -83,5 +83,13 @@ namespace TweetPockets.Managers
         {
             _db.DeleteAll<StatusViewModel>();
         }
+
+        public void Save(StatusViewModel status)
+        {
+            if (_db.Find<StatusViewModel>(status.Id) != null)
+            {
+                _db.Update(status);
+            }
+        }
     }
 }

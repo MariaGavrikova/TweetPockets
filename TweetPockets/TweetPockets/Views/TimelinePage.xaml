@@ -12,7 +12,8 @@
                                    IsLoadingMore="{Binding IsLoadingOld}"
                                    RefreshCommand="{Binding LoadNewCommand}"
                                    LoadOldCommand="{Binding LoadOldCommand}"
-                                   DismissCommand="{Binding MoveToReadLaterCommand}"/>
+                                   DismissCommand="{Binding MoveToReadLaterCommand}"
+                                   FavoriteCommand="{Binding FavoriteCommand}"/>
     
     <controls:TweetButton Margin="0,0,13,13" HorizontalOptions="End" VerticalOptions="End"
                               />

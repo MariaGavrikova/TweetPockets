@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -25,8 +26,14 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
             ReplyButton.Click += ReplyClickHandler;
             RetweetButton = itemView.FindViewById<ImageButton>(Resource.Id.RetweetButton);
             FavoriteButton = itemView.FindViewById<ImageButton>(Resource.Id.FavoriteButton);
+            FavoriteButton.Click += FavoriteClickHandler;
             BookmarkButton = itemView.FindViewById<ImageButton>(Resource.Id.BookmarkButton);
             BookmarkButton.Click += ReadLaterClickHandler;
+        }
+
+        private void FavoriteClickHandler(object sender, EventArgs e)
+        {
+            _element.FavoriteCommand.Execute(_data);
         }
 
         private void ReadLaterClickHandler(object sender, EventArgs e)
@@ -51,14 +58,43 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
         public virtual void Bind(StatusViewModel data)
         {
-            var worker = new BitmapWorkerTask(AuthorImage);
-            worker.Execute(data.AuthorImageUrl);
+            if (_data != null)
+            {
+                _data.PropertyChanged -= PropertyChangedHandler;
+            }
 
-            Text.Text = data.Text;
-            Author.Text = data.Author;
-            Timestamp.Text = data.TimestampLabel;
-            BookmarkButton.Visibility = data.CanBeReadLater ? ViewStates.Visible : ViewStates.Invisible;
             _data = data;
+
+            if (_data != null)
+            {
+                var worker = new BitmapWorkerTask(AuthorImage);
+                worker.Execute(_data.AuthorImageUrl);
+
+                RefreshFavoriteButton(_data);
+
+                Text.Text = _data.Text;
+                Author.Text = _data.Author;
+                Timestamp.Text = _data.TimestampLabel;
+                BookmarkButton.Visibility = _data.CanBeReadLater ? ViewStates.Visible : ViewStates.Invisible;
+                
+                _data.PropertyChanged += PropertyChangedHandler;
+            }
+        }
+
+        private void RefreshFavoriteButton(StatusViewModel data)
+        {
+            FavoriteButton.SetImageResource(
+                data.IsFavorite
+                    ? Resource.Drawable.ic_favorite_green_24dp
+                    : Resource.Drawable.ic_favorite_black_24dp);
+        }
+
+        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsFavorite")
+            {
+                RefreshFavoriteButton(_data);
+            }
         }
     }
 }

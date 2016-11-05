@@ -107,5 +107,17 @@ namespace TweetPockets.Managers
 
             return user;
         }
+
+        public async Task AddFavorite(ulong id, bool isFavorite)
+        {
+            if (isFavorite)
+            {
+                await Context.CreateFavoriteAsync(id);
+            }
+            else
+            {
+                await Context.DestroyFavoriteAsync(id);
+            }
+        }
     }
 }

@@ -16,12 +16,14 @@ namespace TweetPockets.ViewModels
     {
         private int StatusTextLength = 15;
         private readonly StatusLoadingManager _loadingManager;
+        private StatusPersistingManager _persistingManager;
 
         public MainViewModel()
         {
             _loadingManager = new StatusLoadingManager();
+            _persistingManager = new StatusPersistingManager();
             Info = new InfoViewModel(_loadingManager);
-            Timeline = new TimelineViewModel(this, _loadingManager);
+            Timeline = new TimelineViewModel(this, _loadingManager, _persistingManager);
             BookmarkList = new BookmarkListViewModel(this);
 
             MostImportantItems = new List<MenuItemViewModel>()
