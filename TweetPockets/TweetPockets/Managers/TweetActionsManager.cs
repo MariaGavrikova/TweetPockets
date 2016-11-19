@@ -7,12 +7,12 @@ using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Managers
 {
-    public class RetweetsFavoritesManager
+    public class TweetActionsManager
     {
         private readonly StatusLoadingManager _loadingManager;
         private readonly StatusPersistingManager _persistingManager;
 
-        public RetweetsFavoritesManager(StatusLoadingManager loadingManager, StatusPersistingManager persistingManager)
+        public TweetActionsManager(StatusLoadingManager loadingManager, StatusPersistingManager persistingManager)
         {
             this._loadingManager = loadingManager;
             _persistingManager = persistingManager;
@@ -35,6 +35,12 @@ namespace TweetPockets.Managers
             {
                 _persistingManager.SaveWithNewId(status, status.OldId.GetValueOrDefault());
             }
+        }
+
+        public async Task AddNewStatus(string text)
+        {
+            var status = new StatusViewModel(await _loadingManager.AddStatus(text));
+            _persistingManager.Save(status);
         }
     }
 }

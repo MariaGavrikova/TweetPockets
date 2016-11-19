@@ -55,7 +55,7 @@ namespace TweetPockets.Managers
                 {
                     newStatuses =
                         await Context.Status
-                            .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong) minId && x.Count == count)
+                            .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong)minId && x.Count == count)
                             .Select(x => new StatusViewModel(x))
                             .ToListAsync();
                 }
@@ -139,6 +139,11 @@ namespace TweetPockets.Managers
             }
 
             return result;
+        }
+
+        public async Task<Status> AddStatus(string text)
+        {
+            return await Context.TweetAsync(text);
         }
     }
 }

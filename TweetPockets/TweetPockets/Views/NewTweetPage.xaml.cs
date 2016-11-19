@@ -12,6 +12,23 @@ namespace TweetPockets.Views
         public NewTweetPage()
         {
             InitializeComponent();
+            this.InputField.Valid += (s, e) => ShowSendButton();
+            this.InputField.Invalid += (s, e) => HideSendButton();
+        }
+
+        private void ShowSendButton()
+        {
+            var parent = Parent as NavigationPage;
+            if (parent != null && parent.ToolbarItems.Count < 1)
+            {
+                parent.ToolbarItems.Add(new ToolbarItem("Send", "ic_twitter_grey600_24dp.png", OnSend));
+            }
+        }
+
+        private void HideSendButton()
+        {
+            var parent = Parent as NavigationPage;
+            parent?.ToolbarItems.Clear();
         }
 
         protected override void OnAppearing()
@@ -23,7 +40,6 @@ namespace TweetPockets.Views
             {
                 _toolbarBackup = new List<ToolbarItem>(parent.ToolbarItems);
                 parent.ToolbarItems.Clear();
-                parent.ToolbarItems.Add(new ToolbarItem("Send", "ic_twitter_grey600_24dp.png", OnSend));
             }
         }
 
@@ -34,7 +50,7 @@ namespace TweetPockets.Views
             var parent = Parent as NavigationPage;
             if (parent != null)
             {
-                parent.ToolbarItems.Clear();
+                HideSendButton();
                 foreach (var toolbarItem in _toolbarBackup)
                 {
                     parent.ToolbarItems.Add(toolbarItem);
@@ -45,10 +61,7 @@ namespace TweetPockets.Views
         private void OnSend()
         {
             var bindingContext = BindingContext as NewTweetViewModel;
-            if (bindingContext != null && bindingContext.SendCommand.CanExecute(null))
-            {
-                bindingContext.SendCommand.Execute(null);
-            }
+            bindingContext?.SendCommand.Execute(null);
         }
     }
 }

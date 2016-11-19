@@ -13,6 +13,7 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Views.Animations;
+using Android.Views.InputMethods;
 using Android.Widget;
 using Java.Lang;
 using Java.Util;
@@ -45,15 +46,17 @@ namespace TweetPockets.Droid.Renderers
                 var parent = new LinearLayout(Forms.Context);
                 var view = (Forms.Context as Activity).LayoutInflater.Inflate(Resource.Layout.MultilineTextField, parent);
                 var field = view.FindViewById<EditText>(Resource.Id.InputField);
+                field.RequestFocus();
+                InputMethodManager imm = (InputMethodManager) Forms.Context.GetSystemService(Context.InputMethodService);
+                imm.ShowSoftInput(field, InputMethodManager.ShowImplicit);
                 var currentLenght = view.FindViewById<TextView>(Resource.Id.CurrentLenght);
                 var counterDelimiter = view.FindViewById<TextView>(Resource.Id.CounterDelimiter);
                 var totalLenght = view.FindViewById<TextView>(Resource.Id.TotalLenght);
                 totalLenght.Text = MaxLenght.ToString();
                 field.TextChanged += (s, args) =>
                 {
-                    var enumerable = args.Text;
-                    Element.SetValue(MultilineTextField.TextProperty, enumerable);
-                    var length = args.AfterCount + args.Start;
+                    Element.SetValue(MultilineTextField.TextProperty, field.Text);
+                    var length = field.Text.Length;
                     currentLenght.Text = length.ToString();
 
                     var color = Color.Black;
@@ -65,6 +68,15 @@ namespace TweetPockets.Droid.Renderers
                     currentLenght.SetTextColor(color);
                     counterDelimiter.SetTextColor(color);
                     totalLenght.SetTextColor(color);
+
+                    if (0 < length && length <= MaxLenght)
+                    {
+                        Element.RaiseValid();
+                    }
+                    else
+                    {
+                        Element.RaiseInvalid();
+                    }
                 };
                 SetNativeControl(parent);
             }

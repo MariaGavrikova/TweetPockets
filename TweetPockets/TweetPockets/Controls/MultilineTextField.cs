@@ -10,6 +10,9 @@ namespace TweetPockets.Controls
 {
     public class MultilineTextField : View
     {
+        public event EventHandler Valid;
+        public event EventHandler Invalid;
+
         public static readonly BindableProperty TextProperty =
             BindableProperty.Create<MultilineTextField, string>(p => p.Text, String.Empty, BindingMode.TwoWay);
         public string Text
@@ -36,6 +39,16 @@ namespace TweetPockets.Controls
             {
                 SetValue(LabelProperty, value);
             }
+        }
+
+        public void RaiseValid()
+        {
+            Valid?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void RaiseInvalid()
+        {
+            Invalid?.Invoke(this, EventArgs.Empty);
         }
     }
 }

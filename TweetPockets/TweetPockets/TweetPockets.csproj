@@ -45,7 +45,7 @@
     <Compile Include="Managers\InfoPersistingManager.cs" />
     <Compile Include="Managers\ItemsEventArgs.cs" />
     <Compile Include="Managers\NewItemsEventArgs.cs" />
-    <Compile Include="Managers\RetweetsFavoritesManager.cs" />
+    <Compile Include="Managers\TweetActionsManager.cs" />
     <Compile Include="Managers\StatusLoadingManager.cs" />
     <Compile Include="Managers\StatusPersistingManager.cs" />
     <Compile Include="Managers\TimelineManager.cs" />

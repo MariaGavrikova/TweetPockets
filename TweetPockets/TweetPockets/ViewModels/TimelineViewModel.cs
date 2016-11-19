@@ -19,7 +19,7 @@ namespace TweetPockets.ViewModels
         private readonly TimelineManager _timelineManager;
         private bool _isLoadingNew;
         private bool _isLoadingOld;
-        private RetweetsFavoritesManager _retweetsFavoritesManager;
+        private TweetActionsManager _tweetActionsManager;
 
         private const int TimelineLimit = 200;
 
@@ -30,7 +30,7 @@ namespace TweetPockets.ViewModels
             : base(AppResources.TimelineMenuItem, "ic_book_black_24dp.png")
         {
             _mainViewModel = mainViewModel;
-            _retweetsFavoritesManager = new RetweetsFavoritesManager(loadingManager, persistingManager);
+            _tweetActionsManager = new TweetActionsManager(loadingManager, persistingManager);
             _timelineManager = new TimelineManager(loadingManager, persistingManager);
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
@@ -134,7 +134,7 @@ namespace TweetPockets.ViewModels
             await _timelineManager.TriggerLoadingNew();
         }
 
-        private async void OnLoadNew()
+        public async void OnLoadNew()
         {
             await _timelineManager.TriggerLoadingNew();
         }
@@ -159,19 +159,19 @@ namespace TweetPockets.ViewModels
         {
             var item = (StatusViewModel)obj;
             item.IsFavorite = !item.IsFavorite;
-            await _retweetsFavoritesManager.AddFavorite(item);
+            await _tweetActionsManager.AddFavorite(item);
         }
 
         private async Task OnRetweet(object obj)
         {
             var item = (StatusViewModel)obj;
             item.IsRetweeted = !item.IsRetweeted;
-            await _retweetsFavoritesManager.AddRetweet(item);
+            await _tweetActionsManager.AddRetweet(item);
         }
 
         private void OnTweet()
         {
-            var page = App.Instance.ViewManager.GetView(new NewTweetViewModel());
+            var page = App.Instance.ViewManager.GetView(new NewTweetViewModel(_tweetActionsManager, this));
             App.Instance.MainPage.Navigation.PushAsync(page);
         }
     }
