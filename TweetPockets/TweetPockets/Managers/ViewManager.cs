@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TweetPockets.ViewModels;
 using TweetPockets.Views;
@@ -13,9 +14,11 @@ namespace TweetPockets.Managers
     {
         private Dictionary<Type, Page> _mapping = new Dictionary<Type, Page>(); 
 
-        public void Register(ViewModelBase viewModel, Page view)
+        public void Register<T, TPage>()
+            where T : ViewModelBase
+            where TPage : ContentPage, new()
         {
-            _mapping.Add(viewModel.GetType(), view);
+            _mapping.Add(typeof(T), new TPage());
         }
 
         public Page GetView(ViewModelBase viewModel)

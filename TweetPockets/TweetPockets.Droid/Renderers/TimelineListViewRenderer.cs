@@ -58,7 +58,9 @@ namespace TweetPockets.Droid.Renderers
                 _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
 
                 var title = view.FindViewById<TextView>(Resource.Id.Title);
-                title.Text = (App.Instance.MainPage as MasterDetailPage).Detail.Title;
+                var navigationPage = (App.Instance.MainPage as NavigationPage);
+                var masterDetailPage = navigationPage.CurrentPage as MasterDetailPage;
+                title.Text = masterDetailPage.Detail.Title;
 
                 var menuIcon = view.FindViewById<ImageView>(Resource.Id.MenuIcon);
                 menuIcon.Click += MenuIconClickHandler;

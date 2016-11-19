@@ -2183,58 +2183,61 @@ namespace TweetPockets.Droid
 			public const int ic_tv_light = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int icon = 2130837658;
+			public const int ic_twitter_grey600_24dp = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public const int menu = 2130837659;
+			public const int icon = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public const int mr_dialog_material_background_dark = 2130837660;
+			public const int menu = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public const int mr_dialog_material_background_light = 2130837661;
+			public const int mr_dialog_material_background_dark = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public const int mr_ic_audiotrack_light = 2130837662;
+			public const int mr_dialog_material_background_light = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public const int mr_ic_cast_dark = 2130837663;
+			public const int mr_ic_audiotrack_light = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public const int mr_ic_cast_light = 2130837664;
+			public const int mr_ic_cast_dark = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int mr_ic_close_dark = 2130837665;
+			public const int mr_ic_cast_light = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int mr_ic_close_light = 2130837666;
+			public const int mr_ic_close_dark = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837667;
+			public const int mr_ic_close_light = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int mr_ic_media_route_connecting_mono_light = 2130837668;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int mr_ic_media_route_mono_dark = 2130837669;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int mr_ic_media_route_mono_light = 2130837670;
+			public const int mr_ic_media_route_mono_dark = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
-			public const int mr_ic_pause_dark = 2130837671;
+			public const int mr_ic_media_route_mono_light = 2130837671;
 			
 			// aapt resource value: 0x7f0200a8
-			public const int mr_ic_pause_light = 2130837672;
+			public const int mr_ic_pause_dark = 2130837672;
 			
 			// aapt resource value: 0x7f0200a9
-			public const int mr_ic_play_dark = 2130837673;
+			public const int mr_ic_pause_light = 2130837673;
 			
 			// aapt resource value: 0x7f0200aa
-			public const int mr_ic_play_light = 2130837674;
+			public const int mr_ic_play_dark = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int notification_template_icon_bg = 2130837675;
+			public const int mr_ic_play_light = 2130837675;
+			
+			// aapt resource value: 0x7f0200ac
+			public const int notification_template_icon_bg = 2130837676;
 			
 			static Drawable()
 			{
@@ -2249,32 +2252,41 @@ namespace TweetPockets.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0700a0
-			public const int Author = 2131165344;
+			// aapt resource value: 0x7f0700a4
+			public const int Author = 2131165348;
 			
-			// aapt resource value: 0x7f07009f
-			public const int AuthorImage = 2131165343;
+			// aapt resource value: 0x7f0700a3
+			public const int AuthorImage = 2131165347;
 			
 			// aapt resource value: 0x7f070076
 			public const int BookmarkButton = 2131165302;
 			
-			// aapt resource value: 0x7f07009d
-			public const int Card = 2131165341;
+			// aapt resource value: 0x7f0700a1
+			public const int Card = 2131165345;
+			
+			// aapt resource value: 0x7f070092
+			public const int CounterDelimiter = 2131165330;
+			
+			// aapt resource value: 0x7f070091
+			public const int CurrentLenght = 2131165329;
 			
 			// aapt resource value: 0x7f070075
 			public const int FavoriteButton = 2131165301;
 			
-			// aapt resource value: 0x7f0700a7
-			public const int MenuIcon = 2131165351;
+			// aapt resource value: 0x7f070090
+			public const int InputField = 2131165328;
 			
-			// aapt resource value: 0x7f07009e
-			public const int Photo = 2131165342;
+			// aapt resource value: 0x7f0700ab
+			public const int MenuIcon = 2131165355;
 			
 			// aapt resource value: 0x7f0700a2
-			public const int Placeholder = 2131165346;
+			public const int Photo = 2131165346;
 			
-			// aapt resource value: 0x7f0700a4
-			public const int RecyclerView = 2131165348;
+			// aapt resource value: 0x7f0700a6
+			public const int Placeholder = 2131165350;
+			
+			// aapt resource value: 0x7f0700a8
+			public const int RecyclerView = 2131165352;
 			
 			// aapt resource value: 0x7f070073
 			public const int ReplyButton = 2131165299;
@@ -2282,23 +2294,26 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070074
 			public const int RetweetButton = 2131165300;
 			
-			// aapt resource value: 0x7f0700a9
-			public const int ScrollToTopIcon = 2131165353;
+			// aapt resource value: 0x7f0700ad
+			public const int ScrollToTopIcon = 2131165357;
 			
-			// aapt resource value: 0x7f0700a3
-			public const int SwipeRefreshLayout = 2131165347;
+			// aapt resource value: 0x7f0700a7
+			public const int SwipeRefreshLayout = 2131165351;
 			
 			// aapt resource value: 0x7f070072
 			public const int Text = 2131165298;
 			
-			// aapt resource value: 0x7f0700a1
-			public const int Timestamp = 2131165345;
+			// aapt resource value: 0x7f0700a5
+			public const int Timestamp = 2131165349;
 			
-			// aapt resource value: 0x7f0700a8
-			public const int Title = 2131165352;
+			// aapt resource value: 0x7f0700ac
+			public const int Title = 2131165356;
 			
-			// aapt resource value: 0x7f070090
-			public const int action0 = 2131165328;
+			// aapt resource value: 0x7f070093
+			public const int TotalLenght = 2131165331;
+			
+			// aapt resource value: 0x7f070094
+			public const int action0 = 2131165332;
 			
 			// aapt resource value: 0x7f07005a
 			public const int action_bar = 2131165274;
@@ -2324,8 +2339,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07005b
 			public const int action_context_bar = 2131165275;
 			
-			// aapt resource value: 0x7f070094
-			public const int action_divider = 2131165332;
+			// aapt resource value: 0x7f070098
+			public const int action_divider = 2131165336;
 			
 			// aapt resource value: 0x7f070003
 			public const int action_menu_divider = 2131165187;
@@ -2342,8 +2357,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07003c
 			public const int action_mode_close_button = 2131165244;
 			
-			// aapt resource value: 0x7f0700aa
-			public const int action_name = 2131165354;
+			// aapt resource value: 0x7f0700ae
+			public const int action_name = 2131165358;
 			
 			// aapt resource value: 0x7f07003d
 			public const int activity_chooser_view_content = 2131165245;
@@ -2354,8 +2369,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07001e
 			public const int always = 2131165214;
 			
-			// aapt resource value: 0x7f0700a5
-			public const int appBarLayout = 2131165349;
+			// aapt resource value: 0x7f0700a9
+			public const int appBarLayout = 2131165353;
 			
 			// aapt resource value: 0x7f07001b
 			public const int beginning = 2131165211;
@@ -2366,8 +2381,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070044
 			public const int buttonPanel = 2131165252;
 			
-			// aapt resource value: 0x7f070091
-			public const int cancel_action = 2131165329;
+			// aapt resource value: 0x7f070095
+			public const int cancel_action = 2131165333;
 			
 			// aapt resource value: 0x7f07002b
 			public const int center = 2131165227;
@@ -2381,8 +2396,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070052
 			public const int checkbox = 2131165266;
 			
-			// aapt resource value: 0x7f070097
-			public const int chronometer = 2131165335;
+			// aapt resource value: 0x7f07009b
+			public const int chronometer = 2131165339;
 			
 			// aapt resource value: 0x7f070033
 			public const int clip_horizontal = 2131165235;
@@ -2432,8 +2447,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07001c
 			public const int end = 2131165212;
 			
-			// aapt resource value: 0x7f07009c
-			public const int end_padder = 2131165340;
+			// aapt resource value: 0x7f0700a0
+			public const int end_padder = 2131165344;
 			
 			// aapt resource value: 0x7f070023
 			public const int enterAlways = 2131165219;
@@ -2477,8 +2492,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07003f
 			public const int image = 2131165247;
 			
-			// aapt resource value: 0x7f07009b
-			public const int info = 2131165339;
+			// aapt resource value: 0x7f07009f
+			public const int info = 2131165343;
 			
 			// aapt resource value: 0x7f070000
 			public const int item_touch_helper_previous_elevation = 2131165184;
@@ -2486,11 +2501,11 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07002f
 			public const int left = 2131165231;
 			
-			// aapt resource value: 0x7f070095
-			public const int line1 = 2131165333;
-			
 			// aapt resource value: 0x7f070099
-			public const int line3 = 2131165337;
+			public const int line1 = 2131165337;
+			
+			// aapt resource value: 0x7f07009d
+			public const int line3 = 2131165341;
 			
 			// aapt resource value: 0x7f07000b
 			public const int listMode = 2131165195;
@@ -2498,8 +2513,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070041
 			public const int list_item = 2131165249;
 			
-			// aapt resource value: 0x7f070093
-			public const int media_actions = 2131165331;
+			// aapt resource value: 0x7f070097
+			public const int media_actions = 2131165335;
 			
 			// aapt resource value: 0x7f07001d
 			public const int middle = 2131165213;
@@ -2705,8 +2720,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070031
 			public const int start = 2131165233;
 			
-			// aapt resource value: 0x7f070092
-			public const int status_bar_latest_event_content = 2131165330;
+			// aapt resource value: 0x7f070096
+			public const int status_bar_latest_event_content = 2131165334;
 			
 			// aapt resource value: 0x7f070065
 			public const int submit_area = 2131165285;
@@ -2714,17 +2729,17 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07000d
 			public const int tabMode = 2131165197;
 			
-			// aapt resource value: 0x7f07009a
-			public const int text = 2131165338;
+			// aapt resource value: 0x7f07009e
+			public const int text = 2131165342;
 			
-			// aapt resource value: 0x7f070098
-			public const int text2 = 2131165336;
+			// aapt resource value: 0x7f07009c
+			public const int text2 = 2131165340;
 			
 			// aapt resource value: 0x7f07004d
 			public const int textSpacerNoButtons = 2131165261;
 			
-			// aapt resource value: 0x7f070096
-			public const int time = 2131165334;
+			// aapt resource value: 0x7f07009a
+			public const int time = 2131165338;
 			
 			// aapt resource value: 0x7f070043
 			public const int title = 2131165251;
@@ -2732,8 +2747,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070048
 			public const int title_template = 2131165256;
 			
-			// aapt resource value: 0x7f0700a6
-			public const int toolbar = 2131165350;
+			// aapt resource value: 0x7f0700aa
+			public const int toolbar = 2131165354;
 			
 			// aapt resource value: 0x7f070032
 			public const int top = 2131165234;
@@ -2970,55 +2985,58 @@ namespace TweetPockets.Droid
 			public const int mr_volume_control = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int notification_media_action = 2130903084;
+			public const int MultilineTextField = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int notification_media_cancel_action = 2130903085;
+			public const int notification_media_action = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int notification_template_big_media = 2130903086;
+			public const int notification_media_cancel_action = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int notification_template_big_media_narrow = 2130903087;
+			public const int notification_template_big_media = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int notification_template_lines = 2130903088;
+			public const int notification_template_big_media_narrow = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int notification_template_media = 2130903089;
+			public const int notification_template_lines = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int notification_template_part_chronometer = 2130903090;
+			public const int notification_template_media = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int notification_template_part_time = 2130903091;
+			public const int notification_template_part_chronometer = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int PhotoCard = 2130903092;
+			public const int notification_template_part_time = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int RecyclerViewFooter = 2130903093;
+			public const int PhotoCard = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int select_dialog_item_material = 2130903094;
+			public const int RecyclerViewFooter = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int select_dialog_multichoice_material = 2130903095;
+			public const int select_dialog_item_material = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int select_dialog_singlechoice_material = 2130903096;
+			public const int select_dialog_multichoice_material = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int StatusCard = 2130903097;
+			public const int select_dialog_singlechoice_material = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int support_simple_spinner_dropdown_item = 2130903098;
+			public const int StatusCard = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int TimelineList = 2130903099;
+			public const int support_simple_spinner_dropdown_item = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int TweetButton = 2130903100;
+			public const int TimelineList = 2130903100;
+			
+			// aapt resource value: 0x7f03003d
+			public const int TweetButton = 2130903101;
 			
 			static Layout()
 			{

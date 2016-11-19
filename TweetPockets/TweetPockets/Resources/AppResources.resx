@@ -135,6 +135,9 @@
   <data name="MinutesLabel" xml:space="preserve">
     <value>{0}m</value>
   </data>
+  <data name="NewTweetTitle" xml:space="preserve">
+    <value>Compose</value>
+  </data>
   <data name="SecondsLabel" xml:space="preserve">
     <value>{0}s</value>
   </data>
@@ -143,5 +146,8 @@
   </data>
   <data name="TimelinePageTitle" xml:space="preserve">
     <value>Timeline</value>
+  </data>
+  <data name="TweetInputFieldLabel" xml:space="preserve">
+    <value>Your tweet</value>
   </data>
 </root>

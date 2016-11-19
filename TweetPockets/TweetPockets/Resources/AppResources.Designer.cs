@@ -116,6 +116,15 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compose.
+        /// </summary>
+        internal static string NewTweetTitle {
+            get {
+                return ResourceManager.GetString("NewTweetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}s.
         /// </summary>
         internal static string SecondsLabel {
@@ -139,6 +148,15 @@ namespace TweetPockets.Resources {
         internal static string TimelinePageTitle {
             get {
                 return ResourceManager.GetString("TimelinePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your tweet.
+        /// </summary>
+        internal static string TweetInputFieldLabel {
+            get {
+                return ResourceManager.GetString("TweetInputFieldLabel", resourceCulture);
             }
         }
     }

@@ -10,5 +10,19 @@ namespace TweetPockets.Views
         {
             InitializeComponent();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            TweetButton.FadeTo(1, 500);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            TweetButton.FadeTo(0, 500);
+        }
     }
 }

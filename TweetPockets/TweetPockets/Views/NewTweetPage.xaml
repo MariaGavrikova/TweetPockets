@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:TweetPockets.Resources;assembly=TweetPockets"
+             xmlns:controls="clr-namespace:TweetPockets.Controls;assembly=TweetPockets"
+             x:Class="TweetPockets.Views.NewTweetPage"
+             Title="{resources:Translate NewTweetTitle}"
+             BackgroundColor="#30FFFFFF">
+  <Grid ColumnSpacing="0" RowSpacing="0">
+    <controls:MultilineTextField Text="{Binding Tweet}"
+                        Label="{resources:Translate TweetInputFieldLabel}"/>
+    
+    
+  </Grid>
+</ContentPage>

@@ -186,6 +186,7 @@
     <Compile Include="PlatformSpecificCode\TimelineScrollListener.cs" />
     <Compile Include="Renderers\CircleImageRenderer.cs" />
     <Compile Include="Renderers\CustomLabelRenderer.cs" />
+    <Compile Include="Renderers\MultilineTextFieldRenderer.cs" />
     <Compile Include="Renderers\TweetButtonRenderer.cs" />
     <Compile Include="Renderers\TimelineListViewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -213,6 +214,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\layout1.axml" />
     <AndroidResource Include="Resources\layout\RecyclerViewFooter.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MultilineTextField.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -372,6 +376,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_repeat_green_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_twitter_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_twitter_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_twitter_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_twitter_grey600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_twitter_grey600_24dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

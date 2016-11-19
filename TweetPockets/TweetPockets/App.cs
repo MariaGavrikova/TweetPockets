@@ -31,7 +31,8 @@ namespace TweetPockets
             MessagingCenter.Subscribe<App, Xamarin.Auth.Account>(this, "LoggedIn",
                 async (s, user) => await OnLoggedIn(user));
 
-            var mainPage = new Views.MainPage();
+            var mainPage = new NavigationPage(new Views.MainPage());
+            NavigationPage.SetHasNavigationBar(mainPage, false);
             _mainViewModel = new MainViewModel();
             mainPage.BindingContext = _mainViewModel;
             MainPage = mainPage;
@@ -48,8 +49,9 @@ namespace TweetPockets
         private void InitPages(MainViewModel mainViewModel)
         {
             ViewManager = new ViewManager();
-            ViewManager.Register(mainViewModel.Timeline, new TimelinePage());
-            ViewManager.Register(mainViewModel.BookmarkList, new BookmarkListPage());
+            ViewManager.Register<TimelineViewModel, TimelinePage>();
+            ViewManager.Register<BookmarkListViewModel, BookmarkListPage>();
+            ViewManager.Register<NewTweetViewModel, NewTweetPage>();
         }
 
         public ViewManager ViewManager { get; private set; }

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Controls\CircleImage.cs" />
+    <Compile Include="Controls\MultilineTextField.cs" />
     <Compile Include="Interfaces\ILocalize.cs" />
     <Compile Include="Interfaces\INotificationController.cs" />
     <Compile Include="Interfaces\ISQLitePlatformFactory.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="ViewModels\Entities\StatusViewModel.cs" />
     <Compile Include="Controls\TimelineListView.cs" />
     <Compile Include="ViewModels\Entities\UserInfoViewModel.cs" />
+    <Compile Include="ViewModels\NewTweetViewModel.cs" />
+    <Compile Include="Views\NewTweetPage.xaml.cs">
+      <DependentUpon>NewTweetPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SideMenuPage.xaml.cs">
       <DependentUpon>SideMenuPage.xaml</DependentUpon>
     </Compile>
@@ -177,6 +182,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SideMenuPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\NewTweetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

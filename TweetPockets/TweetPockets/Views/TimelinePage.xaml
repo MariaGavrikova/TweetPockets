@@ -16,7 +16,8 @@
                                    RetweetCommand="{Binding RetweetCommand}"
                                    FavoriteCommand="{Binding FavoriteCommand}"/>
     
-    <controls:TweetButton Margin="0,0,13,13" HorizontalOptions="End" VerticalOptions="End"
-                              />
+    <controls:TweetButton x:Name="TweetButton" Margin="0,0,13,13" Opacity="0"
+                          HorizontalOptions="End" VerticalOptions="End"
+                          Command="{Binding TweetCommand}"    />
   </Grid>
 </ContentPage>
