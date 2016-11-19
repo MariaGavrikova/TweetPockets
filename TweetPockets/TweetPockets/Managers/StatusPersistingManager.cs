@@ -91,5 +91,19 @@ namespace TweetPockets.Managers
                 _db.Update(status);
             }
         }
+
+        public void SaveWithNewId(StatusViewModel status, long statusId)
+        {
+            status.OldId = status.Id;
+            status.Id = (long) statusId;
+
+            var oldId = status.OldId.GetValueOrDefault();
+            var oldStatus = _db.Find<StatusViewModel>(oldId);
+            if (oldStatus != null)
+            {
+                _db.Delete(oldStatus);
+                _db.Insert(status);
+            }
+        }
     }
 }

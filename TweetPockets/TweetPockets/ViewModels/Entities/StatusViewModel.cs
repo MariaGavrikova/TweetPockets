@@ -11,6 +11,7 @@ namespace TweetPockets.ViewModels.Entities
     public class StatusViewModel : ViewModelBase
     {
         private bool _isFavorite;
+        private bool _isRetweeted;
 
         public StatusViewModel()
         {
@@ -25,6 +26,7 @@ namespace TweetPockets.ViewModels.Entities
             Text = model.Text;
             CreatedAt = model.CreatedAt;
             IsFavorite = model.Favorited;
+            IsRetweeted = model.Retweeted;
 
             var urls = new List<ResourceUrlViewModel>();
             foreach (var urlEntity in model.Entities.UrlEntities)
@@ -115,6 +117,18 @@ namespace TweetPockets.ViewModels.Entities
                 OnPropertyChanged();
             }
         }
+
+        public bool IsRetweeted
+        {
+            get { return _isRetweeted; }
+            set
+            {
+                _isRetweeted = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public long? OldId { get; set; }
 
         public override bool Equals(object obj)
         {

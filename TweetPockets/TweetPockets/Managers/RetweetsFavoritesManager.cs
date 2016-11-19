@@ -23,5 +23,18 @@ namespace TweetPockets.Managers
             await _loadingManager.AddFavorite((ulong)status.Id, status.IsFavorite);
             _persistingManager.Save(status);
         }
+
+        public async Task AddRetweet(StatusViewModel status)
+        {
+            var newStatus = await _loadingManager.AddRetweet((ulong)status.Id, status.IsRetweeted);
+            if (newStatus != null)
+            {
+                _persistingManager.SaveWithNewId(status, (long)newStatus.StatusID);
+            }
+            else
+            {
+                _persistingManager.SaveWithNewId(status, status.OldId.GetValueOrDefault());
+            }
+        }
     }
 }

@@ -50,6 +50,21 @@ namespace TweetPockets.Controls
             }
         }
 
+        public static readonly BindableProperty RetweetCommandProperty =
+            BindableProperty.Create<TimelineListView, ICommand>(p => p.RetweetCommand, null);
+
+        public ICommand RetweetCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(RetweetCommandProperty);
+            }
+            set
+            {
+                SetValue(RetweetCommandProperty, value);
+            }
+        }
+
         public static readonly BindableProperty IsLoadingMoreProperty =
             BindableProperty.Create<TimelineListView, bool>(p => p.IsLoadingMore, false);
 

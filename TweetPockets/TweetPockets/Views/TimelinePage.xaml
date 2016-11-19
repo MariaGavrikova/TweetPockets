@@ -13,6 +13,7 @@
                                    RefreshCommand="{Binding LoadNewCommand}"
                                    LoadOldCommand="{Binding LoadOldCommand}"
                                    DismissCommand="{Binding MoveToReadLaterCommand}"
+                                   RetweetCommand="{Binding RetweetCommand}"
                                    FavoriteCommand="{Binding FavoriteCommand}"/>
     
     <controls:TweetButton Margin="0,0,13,13" HorizontalOptions="End" VerticalOptions="End"

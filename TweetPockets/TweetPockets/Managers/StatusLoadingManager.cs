@@ -119,5 +119,26 @@ namespace TweetPockets.Managers
                 await Context.DestroyFavoriteAsync(id);
             }
         }
+
+        public async Task<Status> AddRetweet(ulong id, bool retweet)
+        {
+            Status result = null;
+            if (retweet)
+            {
+                result = await Context.RetweetAsync(id);
+            }
+            else
+            {
+                try
+                {
+                    await Context.DeleteTweetAsync(id);
+                }
+                catch (TwitterQueryException ex)
+                {
+                }
+            }
+
+            return result;
+        }
     }
 }

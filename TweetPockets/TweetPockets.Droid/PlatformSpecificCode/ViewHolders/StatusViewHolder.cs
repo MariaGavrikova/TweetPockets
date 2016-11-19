@@ -25,10 +25,16 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
             ReplyButton = itemView.FindViewById<ImageButton>(Resource.Id.ReplyButton);
             ReplyButton.Click += ReplyClickHandler;
             RetweetButton = itemView.FindViewById<ImageButton>(Resource.Id.RetweetButton);
+            RetweetButton.Click += RetweetClickHandler;
             FavoriteButton = itemView.FindViewById<ImageButton>(Resource.Id.FavoriteButton);
             FavoriteButton.Click += FavoriteClickHandler;
             BookmarkButton = itemView.FindViewById<ImageButton>(Resource.Id.BookmarkButton);
             BookmarkButton.Click += ReadLaterClickHandler;
+        }
+
+        private void RetweetClickHandler(object sender, EventArgs e)
+        {
+            _element.RetweetCommand.Execute(_data);
         }
 
         private void FavoriteClickHandler(object sender, EventArgs e)
@@ -72,6 +78,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
                 RefreshFavoriteButton(_data);
 
+                RefreshRetweetButton(_data);
+
                 Text.Text = _data.Text;
                 Author.Text = _data.Author;
                 Timestamp.Text = _data.TimestampLabel;
@@ -89,11 +97,23 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
                     : Resource.Drawable.ic_favorite_black_24dp);
         }
 
+        private void RefreshRetweetButton(StatusViewModel data)
+        {
+            RetweetButton.SetImageResource(
+                data.IsRetweeted
+                    ? Resource.Drawable.ic_repeat_green_24dp
+                    : Resource.Drawable.ic_repeat_black_24dp);
+        }
+
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsFavorite")
             {
                 RefreshFavoriteButton(_data);
+            }
+            if (e.PropertyName == "IsRetweeted")
+            {
+                RefreshRetweetButton(_data);
             }
         }
     }
