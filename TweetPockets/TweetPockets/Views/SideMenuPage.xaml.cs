@@ -18,9 +18,8 @@ namespace TweetPockets.Views
             var item = e.SelectedItem as MenuItemViewModel;
             if (item != null)
             {
-                var navigationPage = (App.Instance.MainPage as NavigationPage);
-                var mainPage = (navigationPage.CurrentPage as MainPage);
-                mainPage.Detail = App.Instance.ViewManager.GetView(item);
+                var mainPage = (App.Instance.MainPage as MasterDetailPage);
+                mainPage.Detail = new NavigationPage(App.Instance.ViewManager.GetView(item));
                 MostImportantItemsList.SelectedItem = null;
                 mainPage.IsPresented = false;
             }

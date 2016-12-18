@@ -6,10 +6,8 @@
              x:Class="TweetPockets.Views.NewTweetPage"
              Title="{resources:Translate NewTweetTitle}"
              BackgroundColor="#30FFFFFF">
-  <Grid ColumnSpacing="0" RowSpacing="0">
+  <Grid>
     <controls:MultilineTextField x:Name="InputField" Text="{Binding Text}"
                         Label="{resources:Translate TweetInputFieldLabel}"/>
-    
-    
   </Grid>
 </ContentPage>

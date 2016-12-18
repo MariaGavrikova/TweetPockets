@@ -57,16 +57,16 @@ namespace TweetPockets.Droid.Renderers
                 _recyclerView.SetAdapter(_adapter);
                 _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
 
-                var title = view.FindViewById<TextView>(Resource.Id.Title);
-                var navigationPage = (App.Instance.MainPage as NavigationPage);
-                var masterDetailPage = navigationPage.CurrentPage as MasterDetailPage;
-                title.Text = masterDetailPage.Detail.Title;
+                //var title = view.FindViewById<TextView>(Resource.Id.Title);
+                //var navigationPage = (App.Instance.MainPage as NavigationPage);
+                //var masterDetailPage = navigationPage.CurrentPage as MasterDetailPage;
+                //title.Text = masterDetailPage.Detail.Title;
 
-                var menuIcon = view.FindViewById<ImageView>(Resource.Id.MenuIcon);
-                menuIcon.Click += MenuIconClickHandler;
+                //var menuIcon = view.FindViewById<ImageView>(Resource.Id.MenuIcon);
+                //menuIcon.Click += MenuIconClickHandler;
 
-                var scrollToTopIcon = view.FindViewById<ImageView>(Resource.Id.ScrollToTopIcon);
-                scrollToTopIcon.Click += ScrollToTopHandler;
+                //var scrollToTopIcon = view.FindViewById<ImageView>(Resource.Id.ScrollToTopIcon);
+                //scrollToTopIcon.Click += ScrollToTopHandler;
 
                 SetNativeControl(view);
             }

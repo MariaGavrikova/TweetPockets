@@ -8,6 +8,12 @@
   </MasterDetailPage.Master>
 
   <MasterDetailPage.Detail>
-    <views:TimelinePage BindingContext="{Binding Timeline}" />
+    <NavigationPage
+        BarBackgroundColor="#27C6E5">
+      <x:Arguments>
+        <views:TimelinePage BindingContext="{Binding Timeline}" />
+      </x:Arguments>
+    </NavigationPage>
+    
   </MasterDetailPage.Detail>
 </MasterDetailPage>

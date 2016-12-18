@@ -172,7 +172,7 @@ namespace TweetPockets.ViewModels
         private void OnTweet()
         {
             var page = App.Instance.ViewManager.GetView(new NewTweetViewModel(_tweetActionsManager, this));
-            App.Instance.MainPage.Navigation.PushAsync(page);
+            App.Instance.PushAsync(page);
         }
     }
 }

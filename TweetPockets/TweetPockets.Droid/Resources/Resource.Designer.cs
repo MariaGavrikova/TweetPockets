@@ -2276,9 +2276,6 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070090
 			public const int InputField = 2131165328;
 			
-			// aapt resource value: 0x7f0700ab
-			public const int MenuIcon = 2131165355;
-			
 			// aapt resource value: 0x7f0700a2
 			public const int Photo = 2131165346;
 			
@@ -2294,9 +2291,6 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070074
 			public const int RetweetButton = 2131165300;
 			
-			// aapt resource value: 0x7f0700ad
-			public const int ScrollToTopIcon = 2131165357;
-			
 			// aapt resource value: 0x7f0700a7
 			public const int SwipeRefreshLayout = 2131165351;
 			
@@ -2305,9 +2299,6 @@ namespace TweetPockets.Droid
 			
 			// aapt resource value: 0x7f0700a5
 			public const int Timestamp = 2131165349;
-			
-			// aapt resource value: 0x7f0700ac
-			public const int Title = 2131165356;
 			
 			// aapt resource value: 0x7f070093
 			public const int TotalLenght = 2131165331;
@@ -2357,8 +2348,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07003c
 			public const int action_mode_close_button = 2131165244;
 			
-			// aapt resource value: 0x7f0700ae
-			public const int action_name = 2131165358;
+			// aapt resource value: 0x7f0700a9
+			public const int action_name = 2131165353;
 			
 			// aapt resource value: 0x7f07003d
 			public const int activity_chooser_view_content = 2131165245;
@@ -2368,9 +2359,6 @@ namespace TweetPockets.Droid
 			
 			// aapt resource value: 0x7f07001e
 			public const int always = 2131165214;
-			
-			// aapt resource value: 0x7f0700a9
-			public const int appBarLayout = 2131165353;
 			
 			// aapt resource value: 0x7f07001b
 			public const int beginning = 2131165211;
@@ -2746,9 +2734,6 @@ namespace TweetPockets.Droid
 			
 			// aapt resource value: 0x7f070048
 			public const int title_template = 2131165256;
-			
-			// aapt resource value: 0x7f0700aa
-			public const int toolbar = 2131165354;
 			
 			// aapt resource value: 0x7f070032
 			public const int top = 2131165234;
@@ -3634,8 +3619,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0a015b
 			public const int Base_Widget_Design_TabLayout = 2131362139;
 			
-			// aapt resource value: 0x7f0a0173
-			public const int CardStyle = 2131362163;
+			// aapt resource value: 0x7f0a0175
+			public const int CardStyle = 2131362165;
 			
 			// aapt resource value: 0x7f0a0017
 			public const int CardView = 2131361815;
@@ -3646,8 +3631,14 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0a001a
 			public const int CardView_Light = 2131361818;
 			
-			// aapt resource value: 0x7f0a0174
-			public const int FooterStyle = 2131362164;
+			// aapt resource value: 0x7f0a0176
+			public const int FooterStyle = 2131362166;
+			
+			// aapt resource value: 0x7f0a0172
+			public const int MyTheme = 2131362162;
+			
+			// aapt resource value: 0x7f0a0173
+			public const int MyTheme_Base = 2131362163;
 			
 			// aapt resource value: 0x7f0a0032
 			public const int Platform_AppCompat = 2131361842;
@@ -3979,8 +3970,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0a0168
 			public const int Theme_Design_NoActionBar = 2131362152;
 			
-			// aapt resource value: 0x7f0a0172
-			public const int Theme_MaterialExtended = 2131362162;
+			// aapt resource value: 0x7f0a0174
+			public const int Theme_MaterialExtended = 2131362164;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int Theme_MediaRouter = 2131361792;

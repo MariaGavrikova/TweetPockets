@@ -31,12 +31,12 @@ namespace TweetPockets
             MessagingCenter.Subscribe<App, Xamarin.Auth.Account>(this, "LoggedIn",
                 async (s, user) => await OnLoggedIn(user));
 
-            var mainPage = new NavigationPage(new Views.MainPage());
-            NavigationPage.SetHasNavigationBar(mainPage, false);
+            var mainPage = new Views.MainPage();
+            
             _mainViewModel = new MainViewModel();
             mainPage.BindingContext = _mainViewModel;
             MainPage = mainPage;
-
+            NavigationPage.SetHasNavigationBar(mainPage, false);
             InitPages(_mainViewModel);
 
             var savedAccount = AccountStore.Create().FindAccountsForService("Twitter").FirstOrDefault();
@@ -77,6 +77,13 @@ namespace TweetPockets
             _user = userDetails;
 
             await _mainViewModel.InitAsync(_user);
+        }
+
+        public void PushAsync(Page page)
+        {
+            var mainPage = (App.Instance.MainPage as MasterDetailPage);
+            var navigationPage = (mainPage.Detail as NavigationPage);
+            navigationPage.PushAsync(page);
         }
     }
 }
