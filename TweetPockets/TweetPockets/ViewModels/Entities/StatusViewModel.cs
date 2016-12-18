@@ -10,6 +10,7 @@ namespace TweetPockets.ViewModels.Entities
 {
     public class StatusViewModel : ViewModelBase
     {
+        private readonly Status _model;
         private bool _isFavorite;
         private bool _isRetweeted;
 
@@ -20,6 +21,7 @@ namespace TweetPockets.ViewModels.Entities
 
         public StatusViewModel(Status model)
         {
+            _model = model;
             Id = (long) model.StatusID;
             Author = model.User.Name;
             AuthorImageUrl = model.User.ProfileImageUrl;

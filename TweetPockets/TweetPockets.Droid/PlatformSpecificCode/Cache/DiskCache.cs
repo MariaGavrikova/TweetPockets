@@ -1,13 +1,11 @@
 using System;
-using System.IO;
-using System.Text;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-
-using Bitmap = Android.Graphics.Bitmap;
-using Env = Android.OS.Environment;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using Android.Graphics;
+using Path = System.IO.Path;
 
 namespace TweetPockets.Droid.PlatformSpecificCode.Cache
 {
@@ -66,7 +64,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
         public static DiskCache CreateCache(Android.Content.Context ctx, string cacheName, string version = "1.0")
         {
             /*string cachePath = Env.ExternalStorageState == Env.MediaMounted
-				|| !Env.IsExternalStorageRemovable ? ctx.ExternalCacheDir.AbsolutePath : ctx.CacheDir.AbsolutePath;*/
+                || !Env.IsExternalStorageRemovable ? ctx.ExternalCacheDir.AbsolutePath : ctx.CacheDir.AbsolutePath;*/
             string cachePath = ctx.CacheDir.AbsolutePath;
 
             return new DiskCache(Path.Combine(cachePath, cacheName), version);
@@ -101,9 +99,6 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
                         switch (op)
                         {
                             case JournalOp.Created:
-                                ParseEntry(line, out key, out origin, out duration);
-                                entries.Add(key, new CacheEntry(origin, duration));
-                                break;
                             case JournalOp.Modified:
                                 ParseEntry(line, out key, out origin, out duration);
                                 entries[key] = new CacheEntry(origin, duration);
@@ -252,6 +247,25 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
             return new string(key
                                .Where(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
                                .ToArray());
+        }
+
+        public void Clear()
+        {
+            lock (entries)
+            {
+                foreach (var kvp in entries)
+                {
+                    try
+                    {
+                        File.Delete(Path.Combine(basePath, kvp.Key));
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                entries.Clear();
+            }
         }
     }
 }

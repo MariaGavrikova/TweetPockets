@@ -44,7 +44,7 @@ namespace TweetPockets.Managers
             bool requestAllowed = true;
             if (_loadNewRequestTimestamp.HasValue)
             {
-                requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value < Timeout;
+                requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= Timeout;
             }
 
             IList<StatusViewModel> newStatuses = new List<StatusViewModel>();

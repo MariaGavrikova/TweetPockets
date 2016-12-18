@@ -9,31 +9,44 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
     {
         private static readonly MemoryCache _memoryCache;
         private static readonly DiskCache _diskCache;
+        private readonly TimeSpan _diskCacheLifeTime = TimeSpan.FromDays(3);
 
+        private const int CacheSize = 10 * 1024 * 1024; // 4MiB
+        
         static BitmapCache()
         {
-            var maxSize = (int)(Runtime.GetRuntime().MaxMemory() / 1024 / 8);
-            _memoryCache = new MemoryCache(maxSize);
+            _memoryCache = new MemoryCache(CacheSize);
             _diskCache = DiskCache.CreateCache(Forms.Context, "DiskCache");
         }
 
-        public Bitmap Get(string imageUrl)
+        public Bitmap Get(string key)
         {
-            Bitmap result = (Bitmap) _memoryCache.Get(imageUrl);
-            if (result == null)
+            Bitmap bitmap = null;
+
+            if (!string.IsNullOrEmpty(key))
             {
-                if (!_diskCache.TryGet(imageUrl, out result))
+                bitmap = (Bitmap)_memoryCache.Get(key);
+
+                if (bitmap == null)
                 {
-                    var main = MainActivity.Instance;
-                    result = BitmapUtils.GetImageBitmapFromUrl(imageUrl, main.Width, main.Height);
-                    if (result != null)
+                    if (_diskCache.TryGet(key, out bitmap))
                     {
-                        _memoryCache.Put(imageUrl, result);
-                        _diskCache.AddOrUpdate(imageUrl, result, TimeSpan.FromDays(3));
+                        _memoryCache.Put(key, bitmap);
+                    }
+                    else
+                    {
+                        var main = MainActivity.Instance;
+                        bitmap = BitmapUtils.GetImageBitmapFromUrl(key, main.Width, main.Height);
+                        if (bitmap != null)
+                        {
+                            _memoryCache.Put(key, bitmap);
+                            _diskCache.AddOrUpdate(key, bitmap, _diskCacheLifeTime);
+                        }
                     }
                 }
             }
-            return result;
+
+            return bitmap;
         }
     }
 }
