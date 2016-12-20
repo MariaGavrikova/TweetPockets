@@ -41,34 +41,42 @@ namespace TweetPockets.Managers
 
         public async Task<IList<StatusViewModel>> GetNewerThan(long minId, int count)
         {
-            bool requestAllowed = true;
-            if (_loadNewRequestTimestamp.HasValue)
+            try
             {
-                requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= Timeout;
-            }
-
-            IList<StatusViewModel> newStatuses = new List<StatusViewModel>();
-            if (requestAllowed)
-            {
-                _loadNewRequestTimestamp = DateTime.UtcNow;
-                if (minId != 0)
+                bool requestAllowed = true;
+                if (_loadNewRequestTimestamp.HasValue)
                 {
-                    newStatuses =
-                        await Context.Status
-                            .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong)minId && x.Count == count)
+                    requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= Timeout;
+                }
+
+                IList<StatusViewModel> newStatuses = new List<StatusViewModel>();
+                if (requestAllowed)
+                {
+                    _loadNewRequestTimestamp = DateTime.UtcNow;
+                    if (minId != 0)
+                    {
+                        newStatuses =
+                            await Context.Status
+                                .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong)minId && x.Count == count)
+                                .Select(x => new StatusViewModel(x))
+                                .ToListAsync();
+                    }
+                    else
+                    {
+                        newStatuses = await Context.Status
+                            .Where(x => x.Type == StatusType.Home && x.Count == count)
                             .Select(x => new StatusViewModel(x))
                             .ToListAsync();
+                    }
                 }
-                else
-                {
-                    newStatuses = await Context.Status
-                        .Where(x => x.Type == StatusType.Home && x.Count == count)
-                        .Select(x => new StatusViewModel(x))
-                        .ToListAsync();
-                }
-            }
 
-            return newStatuses;
+                return newStatuses;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public async Task<IList<StatusViewModel>> GetOlderThan(long maxId, int count)

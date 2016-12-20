@@ -6,7 +6,7 @@ using TweetPockets.ViewModels;
 
 namespace TweetPockets.Utils
 {
-    public class BatchedObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged
+    public abstract class BatchedObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged
     {
         private List<T> _list = new List<T>();
 
@@ -102,5 +102,7 @@ namespace TweetPockets.Utils
         {
             get { return _list.Count; }
         }
+
+        public abstract bool HasMoreItems { get; }
     }
 }

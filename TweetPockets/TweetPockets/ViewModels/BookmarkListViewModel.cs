@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
+using TweetPockets.ViewModels.Collections;
 using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
 
@@ -15,7 +16,7 @@ namespace TweetPockets.ViewModels
         public BookmarkListViewModel(MainViewModel mainViewModel)
             : base(AppResources.BookmarksMenuItem, "ic_book_black_24dp.png")
         {
-            Bookmarks = new BatchedObservableCollection<StatusViewModel>();
+            Bookmarks = new Bookmarks();
         }
 
         public BatchedObservableCollection<StatusViewModel> Bookmarks { get; private set; }

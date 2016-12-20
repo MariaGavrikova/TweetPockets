@@ -58,6 +58,8 @@
     <Compile Include="Resources\TranslateExtension.cs" />
     <Compile Include="Utils\BatchedObservableCollection.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="ViewModels\Collections\Bookmarks.cs" />
+    <Compile Include="ViewModels\Collections\Timeline.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />

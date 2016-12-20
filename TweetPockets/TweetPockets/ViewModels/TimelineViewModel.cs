@@ -8,6 +8,7 @@ using LinqToTwitter;
 using TweetPockets.Managers;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
+using TweetPockets.ViewModels.Collections;
 using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
 
@@ -27,7 +28,7 @@ namespace TweetPockets.ViewModels
             MainViewModel mainViewModel,
             StatusLoadingManager loadingManager,
             StatusPersistingManager persistingManager)
-            : base(AppResources.TimelineMenuItem, "ic_book_black_24dp.png")
+            : base(AppResources.TimelineMenuItem, "ic_twitter_black600_24dp.png")
         {
             _mainViewModel = mainViewModel;
             _tweetActionsManager = new TweetActionsManager(loadingManager, persistingManager);
@@ -37,7 +38,7 @@ namespace TweetPockets.ViewModels
             MoveToReadLaterCommand = new Command(MoveToReadLater);
             RetweetCommand = new Command(async (o) => await OnRetweet(o));
             FavoriteCommand = new Command(async (o) => await OnFavorite(o));
-            Timeline = new BatchedObservableCollection<StatusViewModel>();
+            Timeline = new Timeline();
             TweetCommand = new Command(OnTweet);
             _timelineManager.LoadingNewStarted += LoadingNewStartedHandler;
             _timelineManager.LoadingNewEnded += LoadingNewEndedHandler;

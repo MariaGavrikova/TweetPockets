@@ -131,7 +131,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public override int ItemCount
         {
-            get { return _items.Count + 1; }
+            get { return _items.Count + (_items.HasMoreItems ? 1 : 0); }
         }
 
         public ItemTouchHelper ItemTouchHelper { get; set; }
