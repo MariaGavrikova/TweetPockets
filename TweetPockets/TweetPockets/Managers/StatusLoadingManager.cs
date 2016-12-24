@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using LinqToTwitter;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
@@ -14,9 +15,15 @@ namespace TweetPockets.Managers
 {
     public class StatusLoadingManager
     {
-        private readonly TimeSpan Timeout = TimeSpan.FromSeconds(30);
+        private readonly BookmarkPersistingManager _persistingManager;
+        private readonly TimeSpan _timeout = TimeSpan.FromSeconds(30);
         private DateTime? _loadNewRequestTimestamp;
         private DateTime? _loadOldRequestTimestamp;
+
+        public StatusLoadingManager(BookmarkPersistingManager persistingManager)
+        {
+            _persistingManager = persistingManager;
+        }
 
         public TwitterContext Context { get; private set; }
 
@@ -39,17 +46,17 @@ namespace TweetPockets.Managers
             Context = new TwitterContext(auth);
         }
 
-        public async Task<IList<StatusViewModel>> GetNewerThan(long minId, int count)
+        public async Task<IList<ITimelineEntity>> GetNewerThan(long minId, int count)
         {
             try
             {
                 bool requestAllowed = true;
                 if (_loadNewRequestTimestamp.HasValue)
                 {
-                    requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= Timeout;
+                    requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= _timeout;
                 }
 
-                IList<StatusViewModel> newStatuses = new List<StatusViewModel>();
+                IList<ITimelineEntity> newStatuses = new List<ITimelineEntity>();
                 if (requestAllowed)
                 {
                     _loadNewRequestTimestamp = DateTime.UtcNow;
@@ -58,15 +65,15 @@ namespace TweetPockets.Managers
                         newStatuses =
                             await Context.Status
                                 .Where(x => x.Type == StatusType.Home && x.SinceID == (ulong)minId && x.Count == count)
-                                .Select(x => new StatusViewModel(x))
-                                .ToListAsync();
+                                .Select(x => new StatusViewModel(x, _persistingManager))
+                                .ToListAsync<ITimelineEntity>();
                     }
                     else
                     {
                         newStatuses = await Context.Status
                             .Where(x => x.Type == StatusType.Home && x.Count == count)
-                            .Select(x => new StatusViewModel(x))
-                            .ToListAsync();
+                            .Select(x => new StatusViewModel(x, _persistingManager))
+                            .ToListAsync<ITimelineEntity>();
                     }
                 }
 
@@ -79,23 +86,23 @@ namespace TweetPockets.Managers
             }
         }
 
-        public async Task<IList<StatusViewModel>> GetOlderThan(long maxId, int count)
+        public async Task<IList<ITimelineEntity>> GetOlderThan(long maxId, int count)
         {
             if (_loadOldRequestTimestamp.HasValue)
             {
                 var currentTimeout = DateTime.UtcNow - _loadOldRequestTimestamp.Value;
-                if (currentTimeout < Timeout)
+                if (currentTimeout < _timeout)
                 {
-                    await Task.Delay(Timeout - currentTimeout);
+                    await Task.Delay(_timeout - currentTimeout);
                 }
             }
 
             _loadOldRequestTimestamp = DateTime.UtcNow;
 
-            IList<StatusViewModel> oldStatuses = await Context.Status
+            IList<ITimelineEntity> oldStatuses = await Context.Status
                     .Where(x => x.Type == StatusType.Home && x.MaxID == (ulong)maxId && x.Count == count)
-                    .Select(x => new StatusViewModel(x))
-                    .ToListAsync();
+                    .Select(x => new StatusViewModel(x, _persistingManager))
+                    .ToListAsync<ITimelineEntity>();
             if (oldStatuses.Any() && oldStatuses[0].Id == maxId)
             {
                 oldStatuses.RemoveAt(0);

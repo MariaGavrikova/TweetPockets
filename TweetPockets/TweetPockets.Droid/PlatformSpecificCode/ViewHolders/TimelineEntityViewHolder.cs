@@ -4,17 +4,18 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 {
-    class StatusViewHolder : RecyclerView.ViewHolder
+    class TimelineEntityViewHolder : RecyclerView.ViewHolder
     {
         private readonly TimelineListView _element;
-        private StatusViewModel _data;
+        private ITimelineEntity _data;
 
-        public StatusViewHolder(View itemView, TimelineListView element) : base(itemView)
+        public TimelineEntityViewHolder(View itemView, TimelineListView element) : base(itemView)
         {
             _element = element;
             Card = itemView.FindViewById<CardView>(Resource.Id.Card);
@@ -62,7 +63,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
         public TextView Text { get; private set; }
         public TextView Timestamp { get; private set; }
 
-        public virtual void Bind(StatusViewModel data)
+        public virtual void Bind(ITimelineEntity data)
         {
             if (_data != null)
             {
@@ -80,6 +81,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
                 RefreshRetweetButton(_data);
 
+                RefreshBookmarkButton(_data);
+
                 Text.Text = _data.Text;
                 Author.Text = _data.Author;
                 Timestamp.Text = _data.TimestampLabel;
@@ -89,7 +92,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
             }
         }
 
-        private void RefreshFavoriteButton(StatusViewModel data)
+        private void RefreshFavoriteButton(ITimelineEntity data)
         {
             FavoriteButton.SetImageResource(
                 data.IsFavorite
@@ -97,12 +100,20 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
                     : Resource.Drawable.ic_favorite_black_24dp);
         }
 
-        private void RefreshRetweetButton(StatusViewModel data)
+        private void RefreshRetweetButton(ITimelineEntity data)
         {
             RetweetButton.SetImageResource(
                 data.IsRetweeted
                     ? Resource.Drawable.ic_repeat_green_24dp
                     : Resource.Drawable.ic_repeat_black_24dp);
+        }
+
+        private void RefreshBookmarkButton(ITimelineEntity data)
+        {
+            BookmarkButton.SetImageResource(
+                data.IsBookmarked
+                    ? Resource.Drawable.ic_book_green_24dp
+                    : Resource.Drawable.ic_book_black_24dp);
         }
 
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -114,6 +125,10 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
             if (e.PropertyName == "IsRetweeted")
             {
                 RefreshRetweetButton(_data);
+            }
+            if (e.PropertyName == "IsBookmarked")
+            {
+                RefreshBookmarkButton(_data);
             }
         }
     }

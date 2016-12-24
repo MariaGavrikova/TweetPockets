@@ -2,12 +2,13 @@ using System.Linq;
 using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 {
-    class PhotoViewHolder : StatusViewHolder
+    class PhotoViewHolder : TimelineEntityViewHolder
     {
         public PhotoViewHolder(View itemView, TimelineListView element) : 
             base(itemView, element)
@@ -17,7 +18,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
         public ImageView Photo { get; private set; }
 
-        public override void Bind(StatusViewModel data)
+        public override void Bind(ITimelineEntity data)
         {
             base.Bind(data);
 

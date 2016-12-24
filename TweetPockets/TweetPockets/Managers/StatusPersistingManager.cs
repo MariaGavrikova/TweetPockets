@@ -10,6 +10,7 @@ using SQLite.Net;
 using SQLite.Net.Interop;
 using SQLiteNetExtensions.Extensions;
 using TweetPockets.Interfaces;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
@@ -33,7 +34,7 @@ namespace TweetPockets.Managers
 
         public long ControlStatusId { get; private set; }
 
-        public void Save(IList<StatusViewModel> statuses)
+        public void Save(IList<ITimelineEntity> statuses)
         {
             if (statuses != null && statuses.Any())
             {
@@ -60,12 +61,13 @@ namespace TweetPockets.Managers
             }
         }
 
-        public IList<StatusViewModel> GetMostRecent(int count)
+        public IList<ITimelineEntity> GetMostRecent(int count)
         {
             var items =
                 _db.GetAllWithChildren<StatusViewModel>()
                 .OrderByDescending(x => x.CreatedAt)
                 .Take(count)
+                .Cast<ITimelineEntity>()
                 .ToList();
 
             if (items.Any())

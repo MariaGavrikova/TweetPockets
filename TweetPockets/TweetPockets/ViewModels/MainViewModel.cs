@@ -14,16 +14,18 @@ namespace TweetPockets.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private int StatusTextLength = 15;
+        private const int StatusTextLength = 15;
         private readonly StatusLoadingManager _loadingManager;
+        private readonly BookmarkPersistingManager _bookmarkPersistingManager;
 
         public MainViewModel()
         {
-            _loadingManager = new StatusLoadingManager();
             var persistingManager = new StatusPersistingManager();
+            _bookmarkPersistingManager = new BookmarkPersistingManager(persistingManager);
+            _loadingManager = new StatusLoadingManager(_bookmarkPersistingManager);
             Info = new InfoViewModel(_loadingManager);
-            Timeline = new TimelineViewModel(this, _loadingManager, persistingManager);
-            BookmarkList = new BookmarkListViewModel(this);
+            Timeline = new TimelineViewModel(this, _loadingManager, persistingManager, _bookmarkPersistingManager);
+            BookmarkList = new BookmarkListViewModel(_bookmarkPersistingManager);
 
             MostImportantItems = new List<MenuItemViewModel>()
             {
@@ -49,15 +51,26 @@ namespace TweetPockets.ViewModels
 
             Info.InitAsync(user);
             Timeline.InitAsync();
+            BookmarkList.InitAsync();
         }
 
         private void OnAddBookmark(StatusViewModel status)
         {
-            Timeline.Timeline.Remove(status);
-            BookmarkList.Bookmarks.Add(status);
+            if (!status.IsBookmarked)
+            {
+                Timeline.Timeline.Remove(status);
+                
+                var newBookmark = _bookmarkPersistingManager.CreateBookmark(status);
+                BookmarkList.Bookmarks.Add(newBookmark);
 
-            var manager = DependencyService.Get<INotificationController>();
-            manager.ShowToast(String.Format(AppResources.AddedToBookmarksNotificationPattern, GetShortStatusText(status.Text)));
+                var manager = DependencyService.Get<INotificationController>();
+                manager.ShowToast(String.Format(AppResources.AddedToBookmarksNotificationPattern, GetShortStatusText(status.Text)));
+            }
+            else
+            {
+                var oldBookmark = _bookmarkPersistingManager.RemoveBookmark(status);
+                BookmarkList.Bookmarks.Remove(oldBookmark);
+            }
         }
 
         private string GetShortStatusText(string text)

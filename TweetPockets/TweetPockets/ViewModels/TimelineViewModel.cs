@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using LinqToTwitter;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.Managers;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
@@ -24,14 +25,14 @@ namespace TweetPockets.ViewModels
 
         private const int TimelineLimit = 200;
 
-        public TimelineViewModel(
-            MainViewModel mainViewModel,
+        public TimelineViewModel(MainViewModel mainViewModel,
             StatusLoadingManager loadingManager,
-            StatusPersistingManager persistingManager)
+            StatusPersistingManager persistingManager,
+            BookmarkPersistingManager bookmarkPersistingManager)
             : base(AppResources.TimelineMenuItem, "ic_twitter_black600_24dp.png")
         {
             _mainViewModel = mainViewModel;
-            _tweetActionsManager = new TweetActionsManager(loadingManager, persistingManager);
+            _tweetActionsManager = new TweetActionsManager(loadingManager, persistingManager, bookmarkPersistingManager);
             _timelineManager = new TimelineManager(loadingManager, persistingManager);
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
@@ -68,7 +69,7 @@ namespace TweetPockets.ViewModels
             }
         }
 
-        public BatchedObservableCollection<StatusViewModel> Timeline { get; private set; }
+        public BatchedObservableCollection<ITimelineEntity> Timeline { get; private set; }
 
         public ICommand LoadOldCommand { get; set; }
 

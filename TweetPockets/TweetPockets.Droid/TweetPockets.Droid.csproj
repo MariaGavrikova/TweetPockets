@@ -181,7 +181,7 @@
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />
     <Compile Include="PlatformSpecificCode\ViewHolders\FooterViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\SQLitePlatformFactory.cs" />
-    <Compile Include="PlatformSpecificCode\ViewHolders\StatusViewHolder.cs" />
+    <Compile Include="PlatformSpecificCode\ViewHolders\TimelineEntityViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\TimelineAdapter.cs" />
     <Compile Include="PlatformSpecificCode\TimelineScrollListener.cs" />
     <Compile Include="Renderers\CircleImageRenderer.cs" />
@@ -406,6 +406,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_twitter_black600_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_book_green_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_book_green_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_book_green_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_book_green_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_book_green_24dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

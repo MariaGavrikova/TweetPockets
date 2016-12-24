@@ -42,6 +42,7 @@
     <Compile Include="Interfaces\INotificationController.cs" />
     <Compile Include="Interfaces\ISQLitePlatformFactory.cs" />
     <Compile Include="Managers\Database.cs" />
+    <Compile Include="Managers\BookmarkPersistingManager.cs" />
     <Compile Include="Managers\InfoPersistingManager.cs" />
     <Compile Include="Managers\ItemsEventArgs.cs" />
     <Compile Include="Managers\NewItemsEventArgs.cs" />
@@ -60,6 +61,11 @@
     <Compile Include="Keys.cs" />
     <Compile Include="ViewModels\Collections\Bookmarks.cs" />
     <Compile Include="ViewModels\Collections\Timeline.cs" />
+    <Compile Include="ViewModels\Entities\BookmarkViewModel.cs" />
+    <Compile Include="Interfaces\Entities\IMediaEntity.cs" />
+    <Compile Include="Interfaces\Entities\ITimelineEntity.cs" />
+    <Compile Include="ViewModels\Entities\BookmarkPhotoUrlViewModel.cs" />
+    <Compile Include="ViewModels\Entities\BookmarkResourceUrlViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -194,6 +200,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

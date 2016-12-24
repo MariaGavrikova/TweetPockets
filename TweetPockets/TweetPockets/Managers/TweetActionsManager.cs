@@ -11,11 +11,16 @@ namespace TweetPockets.Managers
     {
         private readonly StatusLoadingManager _loadingManager;
         private readonly StatusPersistingManager _persistingManager;
+        private readonly BookmarkPersistingManager _bookmarkPersistingManager;
 
-        public TweetActionsManager(StatusLoadingManager loadingManager, StatusPersistingManager persistingManager)
+        public TweetActionsManager(
+            StatusLoadingManager loadingManager,
+            StatusPersistingManager persistingManager,
+            BookmarkPersistingManager bookmarkPersistingManager)
         {
             this._loadingManager = loadingManager;
             _persistingManager = persistingManager;
+            _bookmarkPersistingManager = bookmarkPersistingManager;
         }
 
         public async Task AddFavorite(StatusViewModel status)
@@ -39,7 +44,7 @@ namespace TweetPockets.Managers
 
         public async Task AddNewStatus(string text)
         {
-            var status = new StatusViewModel(await _loadingManager.AddStatus(text));
+            var status = new StatusViewModel(await _loadingManager.AddStatus(text), _bookmarkPersistingManager);
             _persistingManager.Save(status);
         }
     }

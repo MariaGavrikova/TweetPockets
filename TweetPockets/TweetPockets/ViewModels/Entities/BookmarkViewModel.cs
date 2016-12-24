@@ -10,45 +10,44 @@ using TweetPockets.Resources;
 
 namespace TweetPockets.ViewModels.Entities
 {
-    public class StatusViewModel : ViewModelBase, ITimelineEntity
+    public class BookmarkViewModel : ViewModelBase, ITimelineEntity
     {
         private bool _isFavorite;
         private bool _isRetweeted;
-        private bool _isBookmarked;
 
-        public StatusViewModel()
+        public BookmarkViewModel()
         {
         }
 
-        public StatusViewModel(Status model, BookmarkPersistingManager persistingManager)
+        public BookmarkViewModel(StatusViewModel status)
         {
-            Id = (long) model.StatusID;
-            Author = model.User.Name;
-            AuthorImageUrl = model.User.ProfileImageUrl;
-            Text = model.Text;
-            CreatedAt = model.CreatedAt;
-            IsFavorite = model.Favorited;
-            IsRetweeted = model.Retweeted;
-            IsBookmarked = persistingManager.IsStatusBookmarked(Id);
+            Id = (long) status.Id;
+            Author = status.Author;
+            AuthorImageUrl = status.AuthorImageUrl;
+            Text = status.Text;
+            CreatedAt = status.CreatedAt;
+            IsFavorite = status.IsFavorite;
+            IsRetweeted = status.IsRetweeted;
+            IsBookmarked = true;
 
-            var urls = new List<ResourceUrlViewModel>();
-            foreach (var urlEntity in model.Entities.UrlEntities)
+            var urls = new List<BookmarkResourceUrlViewModel>();
+            foreach (var urlEntity in status.ResourceUrls)
             {
-                urls.Add(new ResourceUrlViewModel()
+                urls.Add(new BookmarkResourceUrlViewModel()
                 {
                     StatusId = Id,
-                    Url = urlEntity.ExpandedUrl
+                    Url = urlEntity.Url
                 });
             }
             ResourceUrls = urls;
 
-            var photos = new List<PhotoUrlViewModel>();
-            foreach (var mediaEntity in model.Entities.MediaEntities)
+            var photos = new List<BookmarkPhotoUrlViewModel>();
+            foreach (var mediaEntity in status.PhotoUrls)
             {
-                photos.Add(new PhotoUrlViewModel()
+                photos.Add(new BookmarkPhotoUrlViewModel()
                 {
                     StatusId = Id,
-                    Url = mediaEntity.MediaUrl
+                    Url = mediaEntity.Url
                 });
             }
             PhotoUrls = photos;
@@ -106,10 +105,10 @@ namespace TweetPockets.ViewModels.Entities
         }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<PhotoUrlViewModel> PhotoUrls { get; set; }
+        public List<BookmarkPhotoUrlViewModel> PhotoUrls { get; set; }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<ResourceUrlViewModel> ResourceUrls { get; set; }
+        public List<BookmarkResourceUrlViewModel> ResourceUrls { get; set; }
 
         [Ignore]
         IEnumerable<IMediaEntity> ITimelineEntity.PhotoUrls => PhotoUrls;
@@ -139,15 +138,7 @@ namespace TweetPockets.ViewModels.Entities
 
         public long? OldId { get; set; }
 
-        public bool IsBookmarked
-        {
-            get { return _isBookmarked; }
-            set
-            {
-                _isBookmarked = value; 
-                OnPropertyChanged();
-            }
-        }
+        public bool IsBookmarked { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -4,12 +4,12 @@ using TweetPockets.Interfaces.Entities;
 
 namespace TweetPockets.ViewModels.Entities
 {
-    public class PhotoUrlViewModel : ViewModelBase, IMediaEntity
+    public class BookmarkPhotoUrlViewModel : ViewModelBase, IMediaEntity
     {
         [PrimaryKey, AutoIncrement]
         public long Id { get; set; }
 
-        [ForeignKey(typeof(StatusViewModel))]
+        [ForeignKey(typeof(BookmarkViewModel))]
         public long StatusId { get; set; }
 
         public string Url { get; set; }

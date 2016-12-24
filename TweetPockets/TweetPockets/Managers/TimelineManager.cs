@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
@@ -36,7 +37,7 @@ namespace TweetPockets.Managers
 
         public event EventHandler<ItemsEventArgs> LoadedOldItems;
 
-        public Task<IList<StatusViewModel>> GetCachedAsync()
+        public Task<IList<ITimelineEntity>> GetCachedAsync()
         {
             return Task.FromResult(_persistingManager.GetMostRecent(ItemsChunk));
         }

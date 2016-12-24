@@ -16,6 +16,7 @@ using Android.Widget;
 using Java.Net;
 using TweetPockets.Controls;
 using TweetPockets.Droid.PlatformSpecificCode.ViewHolders;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
@@ -31,7 +32,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         private const int PhotoViewType = 1;
         private const int FooterViewType = -1;
 
-        private readonly BatchedObservableCollection<StatusViewModel> _items;
+        private readonly BatchedObservableCollection<ITimelineEntity> _items;
         private readonly Dictionary<int, int> _viewTypes;
         private const int ScrollingOffset = 40;
 
@@ -40,7 +41,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             _element = element;
             _recycler = recycler;
             _layoutManager = layoutManager;
-            _items = (BatchedObservableCollection<StatusViewModel>)element.ItemsSource;
+            _items = (BatchedObservableCollection<ITimelineEntity>)element.ItemsSource;
             _items.CollectionChanged += CollectionChangedHandler;
             _viewTypes = new Dictionary<int, int>()
             {
@@ -84,7 +85,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             if (position != _items.Count)
             {
                 var data = _items[position];
-                StatusViewHolder vh = (StatusViewHolder)holder;
+                TimelineEntityViewHolder vh = (TimelineEntityViewHolder)holder;
                 vh.Bind(data);
             }
             else
@@ -111,7 +112,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             {
                 return new PhotoViewHolder(itemView, _element);
             }
-            return new StatusViewHolder(itemView, _element);
+            return new TimelineEntityViewHolder(itemView, _element);
         }
 
         public override int GetItemViewType(int position)
@@ -122,7 +123,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             }
 
             var data = _items[position];
-            if (data.PhotoUrls.Any())
+            if (data.PhotoUrls != null && data.PhotoUrls.Any())
             {
                 return PhotoViewType;
             }
@@ -136,7 +137,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public ItemTouchHelper ItemTouchHelper { get; set; }
 
-        public StatusViewModel GetDataAt(int index)
+        public ITimelineEntity GetDataAt(int index)
         {
             return _items[index];
         }
