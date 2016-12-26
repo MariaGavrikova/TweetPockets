@@ -13,7 +13,7 @@ namespace TweetPockets.ViewModels.Collections
     {
         public override bool HasMoreItems
         {
-            get { return true; }
+            get { return Count > 0; }
         }
     }
 }

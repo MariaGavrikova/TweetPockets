@@ -72,6 +72,15 @@
       </Image.GestureRecognizers>
     </Image>
     <Label BindingContext="{Binding Timeline}"
+           WidthRequest="30"
+           Grid.Column="2" Grid.Row="3"
+           VerticalOptions="Center"
+           FontFamily="Roboto-Medium" FontSize="14">
+      <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Label.GestureRecognizers>
+    </Label>
+    <Label BindingContext="{Binding Timeline}"
            Text="{Binding Title}" Margin="30,0,16,0"
            Grid.Column="2" Grid.Row="3"
            TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
@@ -92,6 +101,15 @@
         <TapGestureRecognizer Tapped="ItemTapped"/>
       </Image.GestureRecognizers>
     </Image>
+    <Label BindingContext="{Binding BookmarkList}"
+          WidthRequest="30"
+          Grid.Column="2" Grid.Row="4"
+          VerticalOptions="Center"
+          FontFamily="Roboto-Medium" FontSize="14">
+      <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Label.GestureRecognizers>
+    </Label>
     <Label BindingContext="{Binding BookmarkList}"
            Text="{Binding Title}" Margin="30,0,16,0"
            Grid.Column="2" Grid.Row="4"
