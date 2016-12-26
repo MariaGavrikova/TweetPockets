@@ -33,14 +33,25 @@ namespace TweetPockets.Managers
             return bookmark;
         }
 
-        public BookmarkViewModel RemoveBookmark(StatusViewModel status)
+        public BookmarkViewModel RemoveBookmarkWithStatus(StatusViewModel status)
         {
             status.IsBookmarked = false;
             _statusPersistingManager.Save(status);
 
             var bookmark = _db.Find<BookmarkViewModel>(status.Id);
-            _db.Delete<BookmarkViewModel>(bookmark);
+            _db.Delete(bookmark);
             return bookmark;
+        }
+
+        public void RemoveBookmark(BookmarkViewModel bookmark)
+        {
+            _db.Delete(bookmark);
+            var status = _db.Find<StatusViewModel>(bookmark.Id);
+            if (status != null)
+            {
+                status.IsBookmarked = false;
+                _statusPersistingManager.Save(status);
+            }
         }
 
         public IList<ITimelineEntity> GetBookmarks()

@@ -6,6 +6,5 @@
              x:Class="TweetPockets.Views.BookmarkListPage"
              Title="{resources:Translate BookmarksPageTitle}">
   <controls:TimelineListView ItemsSource="{Binding Bookmarks}"
-                             LoadOldCommand="{Binding LoadOldCommand}"
-                             DismissCommand="{Binding MoveToHomeTimelineCommand}"/>
+                             DismissCommand="{Binding RemoveBookmarkCommand}"/>
 </ContentPage>

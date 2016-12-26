@@ -36,7 +36,7 @@ namespace TweetPockets.ViewModels
             _timelineManager = new TimelineManager(loadingManager, persistingManager);
             LoadOldCommand = new Command(OnLoadOld);
             LoadNewCommand = new Command(OnLoadNew);
-            MoveToReadLaterCommand = new Command(MoveToReadLater);
+            MoveToReadLaterCommand = new Command(ChangeBookmarkState);
             RetweetCommand = new Command(async (o) => await OnRetweet(o));
             FavoriteCommand = new Command(async (o) => await OnFavorite(o));
             Timeline = new Timeline();
@@ -150,11 +150,11 @@ namespace TweetPockets.ViewModels
             }
         }
 
-        private void MoveToReadLater(object obj)
+        private void ChangeBookmarkState(object obj)
         {
             var item = (StatusViewModel)obj;
 
-            MessagingCenter.Send(_mainViewModel, "AddBookmark", item);
+            MessagingCenter.Send(_mainViewModel, "ChangeBookmarkState", item);
         }
 
         private async Task OnFavorite(object obj)

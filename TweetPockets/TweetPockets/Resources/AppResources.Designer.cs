@@ -125,6 +125,15 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} removed from Bookmarks.
+        /// </summary>
+        internal static string RemovedFromBookmarksNotificationPattern {
+            get {
+                return ResourceManager.GetString("RemovedFromBookmarksNotificationPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}s.
         /// </summary>
         internal static string SecondsLabel {

@@ -86,7 +86,6 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
                 Text.Text = _data.Text;
                 Author.Text = _data.Author;
                 Timestamp.Text = _data.TimestampLabel;
-                BookmarkButton.Visibility = _data.CanBeReadLater ? ViewStates.Visible : ViewStates.Invisible;
                 
                 _data.PropertyChanged += PropertyChangedHandler;
             }
@@ -110,10 +109,18 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
         private void RefreshBookmarkButton(ITimelineEntity data)
         {
-            BookmarkButton.SetImageResource(
-                data.IsBookmarked
-                    ? Resource.Drawable.ic_book_green_24dp
-                    : Resource.Drawable.ic_book_black_24dp);
+            if (data is BookmarkViewModel)
+            {
+                BookmarkButton.SetImageResource(Resource.Drawable.ic_trash_black_24dp);
+            }
+            else
+            { 
+                BookmarkButton.SetImageResource(
+                    data.IsBookmarked
+                        ? Resource.Drawable.ic_book_green_24dp
+                        : Resource.Drawable.ic_book_black_24dp);
+                BookmarkButton.Visibility = _data.CanBeReadLater ? ViewStates.Visible : ViewStates.Invisible;
+            }
         }
 
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)

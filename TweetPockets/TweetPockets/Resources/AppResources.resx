@@ -138,6 +138,9 @@
   <data name="NewTweetTitle" xml:space="preserve">
     <value>Compose</value>
   </data>
+  <data name="RemovedFromBookmarksNotificationPattern" xml:space="preserve">
+    <value>{0} removed from Bookmarks</value>
+  </data>
   <data name="SecondsLabel" xml:space="preserve">
     <value>{0}s</value>
   </data>

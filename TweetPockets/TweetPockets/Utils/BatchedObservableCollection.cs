@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using TweetPockets.Interfaces.Entities;
 using TweetPockets.ViewModels;
+using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Utils
 {
     public abstract class BatchedObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged
+        where T : ITimelineEntity
     {
         private List<T> _list = new List<T>();
+        private Dictionary<long, T> _dictionary = new Dictionary<long, T>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
@@ -30,12 +34,14 @@ namespace TweetPockets.Utils
         public void Add(T item)
         {
             _list.Add(item);
+            _dictionary[item.Id] = item;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { item }, _list.Count - 1));
         }
 
         public void Insert(int i, T item)
         {
             _list.Insert(i, item);
+            _dictionary[item.Id] = item;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { item }, i));
         }
 
@@ -44,7 +50,11 @@ namespace TweetPockets.Utils
             if (items.Count > 0)
             {
                 var startingIndex = _list.Count;
-                _list.AddRange(items);
+                foreach (var item in items)
+                {
+                    _list.Add(item);
+                    _dictionary[item.Id] = item;
+                }
                 OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items, startingIndex));
             }
         }
@@ -53,7 +63,12 @@ namespace TweetPockets.Utils
         {
             if (items.Count > 0)
             {
-                _list.InsertRange(0, items);
+                for (int i = 0; i < items.Count; i++)
+                {
+                    var item = items[i];
+                    _list.Insert(i, item);
+                    _dictionary[item.Id] = item;
+                }
                 OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items, 0));
             }
         }
@@ -64,7 +79,12 @@ namespace TweetPockets.Utils
             if (items.Count > 0)
             {
                 _list = new List<T>();
-                _list.AddRange(items);
+                _dictionary = new Dictionary<long, T>();
+                foreach (var item in items)
+                {
+                    _list.Add(item);
+                    _dictionary[item.Id] = item;
+                }
                 OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, items, oldItems));
             }
         }
@@ -73,13 +93,20 @@ namespace TweetPockets.Utils
         {
             var i = _list.IndexOf(item);
             _list.Remove(item);
+            _dictionary.Remove(item.Id);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { item }, i));
         }
 
         private void RemoveRange(int startingIndex, int count)
         {
-            var oldItems = _list.GetRange(startingIndex, count);
-            _list.RemoveRange(startingIndex, count);
+            var oldItems = new List<T>();
+            for (int i = startingIndex; i < startingIndex + count; i++)
+            {
+                var item = _list[i];
+                _dictionary.Remove(item.Id);
+                _list.RemoveAt(i);
+                oldItems.Add(item);
+            }
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems, startingIndex));
         }
 
@@ -104,5 +131,12 @@ namespace TweetPockets.Utils
         }
 
         public abstract bool HasMoreItems { get; }
+
+        public T GetById(long id)
+        {
+            T result;
+            _dictionary.TryGetValue(id, out result);
+            return result;
+        }
     }
 }
