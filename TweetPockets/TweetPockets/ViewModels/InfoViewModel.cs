@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TweetPockets.Managers;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels.Entities;
+using Xamarin.Forms;
 
 namespace TweetPockets.ViewModels
 {
@@ -40,7 +41,8 @@ namespace TweetPockets.ViewModels
                 ScreenName = userAccount.ScreenNameResponse,
                 Name = userAccount.Name,
                 AvatarUrl = userAccount.ProfileImageUrl.Replace("_normal", "_bigger"),
-                BannerUrl = userAccount.ProfileBannerUrl
+                BannerUrl = userAccount.ProfileBannerUrl,
+                BackgroundColorString = userAccount.ProfileBackgroundColor
             };
             _userInfoPersistingManager.Save(User);
         }

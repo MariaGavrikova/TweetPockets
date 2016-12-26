@@ -1,4 +1,5 @@
 ﻿using SQLite.Net.Attributes;
+using Xamarin.Forms;
 
 namespace TweetPockets.ViewModels.Entities
 {
@@ -14,5 +15,14 @@ namespace TweetPockets.ViewModels.Entities
         public string Name { get; set; }
 
         public string BannerUrl { get; set; }
+
+        public string BackgroundColorString { get; set; }
+
+        [Ignore]
+        public Color BackgroundColor
+        {
+            get { return Color.FromHex(BackgroundColorString); }
+        }
+        
     }
 }

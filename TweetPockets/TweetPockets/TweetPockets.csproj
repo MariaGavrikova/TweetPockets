@@ -71,7 +71,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BookmarkListViewModel.cs" />
+    <Compile Include="Resources\BookmarkListViewModel.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
     <Compile Include="ViewModels\Entities\PhotoUrlViewModel.cs" />
     <Compile Include="ViewModels\Entities\ResourceUrlViewModel.cs" />
