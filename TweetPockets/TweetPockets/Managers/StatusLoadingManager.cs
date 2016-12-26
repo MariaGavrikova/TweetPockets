@@ -115,7 +115,7 @@ namespace TweetPockets.Managers
             var user =
                  await
                  (from tweet in Context.User
-                  where tweet.Type == UserType.Show &&
+                  where tweet.Type == UserType.Show && 
                         tweet.UserID == id
                   select tweet)
                  .SingleOrDefaultAsync();

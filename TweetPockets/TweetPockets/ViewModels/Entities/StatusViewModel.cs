@@ -24,7 +24,7 @@ namespace TweetPockets.ViewModels.Entities
         {
             Id = (long) model.StatusID;
             Author = model.User.Name;
-            AuthorImageUrl = model.User.ProfileImageUrl;
+            AuthorImageUrl = model.User.ProfileImageUrl.Replace("_normal", String.Empty);
             Text = model.Text;
             CreatedAt = model.CreatedAt;
             IsFavorite = model.Favorited;

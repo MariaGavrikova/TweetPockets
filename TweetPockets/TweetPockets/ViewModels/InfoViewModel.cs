@@ -13,12 +13,12 @@ namespace TweetPockets.ViewModels
     {
         private readonly StatusLoadingManager _loadingManager;
         private UserInfoViewModel _user;
-        private InfoPersistingManager _infoPersistingManager;
+        private UserInfoPersistingManager _userInfoPersistingManager;
 
         public InfoViewModel(StatusLoadingManager loadingManager)
         {
             _loadingManager = loadingManager;
-            _infoPersistingManager = new InfoPersistingManager();
+            _userInfoPersistingManager = new UserInfoPersistingManager();
         }
 
         public UserInfoViewModel User
@@ -33,15 +33,16 @@ namespace TweetPockets.ViewModels
 
         public async Task InitAsync(UserDetails user)
         {
-            User = _infoPersistingManager.GetCachedAsync((long)user.TwitterId);
+            User = _userInfoPersistingManager.GetCachedAsync((long)user.TwitterId);
             var userAccount = await _loadingManager.GetUserInfo(user.TwitterId, user.ScreenName);
             User = new UserInfoViewModel()
             {
                 ScreenName = userAccount.ScreenNameResponse,
                 Name = userAccount.Name,
-                AvatarUrl = userAccount.ProfileImageUrl,
+                AvatarUrl = userAccount.ProfileImageUrl.Replace("_normal", "_bigger"),
+                BannerUrl = userAccount.ProfileBannerUrl
             };
-            _infoPersistingManager.Save(User);
+            _userInfoPersistingManager.Save(User);
         }
     }
 }

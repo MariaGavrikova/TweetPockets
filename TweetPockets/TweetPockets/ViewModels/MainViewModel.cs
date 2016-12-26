@@ -17,6 +17,7 @@ namespace TweetPockets.ViewModels
         private const int StatusTextLength = 15;
         private readonly StatusLoadingManager _loadingManager;
         private readonly BookmarkPersistingManager _bookmarkPersistingManager;
+        private MenuItemViewModel _selectedItem;
 
         public MainViewModel()
         {
@@ -26,12 +27,7 @@ namespace TweetPockets.ViewModels
             Info = new InfoViewModel(_loadingManager);
             Timeline = new TimelineViewModel(this, _loadingManager, persistingManager, _bookmarkPersistingManager);
             BookmarkList = new BookmarkListViewModel(this, _bookmarkPersistingManager);
-
-            MostImportantItems = new List<MenuItemViewModel>()
-            {
-                Timeline,
-                BookmarkList
-            };
+            SelectedItem = Timeline;
 
             MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "ChangeBookmarkState",
                 (s, status) => OnChangeBookmarkState(status));
@@ -41,11 +37,24 @@ namespace TweetPockets.ViewModels
 
         public InfoViewModel Info { get; set; }
 
-        public IList<MenuItemViewModel> MostImportantItems { get; private set; }
-
         public TimelineViewModel Timeline { get; set; }
 
         public BookmarkListViewModel BookmarkList { get; set; }
+
+        public MenuItemViewModel SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                if (_selectedItem != null)
+                {
+                    _selectedItem.IsSelected = false;
+                }
+
+                _selectedItem = value;
+                _selectedItem.IsSelected = true;
+            }
+        }
 
         public async Task InitAsync(UserDetails user)
         {

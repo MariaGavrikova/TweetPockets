@@ -29,7 +29,7 @@ namespace TweetPockets.ViewModels
             StatusLoadingManager loadingManager,
             StatusPersistingManager persistingManager,
             BookmarkPersistingManager bookmarkPersistingManager)
-            : base(AppResources.TimelineMenuItem, "ic_twitter_black600_24dp.png")
+            : base(AppResources.TimelineMenuItem, "ic_twitter_black600_24dp.png", "ic_twitter_green600_24dp.png")
         {
             _mainViewModel = mainViewModel;
             _tweetActionsManager = new TweetActionsManager(loadingManager, persistingManager, bookmarkPersistingManager);

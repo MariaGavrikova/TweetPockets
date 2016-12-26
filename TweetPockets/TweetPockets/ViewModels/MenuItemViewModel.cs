@@ -10,13 +10,39 @@ namespace TweetPockets.ViewModels
 {
     public class MenuItemViewModel : ViewModelBase
     {
-        protected MenuItemViewModel(string title, string image)
+        private readonly string _selectedImage;
+        private readonly string _defaultImage;
+        private string _image;
+        private bool _isSelected;
+
+        protected MenuItemViewModel(string title, string defaultImage, string selectedImage)
         {
+            _defaultImage = defaultImage;
+            _selectedImage = selectedImage;
             Title = title;
-            Image = image;
+            Image = defaultImage;
         }
 
-        public string Image { get; set; }
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                Image = _isSelected ? _selectedImage : _defaultImage;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public string Title { get; set; }
     }

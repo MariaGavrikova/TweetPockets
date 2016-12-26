@@ -2,85 +2,107 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TweetPockets.Controls"
-             xmlns:resources="clr-namespace:TweetPockets.Resources;assembly=TweetPockets"
+             xmlns:converters="clr-namespace:TweetPockets.Converters;assembly=TweetPockets"
              x:Class="TweetPockets.Views.SideMenuPage"
-             Title="Menu"
+             Title="Menu" Padding="0,24,0,0"
              BackgroundColor="#30FFFFFF">
-  <Grid ColumnSpacing="0" RowSpacing="0">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:ColorConverter x:Key="Clr" OnColor="#009688" OffColor="Black" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <Grid ColumnSpacing="0" RowSpacing="0" BackgroundColor="#FFFFFF">
     <Grid.RowDefinitions>
-      <RowDefinition Height="24" />
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="64" />
+      <RowDefinition Height="68" />
       <!--List items-->
-      <RowDefinition Height="112" />
+      <RowDefinition Height="4" />
+      <RowDefinition Height="48" />
+      <RowDefinition Height="48" />
+      <RowDefinition Height="8" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="16" />
+      <ColumnDefinition Width="Auto" />
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="16" />
     </Grid.ColumnDefinitions>
 
-    <BoxView Color="#E0E0E0"
-           Grid.Column="0" Grid.Row="1"
-           Grid.RowSpan="2" Grid.ColumnSpan="3" />
-
-    <BoxView Color="#50000000"
-            Grid.Column="0" Grid.Row="0"
-            Grid.ColumnSpan="3" />
+    <Image Grid.ColumnSpan="4" Grid.RowSpan="2" Aspect="AspectFill"
+           Source="{Binding Info.User.BannerUrl}"></Image>
 
     <controls:CircleImage Source="{Binding Info.User.AvatarUrl}"
-             Margin="0,16,0,0"
-             Grid.Row="1" Grid.Column="1"
+             Margin="0,20,0,0"
+             Grid.Row="0" Grid.Column="1"
              Grid.ColumnSpan="2"
-             HeightRequest="74" WidthRequest="74" />
+             HeightRequest="69" WidthRequest="69" />
 
-    <StackLayout Grid.Row="2" Grid.Column="1" Spacing="0"
-                 Grid.ColumnSpan="2" Margin="0,0,0,8"
+    <StackLayout Grid.Row="1" Grid.Column="1" Spacing="2"
+                 Grid.ColumnSpan="2" Margin="0,0,0,10"
                  VerticalOptions="CenterAndExpand">
       <Label Text="{Binding Info.User.Name}"
-             TextColor="#686C70"
+             TextColor="White"
              FontFamily="Roboto-Medium"
              FontSize="14" />
       <Label Text="{Binding Info.User.ScreenName, StringFormat='@{0}'}"
-             TextColor="#686C70" VerticalOptions="Start"
+             TextColor="White" VerticalOptions="Start"
              FontFamily="Roboto-Regular"
              FontSize="14" />
     </StackLayout>
 
-    <BoxView Color="#FFFFFF"
-            Grid.Column="0" Grid.Row="3"
-             Grid.RowSpan="2"
-            Grid.ColumnSpan="3" />
+    <BoxView Color="#D7D7D7" HeightRequest="1"
+             VerticalOptions="Start"
+             Grid.Column="0" Grid.Row="2"
+             Grid.ColumnSpan="4" />
 
-    <ListView x:Name="MostImportantItemsList"
-              Grid.Column="0" Grid.Row="3"
-              Grid.ColumnSpan="3"
-              SeparatorVisibility="None"
-              ItemsSource="{Binding MostImportantItems}"
-              Margin="0,8,0,8" RowHeight="48">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <StackLayout Orientation="Horizontal"
-                         Spacing="0">
-              <Image HorizontalOptions="Start"
-                     Aspect="AspectFit" Margin="16,0,0,0"
-                     Source="{Binding Image}" />
-              <Label Text="{Binding Title}" Margin="32,0,16,0"
-                     TextColor="Black"
-                     VerticalOptions="Center"
-                     FontFamily="Roboto-Medium" FontSize="14" />
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+    <!--Timeline-->
+    <Image BindingContext="{Binding Timeline}"
+           HorizontalOptions="Start" VerticalOptions="Center"
+           Grid.Column="1" Grid.Row="3"
+           Aspect="AspectFit"
+           Source="{Binding Image}">
+      <Image.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Image.GestureRecognizers>
+    </Image>
+    <Label BindingContext="{Binding Timeline}"
+           Text="{Binding Title}" Margin="30,0,16,0"
+           Grid.Column="2" Grid.Row="3"
+           TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
+           VerticalOptions="Center"
+           FontFamily="Roboto-Medium" FontSize="14">
+      <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Label.GestureRecognizers>
+    </Label>
+
+    <!--Bookmarks-->
+    <Image BindingContext="{Binding BookmarkList}"
+           HorizontalOptions="Start" VerticalOptions="Center"
+           Grid.Column="1" Grid.Row="4"
+           Aspect="AspectFit"
+           Source="{Binding Image}">
+      <Image.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Image.GestureRecognizers>
+    </Image>
+    <Label BindingContext="{Binding BookmarkList}"
+           Text="{Binding Title}" Margin="30,0,16,0"
+           Grid.Column="2" Grid.Row="4"
+           TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
+           VerticalOptions="Center"
+           FontFamily="Roboto-Medium" FontSize="14">
+      <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Label.GestureRecognizers>
+    </Label>
 
     <BoxView Color="#D7D7D7" HeightRequest="1"
-             VerticalOptions="End"
-             Grid.Column="0" Grid.Row="3"
-              Grid.ColumnSpan="3" />
+             VerticalOptions="Center"
+             Grid.Column="0" Grid.Row="5"
+             Grid.ColumnSpan="4" />
   </Grid>
 </ContentPage>

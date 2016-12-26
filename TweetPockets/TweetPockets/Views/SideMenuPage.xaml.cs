@@ -6,22 +6,31 @@ namespace TweetPockets.Views
 {
     public partial class SideMenuPage : ContentPage
     {
+        private MainViewModel _data;
+
         public SideMenuPage()
         {
             InitializeComponent();
-
-            MostImportantItemsList.ItemSelected += OnItemSelected;
         }
 
-        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        protected override void OnBindingContextChanged()
         {
-            var item = e.SelectedItem as MenuItemViewModel;
+            base.OnBindingContextChanged();
+
+            _data = BindingContext as MainViewModel;
+        }
+
+        private void ItemTapped(object sender, EventArgs e)
+        {
+            var view = sender as View;
+            var item = view?.BindingContext as MenuItemViewModel;
             if (item != null)
             {
                 var mainPage = (App.Instance.MainPage as MasterDetailPage);
                 mainPage.Detail = new NavigationPage(App.Instance.ViewManager.GetView(item));
-                MostImportantItemsList.SelectedItem = null;
                 mainPage.IsPresented = false;
+
+                _data.SelectedItem = item;
             }
         }
     }

@@ -38,12 +38,13 @@
     <Compile Include="App.cs" />
     <Compile Include="Controls\CircleImage.cs" />
     <Compile Include="Controls\MultilineTextField.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Interfaces\ILocalize.cs" />
     <Compile Include="Interfaces\INotificationController.cs" />
     <Compile Include="Interfaces\ISQLitePlatformFactory.cs" />
     <Compile Include="Managers\Database.cs" />
     <Compile Include="Managers\BookmarkPersistingManager.cs" />
-    <Compile Include="Managers\InfoPersistingManager.cs" />
+    <Compile Include="Managers\UserInfoPersistingManager.cs" />
     <Compile Include="Managers\ItemsEventArgs.cs" />
     <Compile Include="Managers\NewItemsEventArgs.cs" />
     <Compile Include="Managers\TweetActionsManager.cs" />

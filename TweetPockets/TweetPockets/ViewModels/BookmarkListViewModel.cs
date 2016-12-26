@@ -20,7 +20,7 @@ namespace TweetPockets.ViewModels
         private readonly BookmarkPersistingManager _persistingManager;
 
         public BookmarkListViewModel(MainViewModel mainViewModel, BookmarkPersistingManager persistingManager)
-            : base(AppResources.BookmarksMenuItem, "ic_book_black_24dp.png")
+            : base(AppResources.BookmarksMenuItem, "ic_book_black_24dp.png", "ic_book_green_24dp.png")
         {
             _mainViewModel = mainViewModel;
             _persistingManager = persistingManager;

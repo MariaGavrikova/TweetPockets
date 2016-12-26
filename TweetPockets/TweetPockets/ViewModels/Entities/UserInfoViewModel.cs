@@ -13,7 +13,6 @@ namespace TweetPockets.ViewModels.Entities
 
         public string Name { get; set; }
 
-        [Ignore]
-        public string SplashUrl { get; set; } = "https://unsplash.it/300/200/?random";
+        public string BannerUrl { get; set; }
     }
 }
