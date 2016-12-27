@@ -91,7 +91,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             else
             {
                 FooterViewHolder vh = (FooterViewHolder) holder;
-                vh.Bind(_element);
+                vh.Bind(_items);
             }
         }
 
@@ -110,7 +110,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
             if (viewType == PhotoViewType)
             {
-                return new PhotoViewHolder(itemView, _element);
+                return new SinglePhotoViewHolder(itemView, _element);
             }
             return new TimelineEntityViewHolder(itemView, _element);
         }
@@ -132,7 +132,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         public override int ItemCount
         {
-            get { return _items.Count + (_items.HasMoreItems ? 1 : 0); }
+            get { return _items.Count + 1; }
         }
 
         public ItemTouchHelper ItemTouchHelper { get; set; }

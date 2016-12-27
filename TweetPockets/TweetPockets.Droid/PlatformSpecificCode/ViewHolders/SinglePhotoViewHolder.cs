@@ -8,9 +8,9 @@ using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 {
-    class PhotoViewHolder : TimelineEntityViewHolder
+    class SinglePhotoViewHolder : TimelineEntityViewHolder
     {
-        public PhotoViewHolder(View itemView, TimelineListView element) : 
+        public SinglePhotoViewHolder(View itemView, TimelineListView element) : 
             base(itemView, element)
         {
             Photo = itemView.FindViewById<ImageView>(Resource.Id.Photo);

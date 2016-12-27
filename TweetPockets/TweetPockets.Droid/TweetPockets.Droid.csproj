@@ -177,7 +177,7 @@
     <Compile Include="PlatformSpecificCode\Cache\MemoryCache.cs" />
     <Compile Include="PlatformSpecificCode\Localize.cs" />
     <Compile Include="PlatformSpecificCode\NotificationController.cs" />
-    <Compile Include="PlatformSpecificCode\ViewHolders\PhotoViewHolder.cs" />
+    <Compile Include="PlatformSpecificCode\ViewHolders\SinglePhotoViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\RoundedImageView.cs" />
     <Compile Include="PlatformSpecificCode\ViewHolders\FooterViewHolder.cs" />
     <Compile Include="PlatformSpecificCode\SQLitePlatformFactory.cs" />

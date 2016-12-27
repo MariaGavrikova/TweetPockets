@@ -2,6 +2,8 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
+using TweetPockets.Interfaces.Entities;
+using TweetPockets.Utils;
 
 namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 {
@@ -9,14 +11,14 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
     {
         public FooterViewHolder(View itemView) : base(itemView)
         {
-            //CircularProgress = itemView.FindViewById<ProgressBar>(Resource.Id.CircularProgress);
+            CircularProgress = itemView.FindViewById<ProgressBar>(Resource.Id.CircularProgress);
         }
 
         public ProgressBar CircularProgress { get; set; }
 
-        public void Bind(TimelineListView element)
+        public void Bind(BatchedObservableCollection<ITimelineEntity> items)
         {
-            //CircularProgress.Visibility = element.IsLoadingMore ? ViewStates.Visible : ViewStates.Gone;
+            CircularProgress.Visibility = items.HasMoreItems ? ViewStates.Visible : ViewStates.Gone;
         }
     }
 }

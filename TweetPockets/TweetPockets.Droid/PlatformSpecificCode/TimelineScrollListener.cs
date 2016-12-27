@@ -38,7 +38,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                 var loading = firstVisiblePosition + visibleItemCount >= totalItemCount;
                 if (loading)
                 {
-                    _element.LoadOldCommand.Execute(null);
+                    _element.LoadOldCommand?.Execute(null);
                 }
             }
         }

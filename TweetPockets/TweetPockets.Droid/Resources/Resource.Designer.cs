@@ -2276,6 +2276,9 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0700a1
 			public const int Card = 2131165345;
 			
+			// aapt resource value: 0x7f0700a6
+			public const int CircularProgress = 2131165350;
+			
 			// aapt resource value: 0x7f070092
 			public const int CounterDelimiter = 2131165330;
 			
@@ -2291,11 +2294,11 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f0700a2
 			public const int Photo = 2131165346;
 			
-			// aapt resource value: 0x7f0700a6
-			public const int Placeholder = 2131165350;
+			// aapt resource value: 0x7f0700a7
+			public const int Placeholder = 2131165351;
 			
-			// aapt resource value: 0x7f0700a8
-			public const int RecyclerView = 2131165352;
+			// aapt resource value: 0x7f0700a9
+			public const int RecyclerView = 2131165353;
 			
 			// aapt resource value: 0x7f070073
 			public const int ReplyButton = 2131165299;
@@ -2303,8 +2306,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f070074
 			public const int RetweetButton = 2131165300;
 			
-			// aapt resource value: 0x7f0700a7
-			public const int SwipeRefreshLayout = 2131165351;
+			// aapt resource value: 0x7f0700a8
+			public const int SwipeRefreshLayout = 2131165352;
 			
 			// aapt resource value: 0x7f070072
 			public const int Text = 2131165298;
@@ -2360,8 +2363,8 @@ namespace TweetPockets.Droid
 			// aapt resource value: 0x7f07003c
 			public const int action_mode_close_button = 2131165244;
 			
-			// aapt resource value: 0x7f0700a9
-			public const int action_name = 2131165353;
+			// aapt resource value: 0x7f0700aa
+			public const int action_name = 2131165354;
 			
 			// aapt resource value: 0x7f07003d
 			public const int activity_chooser_view_content = 2131165245;

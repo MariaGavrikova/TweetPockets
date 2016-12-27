@@ -77,6 +77,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
                 var worker = new BitmapWorkerTask(AuthorImage);
                 worker.Execute(_data.AuthorImageUrl);
 
+                RefreshReplyButton(_data);
+
                 RefreshFavoriteButton(_data);
 
                 RefreshRetweetButton(_data);
@@ -91,20 +93,48 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
             }
         }
 
+        private void RefreshReplyButton(ITimelineEntity data)
+        {
+            if (data is BookmarkViewModel)
+            {
+                ReplyButton.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                ReplyButton.Visibility = ViewStates.Visible;
+            }
+        }
+
         private void RefreshFavoriteButton(ITimelineEntity data)
         {
-            FavoriteButton.SetImageResource(
-                data.IsFavorite
-                    ? Resource.Drawable.ic_favorite_green_24dp
-                    : Resource.Drawable.ic_favorite_black_24dp);
+            if (data is BookmarkViewModel)
+            {
+                FavoriteButton.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                FavoriteButton.Visibility = ViewStates.Visible;
+                FavoriteButton.SetImageResource(
+                    data.IsFavorite
+                        ? Resource.Drawable.ic_favorite_green_24dp
+                        : Resource.Drawable.ic_favorite_black_24dp);
+            }
         }
 
         private void RefreshRetweetButton(ITimelineEntity data)
         {
-            RetweetButton.SetImageResource(
-                data.IsRetweeted
-                    ? Resource.Drawable.ic_repeat_green_24dp
-                    : Resource.Drawable.ic_repeat_black_24dp);
+            if (data is BookmarkViewModel)
+            {
+                RetweetButton.Visibility = ViewStates.Invisible;
+            }
+            else
+            {
+                RetweetButton.Visibility = ViewStates.Visible;
+                RetweetButton.SetImageResource(
+                    data.IsRetweeted
+                        ? Resource.Drawable.ic_repeat_green_24dp
+                        : Resource.Drawable.ic_repeat_black_24dp);
+            }
         }
 
         private void RefreshBookmarkButton(ITimelineEntity data)
