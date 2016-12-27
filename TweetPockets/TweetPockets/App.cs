@@ -85,5 +85,12 @@ namespace TweetPockets
             var navigationPage = (mainPage.Detail as NavigationPage);
             navigationPage.PushAsync(page);
         }
+
+        public void PopAsync()
+        {
+            var mainPage = (App.Instance.MainPage as MasterDetailPage);
+            var navigationPage = (mainPage.Detail as NavigationPage);
+            navigationPage.PopAsync();
+        }
     }
 }

@@ -35,6 +35,21 @@ namespace TweetPockets.Controls
             }
         }
 
+        public static readonly BindableProperty ReplyCommandProperty =
+            BindableProperty.Create<TimelineListView, ICommand>(p => p.ReplyCommand, null);
+
+        public ICommand ReplyCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(ReplyCommandProperty);
+            }
+            set
+            {
+                SetValue(ReplyCommandProperty, value);
+            }
+        }
+
         public static readonly BindableProperty FavoriteCommandProperty =
             BindableProperty.Create<TimelineListView, ICommand>(p => p.FavoriteCommand, null);
 

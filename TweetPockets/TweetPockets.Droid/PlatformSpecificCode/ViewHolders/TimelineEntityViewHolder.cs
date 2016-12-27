@@ -50,7 +50,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
         private void ReplyClickHandler(object sender, EventArgs e)
         {
-            
+            _element.ReplyCommand.Execute(_data);
         }
 
         public ImageButton BookmarkButton { get; set; }

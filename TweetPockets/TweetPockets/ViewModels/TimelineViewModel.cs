@@ -38,6 +38,7 @@ namespace TweetPockets.ViewModels
             LoadNewCommand = new Command(OnLoadNew);
             MoveToReadLaterCommand = new Command(ChangeBookmarkState);
             RetweetCommand = new Command(async (o) => await OnRetweet(o));
+            ReplyCommand = new Command(OnReply);
             FavoriteCommand = new Command(async (o) => await OnFavorite(o));
             Timeline = new Timeline();
             TweetCommand = new Command(OnTweet);
@@ -78,6 +79,8 @@ namespace TweetPockets.ViewModels
         public ICommand MoveToReadLaterCommand { get; set; }
 
         public ICommand RetweetCommand { get; set; }
+
+        public ICommand ReplyCommand { get; set; }
 
         public ICommand FavoriteCommand { get; set; }
 
@@ -169,6 +172,13 @@ namespace TweetPockets.ViewModels
             var item = (StatusViewModel)obj;
             item.IsRetweeted = !item.IsRetweeted;
             await _tweetActionsManager.AddRetweet(item);
+        }
+
+        private void OnReply(object obj)
+        {
+            var tweet = (StatusViewModel) obj;
+            var page = App.Instance.ViewManager.GetView(new NewTweetViewModel(_tweetActionsManager, this, tweet));
+            App.Instance.PushAsync(page);
         }
 
         private void OnTweet()

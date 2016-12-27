@@ -46,6 +46,7 @@ namespace TweetPockets.Droid.Renderers
                 var parent = new LinearLayout(Forms.Context);
                 var view = (Forms.Context as Activity).LayoutInflater.Inflate(Resource.Layout.MultilineTextField, parent);
                 var field = view.FindViewById<EditText>(Resource.Id.InputField);
+                field.Text = newElement.Text;
                 field.RequestFocus();
                 InputMethodManager imm = (InputMethodManager) Forms.Context.GetSystemService(Context.InputMethodService);
                 imm.ShowSoftInput(field, InputMethodManager.ShowImplicit);

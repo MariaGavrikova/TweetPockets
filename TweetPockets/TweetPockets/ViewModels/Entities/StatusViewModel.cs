@@ -24,6 +24,7 @@ namespace TweetPockets.ViewModels.Entities
         {
             Id = (long) model.StatusID;
             Author = model.User.Name;
+            AuthorScreenName = model.User.ScreenNameResponse;
             AuthorImageUrl = model.User.ProfileImageUrl.Replace("_normal", String.Empty);
             Text = model.Text;
             CreatedAt = model.CreatedAt;
@@ -84,7 +85,7 @@ namespace TweetPockets.ViewModels.Entities
                         }
                         else
                         {
-                            result = String.Format(AppResources.SecondsLabel, timespan.Seconds);
+                            result = String.Format(AppResources.SecondsLabel, Math.Max(timespan.Seconds, 1));
                         }
                     }
                 }
@@ -94,6 +95,8 @@ namespace TweetPockets.ViewModels.Entities
         }
 
         public string Author { get; set; }
+
+        public string AuthorScreenName { get; set; }
 
         public string AuthorImageUrl { get; set; }
 

@@ -25,7 +25,7 @@ namespace TweetPockets.Managers
             _persistingManager = persistingManager;
         }
 
-        public TwitterContext Context { get; private set; }
+        protected TwitterContext Context { get; private set; }
 
         public long? OldestStatusId { get; private set; }
 
@@ -156,8 +156,12 @@ namespace TweetPockets.Managers
             return result;
         }
 
-        public async Task<Status> AddStatus(string text)
+        public async Task<Status> AddStatus(string text, StatusViewModel inReplyToTweet)
         {
+            if (inReplyToTweet != null)
+            {
+                return await Context.ReplyAsync((ulong) inReplyToTweet.Id, text);
+            }
             return await Context.TweetAsync(text);
         }
     }

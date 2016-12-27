@@ -42,9 +42,10 @@ namespace TweetPockets.Managers
             }
         }
 
-        public async Task AddNewStatus(string text)
+        public async Task AddNewStatus(string text, StatusViewModel inReplyToTweet)
         {
-            var status = new StatusViewModel(await _loadingManager.AddStatus(text), _bookmarkPersistingManager);
+            var statusModel = await _loadingManager.AddStatus(text, inReplyToTweet);
+            var status = new StatusViewModel(statusModel, _bookmarkPersistingManager);
             _persistingManager.Save(status);
         }
     }
