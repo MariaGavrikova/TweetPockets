@@ -68,12 +68,15 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                 imageBitmap = ((BitmapDrawable) drawable).Bitmap;
             }
 
-            Bitmap bitmapCopy = imageBitmap.Copy(Bitmap.Config.Argb8888, true);
+            if (imageBitmap != null)
+            {
+                Bitmap bitmapCopy = imageBitmap.Copy(Bitmap.Config.Argb8888, true);
 
-            int w = Width, h = Height;
+                int w = Width, h = Height;
 
-            Bitmap roundBitmap = GetCroppedBitmap(bitmapCopy, System.Math.Min(h, w));
-            canvas.DrawBitmap(roundBitmap, 0, 0, null);
+                Bitmap roundBitmap = GetCroppedBitmap(bitmapCopy, System.Math.Min(h, w));
+                canvas.DrawBitmap(roundBitmap, 0, 0, null);
+            }
         }
 
         private static Bitmap GetCroppedBitmap(Bitmap bmp, int radius)

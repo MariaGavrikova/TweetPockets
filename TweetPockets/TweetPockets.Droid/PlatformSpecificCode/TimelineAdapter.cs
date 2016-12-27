@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
+using System.Timers;
 using Android.App;
 using Android.Content;
 using Android.OS;

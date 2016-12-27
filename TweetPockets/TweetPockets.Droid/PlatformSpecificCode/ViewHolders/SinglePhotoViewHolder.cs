@@ -23,7 +23,6 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
             base.Bind(data);
 
             Photo.SetImageBitmap(null);
-
             var worker = new BitmapWorkerTask(Photo);
             worker.Execute(data.PhotoUrls.FirstOrDefault().Url);
         }

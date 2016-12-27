@@ -74,6 +74,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
 
             if (_data != null)
             {
+                AuthorImage.SetImageBitmap(null);
                 var worker = new BitmapWorkerTask(AuthorImage);
                 worker.Execute(_data.AuthorImageUrl);
 
