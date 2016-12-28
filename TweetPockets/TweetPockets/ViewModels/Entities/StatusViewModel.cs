@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using LinqToTwitter;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
@@ -24,7 +25,6 @@ namespace TweetPockets.ViewModels.Entities
         {
             Id = (long) model.StatusID;
             Author = model.User.Name;
-            AuthorScreenName = model.User.ScreenNameResponse;
             AuthorImageUrl = model.User.ProfileImageUrl.Replace("_normal", "_bigger");
             Text = model.Text;
             CreatedAt = model.CreatedAt;
@@ -42,6 +42,19 @@ namespace TweetPockets.ViewModels.Entities
                 });
             }
             ResourceUrls = urls;
+
+            var builder = new StringBuilder();
+            var authorName = model.User.ScreenNameResponse;
+            builder.AppendFormat("@{0} ", authorName);
+            foreach (var userMentionEntity in model.Entities.UserMentionEntities)
+            {
+                var userMention = userMentionEntity.ScreenName;
+                if (userMention != authorName)
+                {
+                    builder.AppendFormat("@{0} ", userMention);
+                }
+            }
+            Mentions = builder.ToString();
 
             var photos = new List<PhotoUrlViewModel>();
             for (int i = model.Entities.MediaEntities.Count - 1; i >= 0; i--)
@@ -103,6 +116,8 @@ namespace TweetPockets.ViewModels.Entities
         public string AuthorImageUrl { get; set; }
 
         public string Text { get; set; }
+
+        public string Mentions { get; set; }
 
         [Ignore]
         public bool CanBeReadLater

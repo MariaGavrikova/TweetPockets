@@ -32,15 +32,15 @@ namespace TweetPockets.ViewModels
             }
             else
             {
-                Text = GetAuthorMention(inReplyToTweet);
+                Text = GetMentions(inReplyToTweet);
             }
 
             SendCommand = new Command(async () => await OnSend());
         }
 
-        private static string GetAuthorMention(StatusViewModel inReplyToTweet)
+        private static string GetMentions(StatusViewModel inReplyToTweet)
         {
-            return String.Format("@{0} ", inReplyToTweet.AuthorScreenName);
+            return inReplyToTweet != null ? inReplyToTweet.Mentions : String.Empty;
         }
 
         public string Text
@@ -59,12 +59,12 @@ namespace TweetPockets.ViewModels
 
         private async Task OnSend()
         {
-            if (!String.IsNullOrWhiteSpace(Text) && 
-                (_inReplyToTweet != null && Text != GetAuthorMention(_inReplyToTweet)))
+            if (!String.IsNullOrWhiteSpace(Text) && Text != GetMentions(_inReplyToTweet))
             {
                 await _actionsManager.AddNewStatus(Text, _inReplyToTweet);
-                App.Instance.PopAsync();
                 _timelineViewModel.OnLoadNew();
+                App.Instance.PopAsync();
+
             }
         }
     }
