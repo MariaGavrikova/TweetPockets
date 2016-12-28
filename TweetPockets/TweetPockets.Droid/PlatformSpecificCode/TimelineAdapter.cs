@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -14,13 +13,16 @@ using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 using Java.Net;
+using Java.Util.Concurrent;
 using TweetPockets.Controls;
 using TweetPockets.Droid.PlatformSpecificCode.ViewHolders;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
+using Math = System.Math;
 
 namespace TweetPockets.Droid.PlatformSpecificCode
 {
@@ -35,6 +37,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode
 
         private readonly BatchedObservableCollection<ITimelineEntity> _items;
         private readonly Dictionary<int, int> _viewTypes;
+        private readonly Handler _mainHandler;
+        private IScheduledFuture _updateFuture;
         private const int ScrollingOffset = 40;
 
         public TimelineAdapter(TimelineListView element, RecyclerView recycler, LinearLayoutManager layoutManager)
@@ -50,6 +54,33 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                 { PhotoViewType, Resource.Layout.PhotoCard },
                 { FooterViewType, Resource.Layout.RecyclerViewFooter }
             };
+            _mainHandler = new Handler(Looper.MainLooper);
+            _updateFuture = Executors.NewSingleThreadScheduledExecutor()
+                .ScheduleAtFixedRate(new Runnable(OnTick), 0, 30000, TimeUnit.Milliseconds);
+        }
+
+        private void OnTick()
+        {
+            int firstVisible = _layoutManager.FindFirstVisibleItemPosition();
+            int lastVisible = _layoutManager.FindLastVisibleItemPosition();
+
+            _mainHandler.Post(new Runnable(() => UpdateTimeStamp(firstVisible, lastVisible)));
+        }
+
+        private void UpdateTimeStamp(int fromPosition, int toPosition)
+        {
+            if (fromPosition > -1 && toPosition > -1)
+            {
+                for (int i = fromPosition; i <= toPosition; i++)
+                {
+                    if (i < _items.Count)
+                    {
+                        var item = _layoutManager.FindViewByPosition(i);
+                        var timestamp = item.FindViewById<TextView>(Resource.Id.Timestamp);
+                        timestamp.Text = _items[i].TimestampLabel;
+                    }
+                }
+            }
         }
 
         private void CollectionChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -91,7 +122,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             }
             else
             {
-                FooterViewHolder vh = (FooterViewHolder) holder;
+                FooterViewHolder vh = (FooterViewHolder)holder;
                 vh.Bind(_items);
             }
         }
