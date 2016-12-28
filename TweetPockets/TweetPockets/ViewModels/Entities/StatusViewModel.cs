@@ -44,13 +44,15 @@ namespace TweetPockets.ViewModels.Entities
             ResourceUrls = urls;
 
             var photos = new List<PhotoUrlViewModel>();
-            foreach (var mediaEntity in model.Entities.MediaEntities)
+            for (int i = model.Entities.MediaEntities.Count - 1; i >= 0; i--)
             {
+                var mediaEntity = model.Entities.MediaEntities[i];
                 photos.Add(new PhotoUrlViewModel()
                 {
                     StatusId = Id,
                     Url = mediaEntity.MediaUrl
                 });
+                Text = Text.Remove(mediaEntity.Start, mediaEntity.End - mediaEntity.Start);
             }
             PhotoUrls = photos;
         }
