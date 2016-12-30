@@ -35,11 +35,16 @@ namespace TweetPockets.Droid.PlatformSpecificCode
                 var totalItemCount = _linearLayoutManager.ItemCount;
                 var firstVisiblePosition = _linearLayoutManager.FindFirstVisibleItemPosition();
 
-                var loading = firstVisiblePosition + visibleItemCount >= totalItemCount;
-                if (loading)
+                var loadingOldRequested = firstVisiblePosition + visibleItemCount >= totalItemCount;
+                if (loadingOldRequested)
                 {
                     _element.LoadOldCommand?.Execute(null);
                 }
+            }
+            else
+            {
+                var firstVisiblePosition = _linearLayoutManager.FindFirstCompletelyVisibleItemPosition();
+                _element.CanBeUpdatedByTimer = firstVisiblePosition == 0;
             }
         }
     }

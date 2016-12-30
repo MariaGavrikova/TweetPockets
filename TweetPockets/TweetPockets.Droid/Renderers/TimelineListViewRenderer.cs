@@ -57,17 +57,6 @@ namespace TweetPockets.Droid.Renderers
                 _recyclerView.SetAdapter(_adapter);
                 _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
 
-                //var title = view.FindViewById<TextView>(Resource.Id.Title);
-                //var navigationPage = (App.Instance.MainPage as NavigationPage);
-                //var masterDetailPage = navigationPage.CurrentPage as MasterDetailPage;
-                //title.Text = masterDetailPage.Detail.Title;
-
-                //var menuIcon = view.FindViewById<ImageView>(Resource.Id.MenuIcon);
-                //menuIcon.Click += MenuIconClickHandler;
-
-                //var scrollToTopIcon = view.FindViewById<ImageView>(Resource.Id.ScrollToTopIcon);
-                //scrollToTopIcon.Click += ScrollToTopHandler;
-
                 SetNativeControl(view);
             }
         }
@@ -75,12 +64,6 @@ namespace TweetPockets.Droid.Renderers
         private void ScrollToTopHandler(object sender, EventArgs e)
         {
             _recyclerView.SmoothScrollToPosition(0);
-        }
-
-        private void MenuIconClickHandler(object sender, EventArgs e)
-        {
-            var page = (App.Instance.MainPage as MasterDetailPage);
-            page.IsPresented = true;
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

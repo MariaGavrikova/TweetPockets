@@ -86,6 +86,16 @@ namespace TweetPockets.ViewModels
 
         public ICommand TweetCommand { get; set; }
 
+        public bool NotifyAboutNewItems
+        {
+            get { return _timelineManager.NotifyAboutNewItems; }
+            set
+            {
+                _timelineManager.NotifyAboutNewItems = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void LoadingNewStartedHandler(object sender, EventArgs e)
         {
             IsLoadingNew = true;
@@ -135,7 +145,7 @@ namespace TweetPockets.ViewModels
 
         public async Task InitAsync()
         {
-            Timeline.AddRange(await _timelineManager.GetCachedAsync());
+            Timeline.AddRange(await _timelineManager.InitAsync());
             await _timelineManager.TriggerLoadingNew();
         }
 

@@ -94,5 +94,20 @@ namespace TweetPockets.Controls
                 SetValue(IsLoadingMoreProperty, value);
             }
         }
+
+        public static readonly BindableProperty CanBeUpdatedByTimerProperty =
+            BindableProperty.Create<TimelineListView, bool>(p => p.CanBeUpdatedByTimer, false);
+
+        public bool CanBeUpdatedByTimer
+        {
+            get
+            {
+                return (bool)GetValue(CanBeUpdatedByTimerProperty);
+            }
+            set
+            {
+                SetValue(CanBeUpdatedByTimerProperty, value);
+            }
+        }
     }
 }

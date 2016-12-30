@@ -7,6 +7,7 @@ using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
+using Xamarin.Forms;
 
 namespace TweetPockets.Managers
 {
@@ -37,8 +38,21 @@ namespace TweetPockets.Managers
 
         public event EventHandler<ItemsEventArgs> LoadedOldItems;
 
-        public Task<IList<ITimelineEntity>> GetCachedAsync()
+        public bool NotifyAboutNewItems { get; set; }
+
+        private bool OnTimerTick()
         {
+            if (NotifyAboutNewItems)
+            {
+                TriggerLoadingNew();
+            }
+            return true;
+        }
+
+        public Task<IList<ITimelineEntity>> InitAsync()
+        {
+            Device.StartTimer(_loadingManager.Timeout, OnTimerTick);
+            NotifyAboutNewItems = true;
             return Task.FromResult(_persistingManager.GetMostRecent(ItemsChunk));
         }
 

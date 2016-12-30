@@ -16,7 +16,7 @@ namespace TweetPockets.Managers
     public class StatusLoadingManager
     {
         private readonly BookmarkPersistingManager _persistingManager;
-        private readonly TimeSpan _timeout = TimeSpan.FromSeconds(30);
+        public TimeSpan Timeout = TimeSpan.FromSeconds(30);
         private DateTime? _loadNewRequestTimestamp;
         private DateTime? _loadOldRequestTimestamp;
 
@@ -53,7 +53,7 @@ namespace TweetPockets.Managers
                 bool requestAllowed = true;
                 if (_loadNewRequestTimestamp.HasValue)
                 {
-                    requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= _timeout;
+                    requestAllowed = DateTime.UtcNow - _loadNewRequestTimestamp.Value >= Timeout;
                 }
 
                 IList<ITimelineEntity> newStatuses = new List<ITimelineEntity>();
@@ -91,9 +91,9 @@ namespace TweetPockets.Managers
             if (_loadOldRequestTimestamp.HasValue)
             {
                 var currentTimeout = DateTime.UtcNow - _loadOldRequestTimestamp.Value;
-                if (currentTimeout < _timeout)
+                if (currentTimeout < Timeout)
                 {
-                    await Task.Delay(_timeout - currentTimeout);
+                    await Task.Delay(Timeout - currentTimeout);
                 }
             }
 

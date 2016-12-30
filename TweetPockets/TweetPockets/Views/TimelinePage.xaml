@@ -15,7 +15,8 @@
                                    DismissCommand="{Binding MoveToReadLaterCommand}"
                                    RetweetCommand="{Binding RetweetCommand}"
                                    ReplyCommand="{Binding ReplyCommand}"
-                                   FavoriteCommand="{Binding FavoriteCommand}"/>
+                                   FavoriteCommand="{Binding FavoriteCommand}"
+                                   CanBeUpdatedByTimer="{Binding NotifyAboutNewItems}"/>
     
     <controls:TweetButton x:Name="TweetButton" Margin="0,0,13,13" Opacity="0"
                           HorizontalOptions="End" VerticalOptions="End"
