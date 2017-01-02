@@ -1,6 +1,6 @@
 ﻿namespace TweetPockets.Interfaces
 {
-    public interface INotificationController
+    public interface IToastNotificationController
     {
         void ShowToast(string message);
     }

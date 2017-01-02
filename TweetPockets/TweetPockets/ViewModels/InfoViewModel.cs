@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Managers;
+using TweetPockets.Managers.Authorization;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
@@ -32,8 +33,9 @@ namespace TweetPockets.ViewModels
             }
         }
 
-        public async Task InitAsync(UserDetails user)
+        public async Task InitAsync()
         {
+            var user = AuthorizationManager.Instance.CurrentUserDetails;
             User = _userInfoPersistingManager.GetCachedAsync((long)user.TwitterId);
             var userAccount = await _loadingManager.GetUserInfo(user.TwitterId, user.ScreenName);
             User = new UserInfoViewModel()

@@ -23,7 +23,7 @@ namespace TweetPockets.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,7 +37,7 @@ namespace TweetPockets.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TweetPockets.Resources.AppResources", typeof(AppResources).GetTypeInfo().Assembly);
@@ -52,7 +52,7 @@ namespace TweetPockets.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0} added to Bookmarks.
         /// </summary>
-        internal static string AddedToBookmarksNotificationPattern {
+        public static string AddedToBookmarksNotificationPattern {
             get {
                 return ResourceManager.GetString("AddedToBookmarksNotificationPattern", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Bookmarks.
         /// </summary>
-        internal static string BookmarksMenuItem {
+        public static string BookmarksMenuItem {
             get {
                 return ResourceManager.GetString("BookmarksMenuItem", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Bookmarks.
         /// </summary>
-        internal static string BookmarksPageTitle {
+        public static string BookmarksPageTitle {
             get {
                 return ResourceManager.GetString("BookmarksPageTitle", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}d.
         /// </summary>
-        internal static string DaysLabel {
+        public static string DaysLabel {
             get {
                 return ResourceManager.GetString("DaysLabel", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}h.
         /// </summary>
-        internal static string HoursLabel {
+        public static string HoursLabel {
             get {
                 return ResourceManager.GetString("HoursLabel", resourceCulture);
             }
@@ -109,7 +109,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}m.
         /// </summary>
-        internal static string MinutesLabel {
+        public static string MinutesLabel {
             get {
                 return ResourceManager.GetString("MinutesLabel", resourceCulture);
             }
@@ -118,16 +118,34 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Compose.
         /// </summary>
-        internal static string NewTweetTitle {
+        public static string NewTweetTitle {
             get {
                 return ResourceManager.GetString("NewTweetTitle", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} liked &quot;{1}&quot;.
+        /// </summary>
+        public static string NotificationFavorited {
+            get {
+                return ResourceManager.GetString("NotificationFavorited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liked &quot;{0}&quot;.
+        /// </summary>
+        public static string NotificationFullFavorited {
+            get {
+                return ResourceManager.GetString("NotificationFullFavorited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} removed from Bookmarks.
         /// </summary>
-        internal static string RemovedFromBookmarksNotificationPattern {
+        public static string RemovedFromBookmarksNotificationPattern {
             get {
                 return ResourceManager.GetString("RemovedFromBookmarksNotificationPattern", resourceCulture);
             }
@@ -136,7 +154,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}s.
         /// </summary>
-        internal static string SecondsLabel {
+        public static string SecondsLabel {
             get {
                 return ResourceManager.GetString("SecondsLabel", resourceCulture);
             }
@@ -145,7 +163,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Timeline.
         /// </summary>
-        internal static string TimelineMenuItem {
+        public static string TimelineMenuItem {
             get {
                 return ResourceManager.GetString("TimelineMenuItem", resourceCulture);
             }
@@ -154,7 +172,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Timeline.
         /// </summary>
-        internal static string TimelinePageTitle {
+        public static string TimelinePageTitle {
             get {
                 return ResourceManager.GetString("TimelinePageTitle", resourceCulture);
             }
@@ -163,7 +181,7 @@ namespace TweetPockets.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Your tweet.
         /// </summary>
-        internal static string TweetInputFieldLabel {
+        public static string TweetInputFieldLabel {
             get {
                 return ResourceManager.GetString("TweetInputFieldLabel", resourceCulture);
             }

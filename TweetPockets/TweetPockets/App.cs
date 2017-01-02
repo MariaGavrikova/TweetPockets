@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TweetPockets.Factories;
 using TweetPockets.Interfaces;
 using TweetPockets.Managers;
 using TweetPockets.Resources;
@@ -16,8 +17,7 @@ namespace TweetPockets
 {
     public class App : Application
     {
-        private UserDetails _user;
-        private MainViewModel _mainViewModel;
+        private readonly MainViewModel _mainViewModel;
 
         public App()
         {
@@ -65,18 +65,7 @@ namespace TweetPockets
             IsLoggedIn = true;
 
             AccountStore.Create().Save(account, "Twitter");
-
-            var userDetails = new UserDetails();
-            userDetails.Token = account.Properties["oauth_token"];
-            userDetails.TokenSecret = account.Properties["oauth_token_secret"];
-            ulong id;
-            ulong.TryParse(account.Properties["user_id"], out id);
-            userDetails.TwitterId = id;
-            userDetails.ScreenName = account.Properties["screen_name"];
-
-            _user = userDetails;
-
-            await _mainViewModel.InitAsync(_user);
+            await _mainViewModel.InitAsync(account);
         }
 
         public void PushAsync(Page page)

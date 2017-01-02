@@ -7,16 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using LinqToTwitter;
 using TweetPockets.Interfaces.Entities;
+using TweetPockets.Managers.Authorization;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
+using Account = Xamarin.Auth.Account;
 
 namespace TweetPockets.Managers
 {
     public class StatusLoadingManager
     {
         private readonly BookmarkPersistingManager _persistingManager;
-        public TimeSpan Timeout = TimeSpan.FromSeconds(30);
+        public TimeSpan Timeout = TimeSpan.FromSeconds(45);
         private DateTime? _loadNewRequestTimestamp;
         private DateTime? _loadOldRequestTimestamp;
 
@@ -29,21 +31,9 @@ namespace TweetPockets.Managers
 
         public long? OldestStatusId { get; private set; }
 
-        public async Task Init(UserDetails userDetails)
+        public async Task Init(Account account)
         {
-            var auth = new SingleUserAuthorizer()
-            {
-                CredentialStore = new InMemoryCredentialStore()
-                {
-                    ConsumerKey = Keys.TwitterConsumerKey,
-                    ConsumerSecret = Keys.TwitterConsumerSecret,
-                    OAuthToken = userDetails.Token,
-                    OAuthTokenSecret = userDetails.TokenSecret,
-                },
-            };
-            await auth.AuthorizeAsync();
-
-            Context = new TwitterContext(auth);
+            Context = await AuthorizationManager.Instance.GetContext(account);
         }
 
         public async Task<IList<ITimelineEntity>> GetNewerThan(long minId, int count)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,14 +90,13 @@ namespace TweetPockets.Managers
                         Items = newItems
                     });
                 }
-
-                OnLoadingNewEnded();
             }
             catch (Exception ex)
             {
-
-                throw;
+                Debug.WriteLine(ex);
             }
+
+            OnLoadingNewEnded();
         }
 
         public async Task TriggerLoadingOld(long maxId)

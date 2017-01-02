@@ -13,11 +13,11 @@ using TweetPockets.Droid.PlatformSpecificCode;
 using TweetPockets.Interfaces;
 using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(NotificationController))]
+[assembly: Xamarin.Forms.Dependency(typeof(ToastNotificationController))]
 
 namespace TweetPockets.Droid.PlatformSpecificCode
 {
-    public class NotificationController : INotificationController
+    public class ToastNotificationController : IToastNotificationController
     {
         public void ShowToast(string message)
         {

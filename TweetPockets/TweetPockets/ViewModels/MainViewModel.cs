@@ -8,6 +8,7 @@ using TweetPockets.Managers;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels.Entities;
+using Xamarin.Auth;
 using Xamarin.Forms;
 
 namespace TweetPockets.ViewModels
@@ -56,11 +57,11 @@ namespace TweetPockets.ViewModels
             }
         }
 
-        public async Task InitAsync(UserDetails user)
+        public async Task InitAsync(Account account)
         {
-            await _loadingManager.Init(user);
+            await _loadingManager.Init(account);
 
-            Info.InitAsync(user);
+            Info.InitAsync();
             Timeline.InitAsync();
             BookmarkList.InitAsync();
         }
@@ -84,7 +85,7 @@ namespace TweetPockets.ViewModels
                 pattern = AppResources.RemovedFromBookmarksNotificationPattern;
             }
 
-            var manager = DependencyService.Get<INotificationController>();
+            var manager = DependencyService.Get<IToastNotificationController>();
             manager.ShowToast(String.Format(pattern, GetShortStatusText(status.Text)));
         }
 
@@ -99,7 +100,7 @@ namespace TweetPockets.ViewModels
                 relatedStatus.IsBookmarked = false;
             }
 
-            var manager = DependencyService.Get<INotificationController>();
+            var manager = DependencyService.Get<IToastNotificationController>();
             manager.ShowToast(String.Format(AppResources.RemovedFromBookmarksNotificationPattern, GetShortStatusText(bookmark.Text)));
         }
 

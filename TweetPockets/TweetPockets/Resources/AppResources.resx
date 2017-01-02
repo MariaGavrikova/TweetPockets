@@ -138,6 +138,12 @@
   <data name="NewTweetTitle" xml:space="preserve">
     <value>Compose</value>
   </data>
+  <data name="NotificationFullFavorited" xml:space="preserve">
+    <value>Liked "{0}"</value>
+  </data>
+  <data name="NotificationFavorited" xml:space="preserve">
+    <value>{0} liked "{1}"</value>
+  </data>
   <data name="RemovedFromBookmarksNotificationPattern" xml:space="preserve">
     <value>{0} removed from Bookmarks</value>
   </data>

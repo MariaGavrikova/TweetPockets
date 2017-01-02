@@ -39,11 +39,16 @@
     <Compile Include="Controls\CircleImage.cs" />
     <Compile Include="Controls\MultilineTextField.cs" />
     <Compile Include="Converters\ColorConverter.cs" />
+    <Compile Include="Factories\UserDetailsFactory.cs" />
+    <Compile Include="Interfaces\IEventManager.cs" />
     <Compile Include="Interfaces\ILocalize.cs" />
-    <Compile Include="Interfaces\INotificationController.cs" />
+    <Compile Include="Interfaces\IPushNotificationsController.cs" />
+    <Compile Include="Interfaces\IToastNotificationController.cs" />
     <Compile Include="Interfaces\ISQLitePlatformFactory.cs" />
+    <Compile Include="Managers\Authorization\AuthorizationManager.cs" />
     <Compile Include="Managers\Database.cs" />
     <Compile Include="Managers\BookmarkPersistingManager.cs" />
+    <Compile Include="Managers\Notifications\FavoritesNotificationsManager.cs" />
     <Compile Include="Managers\UserInfoPersistingManager.cs" />
     <Compile Include="Managers\ItemsEventArgs.cs" />
     <Compile Include="Managers\NewItemsEventArgs.cs" />
@@ -67,6 +72,7 @@
     <Compile Include="Interfaces\Entities\ITimelineEntity.cs" />
     <Compile Include="ViewModels\Entities\BookmarkPhotoUrlViewModel.cs" />
     <Compile Include="ViewModels\Entities\BookmarkResourceUrlViewModel.cs" />
+    <Compile Include="ViewModels\Entities\EventViewModel.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -169,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\TimelinePage.xaml">
