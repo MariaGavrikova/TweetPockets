@@ -81,6 +81,7 @@
     <Compile Include="ViewModels\Entities\BookmarkPhotoUrlViewModel.cs" />
     <Compile Include="ViewModels\Entities\BookmarkResourceUrlViewModel.cs" />
     <Compile Include="ViewModels\Entities\EventViewModel.cs" />
+    <Compile Include="ViewModels\Entities\UserStreamEventType.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
