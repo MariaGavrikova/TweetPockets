@@ -20,7 +20,7 @@ namespace TweetPockets.Views
             _data = BindingContext as MainViewModel;
         }
 
-        private void ItemTapped(object sender, EventArgs e)
+        private async void ItemTapped(object sender, EventArgs e)
         {
             var view = sender as View;
             var item = view?.BindingContext as MenuItemViewModel;
@@ -31,6 +31,7 @@ namespace TweetPockets.Views
                 mainPage.IsPresented = false;
 
                 _data.SelectedItem = item;
+                await item.Reload();
             }
         }
     }

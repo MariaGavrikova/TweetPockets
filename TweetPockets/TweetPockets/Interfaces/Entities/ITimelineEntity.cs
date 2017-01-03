@@ -4,9 +4,8 @@ using System.ComponentModel;
 
 namespace TweetPockets.Interfaces.Entities
 {
-    public interface ITimelineEntity : INotifyPropertyChanged
+    public interface ITimelineEntity : IEntity
     {
-        long Id { get; set; }
         DateTime CreatedAt { get; set; }
         string TimestampLabel { get; }
         string Author { get; set; }

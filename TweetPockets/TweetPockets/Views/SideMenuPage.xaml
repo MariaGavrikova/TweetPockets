@@ -21,6 +21,7 @@
       <RowDefinition Height="48" />
       <RowDefinition Height="48" />
       <RowDefinition Height="8" />
+      <RowDefinition Height="48" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
@@ -91,8 +92,8 @@
       </Label.GestureRecognizers>
     </Label>
 
-    <!--Bookmarks-->
-    <Image BindingContext="{Binding BookmarkList}"
+    <!--Activity-->
+    <Image BindingContext="{Binding Activity}"
            HorizontalOptions="Start" VerticalOptions="Center"
            Grid.Column="1" Grid.Row="4"
            Aspect="AspectFit"
@@ -101,7 +102,7 @@
         <TapGestureRecognizer Tapped="ItemTapped"/>
       </Image.GestureRecognizers>
     </Image>
-    <Label BindingContext="{Binding BookmarkList}"
+    <Label BindingContext="{Binding Activity}"
           WidthRequest="30"
           Grid.Column="2" Grid.Row="4"
           VerticalOptions="Center"
@@ -110,7 +111,7 @@
         <TapGestureRecognizer Tapped="ItemTapped"/>
       </Label.GestureRecognizers>
     </Label>
-    <Label BindingContext="{Binding BookmarkList}"
+    <Label BindingContext="{Binding Activity}"
            Text="{Binding Title}" Margin="30,0,16,0"
            Grid.Column="2" Grid.Row="4"
            TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
@@ -125,5 +126,35 @@
              VerticalOptions="Center"
              Grid.Column="0" Grid.Row="5"
              Grid.ColumnSpan="4" />
+
+    <!--Bookmarks-->
+    <Image BindingContext="{Binding BookmarkList}"
+           HorizontalOptions="Start" VerticalOptions="Center"
+           Grid.Column="1" Grid.Row="6"
+           Aspect="AspectFit"
+           Source="{Binding Image}">
+      <Image.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Image.GestureRecognizers>
+    </Image>
+    <Label BindingContext="{Binding BookmarkList}"
+          WidthRequest="30"
+          Grid.Column="2" Grid.Row="6"
+          VerticalOptions="Center"
+          FontFamily="Roboto-Medium" FontSize="14">
+      <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Label.GestureRecognizers>
+    </Label>
+    <Label BindingContext="{Binding BookmarkList}"
+           Text="{Binding Title}" Margin="30,0,16,0"
+           Grid.Column="2" Grid.Row="6"
+           TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
+           VerticalOptions="Center"
+           FontFamily="Roboto-Medium" FontSize="14">
+      <Label.GestureRecognizers>
+        <TapGestureRecognizer Tapped="ItemTapped"/>
+      </Label.GestureRecognizers>
+    </Label>
   </Grid>
 </ContentPage>

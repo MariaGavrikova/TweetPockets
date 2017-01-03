@@ -62,6 +62,24 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recent activity.
+        /// </summary>
+        public static string AcitivityMenuItem {
+            get {
+                return ResourceManager.GetString("AcitivityMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent activity.
+        /// </summary>
+        public static string ActivityPageTitle {
+            get {
+                return ResourceManager.GetString("ActivityPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} added to Bookmarks.
         /// </summary>
         public static string AddedToBookmarksNotificationPattern {
@@ -139,6 +157,24 @@ namespace TweetPockets.Resources {
         public static string NotificationFullFavorited {
             get {
                 return ResourceManager.GetString("NotificationFullFavorited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retweeted &quot;{0}&quot;.
+        /// </summary>
+        public static string NotificationFullRetweeted {
+            get {
+                return ResourceManager.GetString("NotificationFullRetweeted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} retweeted &quot;{1}&quot;.
+        /// </summary>
+        public static string NotificationRetweeted {
+            get {
+                return ResourceManager.GetString("NotificationRetweeted", resourceCulture);
             }
         }
         

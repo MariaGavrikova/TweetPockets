@@ -15,8 +15,8 @@ namespace TweetPockets.Factories
             var userDetails = new UserDetails();
             userDetails.Token = account.Properties["oauth_token"];
             userDetails.TokenSecret = account.Properties["oauth_token_secret"];
-            ulong id;
-            ulong.TryParse(account.Properties["user_id"], out id);
+            long id;
+            long.TryParse(account.Properties["user_id"], out id);
             userDetails.TwitterId = id;
             userDetails.ScreenName = account.Properties["screen_name"];
             return userDetails;

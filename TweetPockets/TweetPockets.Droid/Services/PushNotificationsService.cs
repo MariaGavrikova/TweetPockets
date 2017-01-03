@@ -30,7 +30,10 @@ namespace TweetPockets.Droid.Services
         private readonly IDictionary<string, IEventManager> _managers =
             new Dictionary<string, IEventManager>()
             {
-                {"favorite", new FavoritesNotificationsManager()}
+                {"favorite", new FavoritesNotificationsManager()},
+                {"unfavorite", new FavoritesNotificationsManager()},
+                {"status", new CreateStatusNotificationsManager()},
+                {"delete", new DeleteStatusNotificationsManager()}
             };
 
         private async Task StartUserStreamAsync()
@@ -59,13 +62,27 @@ namespace TweetPockets.Droid.Services
         {
             _currentStream = streamContent;
 
+            string action = String.Empty;
+
             if (streamContent.EntityType == StreamEntityType.Event && streamContent.Entity is Event)
             {
                 var twitterEvent = (Event)streamContent.Entity;
-                IEventManager manager;
-                _managers.TryGetValue(twitterEvent.EventName, out manager);
-                manager?.Process(new EventViewModel(streamContent));
+                action = twitterEvent.EventName;
             }
+
+            if (streamContent.EntityType == StreamEntityType.Status && streamContent.Entity is Status)
+            {
+                action = "status";
+            }
+
+            if (streamContent.EntityType == StreamEntityType.Delete && streamContent.Entity is Delete)
+            {
+                action = "delete";
+            }
+
+            IEventManager manager;
+            _managers.TryGetValue(action, out manager);
+            manager?.Process(new EventViewModel(streamContent));
         }
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)

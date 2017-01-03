@@ -50,6 +50,7 @@ namespace TweetPockets
         {
             ViewManager = new ViewManager();
             ViewManager.Register<TimelineViewModel, TimelinePage>();
+            ViewManager.Register<ActivityViewModel, ActivityPage>();
             ViewManager.Register<BookmarkListViewModel, BookmarkListPage>();
             ViewManager.Register<NewTweetViewModel, NewTweetPage>();
         }

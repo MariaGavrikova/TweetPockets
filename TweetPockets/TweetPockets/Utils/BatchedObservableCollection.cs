@@ -9,7 +9,7 @@ using TweetPockets.ViewModels.Entities;
 namespace TweetPockets.Utils
 {
     public abstract class BatchedObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged
-        where T : ITimelineEntity
+        where T : IEntity
     {
         private List<T> _list = new List<T>();
         private Dictionary<long, T> _dictionary = new Dictionary<long, T>();
@@ -45,16 +45,18 @@ namespace TweetPockets.Utils
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { item }, i));
         }
 
-        public void AddRange(IList<T> items)
+        public void AddRange(IEnumerable<T> items)
         {
-            if (items.Count > 0)
+            var startingIndex = _list.Count;
+            var newItems = new List<T>();
+            foreach (var item in items)
             {
-                var startingIndex = _list.Count;
-                foreach (var item in items)
-                {
-                    _list.Add(item);
-                    _dictionary[item.Id] = item;
-                }
+                newItems.Add(item);
+                _list.Add(item);
+                _dictionary[item.Id] = item;
+            }
+            if (newItems.Count > 0)
+            {
                 OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items, startingIndex));
             }
         }
@@ -73,20 +75,17 @@ namespace TweetPockets.Utils
             }
         }
 
-        public void ReplaceRange(IList<T> items)
+        public void ReplaceRange(IEnumerable<T> items)
         {
             var oldItems = _list;
-            if (items.Count > 0)
+            _list = new List<T>();
+            _dictionary = new Dictionary<long, T>();
+            foreach (var item in items)
             {
-                _list = new List<T>();
-                _dictionary = new Dictionary<long, T>();
-                foreach (var item in items)
-                {
-                    _list.Add(item);
-                    _dictionary[item.Id] = item;
-                }
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, items, oldItems));
+                _list.Add(item);
+                _dictionary[item.Id] = item;
             }
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, items, oldItems));
         }
 
         public void Remove(T item)

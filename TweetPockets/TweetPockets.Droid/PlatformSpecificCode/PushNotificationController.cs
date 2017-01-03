@@ -22,7 +22,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode
     {
         private IDictionary<UserStreamEventType, int> _icons = new Dictionary<UserStreamEventType, int>()
         {
-            { UserStreamEventType.Favorite, Resource.Drawable.ic_favorite_red_24dp }
+            { UserStreamEventType.Favorite, Resource.Drawable.ic_favorite_red_24dp },
+            { UserStreamEventType.Retweet, Resource.Drawable.ic_repeat_blue_24dp }
         };
 
         public void ShowNotification(UserStreamEventType eventType, string title, string text, string summary)

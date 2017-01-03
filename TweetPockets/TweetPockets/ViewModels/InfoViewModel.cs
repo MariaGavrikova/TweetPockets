@@ -36,8 +36,8 @@ namespace TweetPockets.ViewModels
         public async Task InitAsync()
         {
             var user = AuthorizationManager.Instance.CurrentUserDetails;
-            User = _userInfoPersistingManager.GetCachedAsync((long)user.TwitterId);
-            var userAccount = await _loadingManager.GetUserInfo(user.TwitterId, user.ScreenName);
+            User = _userInfoPersistingManager.GetCachedAsync(user.TwitterId);
+            var userAccount = await _loadingManager.GetUserInfo((ulong)user.TwitterId, user.ScreenName);
             User = new UserInfoViewModel()
             {
                 ScreenName = userAccount.ScreenNameResponse,

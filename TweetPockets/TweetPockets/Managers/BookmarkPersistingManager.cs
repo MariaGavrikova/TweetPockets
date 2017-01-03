@@ -54,9 +54,9 @@ namespace TweetPockets.Managers
             }
         }
 
-        public IList<ITimelineEntity> GetBookmarks()
+        public IEnumerable<ITimelineEntity> GetBookmarks()
         {
-            return _db.Table<BookmarkViewModel>().Cast<ITimelineEntity>().ToList();
+            return _db.Table<BookmarkViewModel>();
         }
 
         public bool IsStatusBookmarked(long id)

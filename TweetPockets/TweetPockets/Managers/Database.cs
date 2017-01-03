@@ -23,6 +23,8 @@ namespace TweetPockets.Managers
             CreateTable<BookmarkViewModel>();
             CreateTable<BookmarkPhotoUrlViewModel>();
             CreateTable<BookmarkResourceUrlViewModel>();
+
+            CreateTable<EventViewModel>();
         }
     }
 }

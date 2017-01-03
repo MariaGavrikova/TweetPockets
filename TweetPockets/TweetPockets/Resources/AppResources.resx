@@ -159,4 +159,16 @@
   <data name="TweetInputFieldLabel" xml:space="preserve">
     <value>Your tweet</value>
   </data>
+  <data name="NotificationFullRetweeted" xml:space="preserve">
+    <value>Retweeted "{0}"</value>
+  </data>
+  <data name="NotificationRetweeted" xml:space="preserve">
+    <value>{0} retweeted "{1}"</value>
+  </data>
+  <data name="AcitivityMenuItem" xml:space="preserve">
+    <value>Recent activity</value>
+  </data>
+  <data name="ActivityPageTitle" xml:space="preserve">
+    <value>Recent activity</value>
+  </data>
 </root>

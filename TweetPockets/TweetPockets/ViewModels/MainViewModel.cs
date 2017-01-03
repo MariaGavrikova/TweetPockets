@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TweetPockets.Interfaces;
 using TweetPockets.Managers;
+using TweetPockets.Managers.Notifications;
 using TweetPockets.Resources;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels.Entities;
@@ -28,6 +29,7 @@ namespace TweetPockets.ViewModels
             Info = new InfoViewModel(_loadingManager);
             Timeline = new TimelineViewModel(this, _loadingManager, persistingManager, _bookmarkPersistingManager);
             BookmarkList = new BookmarkListViewModel(this, _bookmarkPersistingManager);
+            Activity = new ActivityViewModel(this, new EventPersistingManager());
             SelectedItem = Timeline;
 
             MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "ChangeBookmarkState",
@@ -41,6 +43,8 @@ namespace TweetPockets.ViewModels
         public TimelineViewModel Timeline { get; set; }
 
         public BookmarkListViewModel BookmarkList { get; set; }
+
+        public ActivityViewModel Activity { get; set; }
 
         public MenuItemViewModel SelectedItem
         {

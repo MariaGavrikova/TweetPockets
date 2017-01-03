@@ -11,19 +11,28 @@ using Xamarin.Forms;
 
 namespace TweetPockets.Managers.Notifications
 {
-    public class FavoritesNotificationsManager : IEventManager
+    public class FavoritesNotificationsManager : EventPersistingManager, IEventManager
     {
         public void Process(EventViewModel twitterEvent)
         {
             var initiator = twitterEvent.InitiatorId;
             if (initiator != AuthorizationManager.Instance.CurrentUserDetails.TwitterId)
             {
-                var pushController = DependencyService.Get<IPushNotificationsController>();
-                pushController.ShowNotification(
-                    twitterEvent.EventType,
-                    twitterEvent.InitiatorName, 
-                    String.Format(AppResources.NotificationFullFavorited, twitterEvent.Text),
-                    String.Format(AppResources.NotificationFavorited, twitterEvent.InitiatorName, twitterEvent.Text));
+                if (twitterEvent.EventType == UserStreamEventType.Favorite)
+                {
+                    Save(twitterEvent);
+
+                    var pushController = DependencyService.Get<IPushNotificationsController>();
+                    pushController.ShowNotification(
+                        twitterEvent.EventType,
+                        twitterEvent.InitiatorName,
+                        String.Format(AppResources.NotificationFullFavorited, twitterEvent.Text),
+                        String.Format(AppResources.NotificationFavorited, twitterEvent.InitiatorName, twitterEvent.Text));
+                }
+                else if (twitterEvent.EventType == UserStreamEventType.Unfavorite)
+                {
+                    Remove(twitterEvent);
+                }
             }
         }
     }

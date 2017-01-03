@@ -45,5 +45,9 @@ namespace TweetPockets.ViewModels
         }
 
         public string Title { get; set; }
+
+        public virtual async Task Reload()
+        {
+        }
     }
 }
