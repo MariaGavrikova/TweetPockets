@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;
@@ -25,10 +27,39 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Activity
         {
             _element = element;
             _items = (BatchedObservableCollection<EventViewModel>)element.ItemsSource;
+            _items.CollectionChanged += CollectionChangedHandler;
             _viewTypes = new Dictionary<int, int>()
             {
                 { EventItemType, Resource.Layout.EventItem },
             };
+        }
+
+        private void CollectionChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                if (e.NewStartingIndex == 0)
+                {
+                    NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
+                }
+                else
+                {
+                    NotifyItemRemoved(e.NewStartingIndex);
+                    NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
+                }
+            }
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                NotifyItemRemoved(e.OldStartingIndex);
+            }
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                NotifyItemRangeChanged(0, Math.Max(e.OldItems.Count, e.NewItems.Count));
+            }
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+               NotifyDataSetChanged();
+            }
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)

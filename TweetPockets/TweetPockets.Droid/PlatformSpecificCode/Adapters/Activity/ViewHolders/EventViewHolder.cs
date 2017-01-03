@@ -18,14 +18,16 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Activity.ViewHolders
         {
             { UserStreamEventType.Favorite, Resource.Drawable.ic_favorite_red_24dp },
             { UserStreamEventType.Retweet, Resource.Drawable.ic_repeat_blue_24dp },
-            { UserStreamEventType.Quoted, Resource.Drawable.ic_quote_black_24dp }
+            { UserStreamEventType.Quoted, Resource.Drawable.ic_quote_black_24dp },
+            { UserStreamEventType.Replied, Resource.Drawable.ic_reply_green_24dp }
         };
 
         private IDictionary<UserStreamEventType, string> _texts = new Dictionary<UserStreamEventType, string>()
         {
             { UserStreamEventType.Favorite, AppResources.LabelFavorited },
             { UserStreamEventType.Retweet, AppResources.LabelRetweeted },
-            { UserStreamEventType.Quoted, AppResources.LabelQuoted }
+            { UserStreamEventType.Quoted, AppResources.LabelQuoted },
+            { UserStreamEventType.Replied, AppResources.LabelReplied }
         };
 
         public EventViewHolder(View itemView) : base(itemView)

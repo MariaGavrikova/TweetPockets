@@ -62,27 +62,34 @@ namespace TweetPockets.Droid.Services
         {
             _currentStream = streamContent;
 
-            string action = String.Empty;
-
-            if (streamContent.EntityType == StreamEntityType.Event && streamContent.Entity is Event)
+            try
             {
-                var twitterEvent = (Event)streamContent.Entity;
-                action = twitterEvent.EventName;
-            }
+                string action = String.Empty;
 
-            if (streamContent.EntityType == StreamEntityType.Status && streamContent.Entity is Status)
+                if (streamContent.EntityType == StreamEntityType.Event && streamContent.Entity is Event)
+                {
+                    var twitterEvent = (Event)streamContent.Entity;
+                    action = twitterEvent.EventName;
+                }
+
+                if (streamContent.EntityType == StreamEntityType.Status && streamContent.Entity is Status)
+                {
+                    action = "status";
+                }
+
+                if (streamContent.EntityType == StreamEntityType.Delete && streamContent.Entity is Delete)
+                {
+                    action = "delete";
+                }
+
+                IEventManager manager;
+                _managers.TryGetValue(action, out manager);
+                manager?.Process(new EventViewModel(streamContent));
+            }
+            catch (Exception ex)
             {
-                action = "status";
+                System.Diagnostics.Debug.WriteLine(ex);
             }
-
-            if (streamContent.EntityType == StreamEntityType.Delete && streamContent.Entity is Delete)
-            {
-                action = "delete";
-            }
-
-            IEventManager manager;
-            _managers.TryGetValue(action, out manager);
-            manager?.Process(new EventViewModel(streamContent));
         }
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)

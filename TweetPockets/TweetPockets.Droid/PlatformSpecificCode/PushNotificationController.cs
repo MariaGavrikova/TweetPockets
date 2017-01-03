@@ -24,7 +24,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode
         {
             { UserStreamEventType.Favorite, Resource.Drawable.ic_favorite_red },
             { UserStreamEventType.Retweet, Resource.Drawable.ic_repeat_blue },
-            { UserStreamEventType.Quoted, Resource.Drawable.ic_quote_white }
+            { UserStreamEventType.Quoted, Resource.Drawable.ic_quote_white },
+            { UserStreamEventType.Replied, Resource.Drawable.ic_reply_green }
         };
 
         public void ShowNotification(UserStreamEventType eventType, string title, string text, string summary)
@@ -57,6 +58,14 @@ namespace TweetPockets.Droid.PlatformSpecificCode
             var notificationManager =
                 context.GetSystemService(Context.NotificationService) as NotificationManager;
             notificationManager?.Notify(0, notification);
+        }
+
+        public void ClearAll()
+        {
+            Context context = Forms.Context;
+            var notificationManager =
+                context.GetSystemService(Context.NotificationService) as NotificationManager;
+            notificationManager?.CancelAll();
         }
     }
 }

@@ -5,5 +5,8 @@
              xmlns:controls="clr-namespace:TweetPockets.Controls;assembly=TweetPockets"
              x:Class="TweetPockets.Views.ActivityPage"
              Title="{resources:Translate ActivityPageTitle}">
-    <controls:TimelineListView ItemsSource="{Binding Events}"/>
+  <controls:TimelineListView ItemsSource="{Binding Events}"
+                              IsPullToRefreshEnabled="True"
+                             IsRefreshing="{Binding IsLoading}"
+                             RefreshCommand="{Binding ReloadCommand}"/>
 </ContentPage>

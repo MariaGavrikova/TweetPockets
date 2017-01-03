@@ -63,7 +63,7 @@ namespace TweetPockets.Managers.Notifications
 
         public Task<TableQuery<EventViewModel>> GetEventsAsync()
         {
-            return Task.FromResult(_db.Table<EventViewModel>());
+            return Task.FromResult(_db.Table<EventViewModel>().OrderByDescending(x => x.CreatedAt));
         }
     }
 }

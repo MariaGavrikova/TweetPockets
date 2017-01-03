@@ -111,6 +111,16 @@ namespace TweetPockets.Utils
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems, startingIndex));
         }
 
+        public void Clear()
+        {
+            if (_list.Any())
+            {
+                _dictionary.Clear();
+                _list.Clear();
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
+
         public void RemoveLast(int count)
         {
             RemoveRange(Count - count, count);

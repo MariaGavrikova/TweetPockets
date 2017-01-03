@@ -143,6 +143,15 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to replied:.
+        /// </summary>
+        public static string LabelReplied {
+            get {
+                return ResourceManager.GetString("LabelReplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to retweeted:.
         /// </summary>
         public static string LabelRetweeted {
@@ -197,6 +206,15 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replied &quot;{0}&quot;.
+        /// </summary>
+        public static string NotificationFullReplied {
+            get {
+                return ResourceManager.GetString("NotificationFullReplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retweeted &quot;{0}&quot;.
         /// </summary>
         public static string NotificationFullRetweeted {
@@ -211,6 +229,15 @@ namespace TweetPockets.Resources {
         public static string NotificationQuoted {
             get {
                 return ResourceManager.GetString("NotificationQuoted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: &quot;{1}&quot;.
+        /// </summary>
+        public static string NotificationReplied {
+            get {
+                return ResourceManager.GetString("NotificationReplied", resourceCulture);
             }
         }
         

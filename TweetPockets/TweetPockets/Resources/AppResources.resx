@@ -186,4 +186,13 @@
   <data name="LabelRetweeted" xml:space="preserve">
     <value>retweeted:</value>
   </data>
+  <data name="LabelReplied" xml:space="preserve">
+    <value>replied:</value>
+  </data>
+  <data name="NotificationFullReplied" xml:space="preserve">
+    <value>Replied "{0}"</value>
+  </data>
+  <data name="NotificationReplied" xml:space="preserve">
+    <value>{0}: "{1}"</value>
+  </data>
 </root>

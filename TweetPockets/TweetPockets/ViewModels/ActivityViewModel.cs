@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using TweetPockets.Interfaces;
 using TweetPockets.Managers;
 using TweetPockets.Managers.Notifications;
 using TweetPockets.Resources;
@@ -24,13 +26,23 @@ namespace TweetPockets.ViewModels
             _mainViewModel = mainViewModel;
             _persistingManager = persistingManager;
             Events = new Events();
+            ReloadCommand = new Command(async () => await Reload());
         }
 
         public BatchedObservableCollection<EventViewModel> Events { get; private set; }
 
+        public ICommand ReloadCommand { get; set; }
+
         public override async Task Reload()
         {
-            Events.ReplaceRange(await _persistingManager.GetEventsAsync());
+            using (ActivityLoading())
+            {
+                Events.Clear();
+                Events.AddRange(await _persistingManager.GetEventsAsync());
+
+                var notificationsController = DependencyService.Get<IPushNotificationsController>();
+                notificationsController.ClearAll();
+            }
         }
     }
 }

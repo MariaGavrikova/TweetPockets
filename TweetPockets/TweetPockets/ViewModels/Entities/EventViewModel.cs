@@ -10,6 +10,7 @@ using LitJson;
 using SQLite.Net.Attributes;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
+using Xamarin.Forms;
 
 namespace TweetPockets.ViewModels.Entities
 {
@@ -40,13 +41,20 @@ namespace TweetPockets.ViewModels.Entities
                 if (status.RetweetedStatus != null && status.RetweetedStatus.StatusID != 0)
                 {
                     Text = status.RetweetedStatus.Text;
+                    TargetUserId = (long) status.RetweetedStatus.UserID;
                     EventType = UserStreamEventType.Retweet;
                 }
-
-                if (status.QuotedStatus != null && status.QuotedStatus.StatusID != 0)
+                else if (status.QuotedStatus != null && status.QuotedStatus.StatusID != 0)
                 {
                     Text = status.QuotedStatus.Text;
+                    TargetUserId = (long)status.QuotedStatus.UserID;
                     EventType = UserStreamEventType.Quoted;
+                }
+                else if (status.InReplyToUserID != 0)
+                {
+                    TargetUserId = (long) status.InReplyToUserID;
+                    Text = status.Text;
+                    EventType = UserStreamEventType.Replied;
                 }
             }
             else if (content.Entity is Delete)
@@ -57,6 +65,33 @@ namespace TweetPockets.ViewModels.Entities
                 EventType = UserStreamEventType.Unknown;
             }
         }
+
+
+        [PrimaryKey, AutoIncrement]
+        public long Id { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        [Ignore]
+        public string TimestampLabel
+        {
+            get
+            {
+                return TimestampHelper.GetText(CreatedAt);
+            }
+        }
+
+        public UserStreamEventType EventType { get; set; }
+
+        public long InitiatorId { get; set; }
+
+        public string InitiatorName { get; set; }
+
+        public long TargetUserId { get; set; }
+
+        public long StatusId { get; set; }
+
+        public string Text { get; set; }
 
         private void ParseEvent(StreamContent content)
         {
@@ -99,30 +134,6 @@ namespace TweetPockets.ViewModels.Entities
                 }
             }
         }
-
-        [PrimaryKey, AutoIncrement]
-        public long Id { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
-        [Ignore]
-        public string TimestampLabel
-        {
-            get
-            {
-                return TimestampHelper.GetText(CreatedAt);
-            }
-        }
-
-        public UserStreamEventType EventType { get; set; }
-
-        public long InitiatorId { get; set; }
-
-        public string InitiatorName { get; set; }
-
-        public long StatusId { get; set; }
-
-        public string Text { get; set; }
     }
 
     public enum UserStreamEventType
@@ -134,6 +145,7 @@ namespace TweetPockets.ViewModels.Entities
         Unfavorite,
         Retweet,
         Quoted,
+        Replied,
         Block,
         Unblock,
         ListCreated,
