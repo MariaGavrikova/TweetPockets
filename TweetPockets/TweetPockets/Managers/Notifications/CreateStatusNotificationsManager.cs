@@ -16,7 +16,8 @@ namespace TweetPockets.Managers.Notifications
         public void Process(EventViewModel twitterEvent)
         {
             var initiator = twitterEvent.InitiatorId;
-            if (initiator != AuthorizationManager.Instance.CurrentUserDetails.TwitterId)
+            if (twitterEvent.EventType == UserStreamEventType.Retweet &&
+                initiator != AuthorizationManager.Instance.CurrentUserDetails.TwitterId)
             {
                 Save(twitterEvent);
 

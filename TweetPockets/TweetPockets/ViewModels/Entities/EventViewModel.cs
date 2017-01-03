@@ -14,6 +14,8 @@ namespace TweetPockets.ViewModels.Entities
 {
     public class EventViewModel : ViewModelBase, IEntity
     {
+        private readonly StreamContent _content;
+
         public EventViewModel()
         {
             
@@ -21,6 +23,7 @@ namespace TweetPockets.ViewModels.Entities
 
         public EventViewModel(StreamContent content)
         {
+            _content = content;
             if (content.Entity is Event)
             {
                 ParseEvent(content);
