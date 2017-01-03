@@ -16,17 +16,27 @@ namespace TweetPockets.Managers.Notifications
         public void Process(EventViewModel twitterEvent)
         {
             var initiator = twitterEvent.InitiatorId;
-            if (twitterEvent.EventType == UserStreamEventType.Retweet &&
+            var eventType = twitterEvent.EventType;
+            if ((eventType == UserStreamEventType.Retweet || eventType == UserStreamEventType.Quoted) &&
                 initiator != AuthorizationManager.Instance.CurrentUserDetails.TwitterId)
             {
                 Save(twitterEvent);
 
                 var pushController = DependencyService.Get<IPushNotificationsController>();
+                var title = 
+                    String.Format(
+                       eventType == UserStreamEventType.Retweet ? AppResources.NotificationFullRetweeted : AppResources.NotificationFullQuoted,
+                       twitterEvent.Text);
+                var summary = 
+                    String.Format(
+                        eventType == UserStreamEventType.Retweet ? AppResources.NotificationRetweeted : AppResources.NotificationQuoted, 
+                        twitterEvent.InitiatorName,
+                        twitterEvent.Text);
                 pushController.ShowNotification(
-                    twitterEvent.EventType,
+                    eventType,
                     twitterEvent.InitiatorName, 
-                    String.Format(AppResources.NotificationFullRetweeted, twitterEvent.Text),
-                    String.Format(AppResources.NotificationRetweeted, twitterEvent.InitiatorName, twitterEvent.Text));
+                    title,
+                    summary);
             }
         }
     }

@@ -3,10 +3,8 @@ using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
 using TweetPockets.Interfaces.Entities;
-using TweetPockets.ViewModels;
-using TweetPockets.ViewModels.Entities;
 
-namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
+namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders
 {
     class SinglePhotoViewHolder : TimelineEntityViewHolder
     {

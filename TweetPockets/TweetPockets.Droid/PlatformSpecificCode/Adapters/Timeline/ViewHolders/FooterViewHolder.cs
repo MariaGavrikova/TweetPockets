@@ -1,11 +1,10 @@
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using TweetPockets.Controls;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 
-namespace TweetPockets.Droid.PlatformSpecificCode.ViewHolders
+namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders
 {
     class FooterViewHolder : RecyclerView.ViewHolder
     {

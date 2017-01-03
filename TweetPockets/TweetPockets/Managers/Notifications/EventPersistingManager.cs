@@ -53,6 +53,11 @@ namespace TweetPockets.Managers.Notifications
             if (savedEvent != null)
             {
                 _db.Delete(savedEvent);
+                var savedStatus = _db.Find<StatusViewModel>(x => x.Id == savedEvent.StatusId);
+                if (savedStatus != null)
+                {
+                    _db.Delete(savedStatus);
+                }
             }
         }
 

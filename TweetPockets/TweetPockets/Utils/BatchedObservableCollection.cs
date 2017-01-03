@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using TweetPockets.Interfaces;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
 
 namespace TweetPockets.Utils
 {
-    public abstract class BatchedObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged
+    public abstract class BatchedObservableCollection<T> : IEnumerable<T>, INotifyCollectionChanged, IGenericCollection
         where T : IEntity
     {
         private List<T> _list = new List<T>();
@@ -136,6 +138,11 @@ namespace TweetPockets.Utils
             T result;
             _dictionary.TryGetValue(id, out result);
             return result;
+        }
+
+        public Type ItemType
+        {
+            get { return typeof (T); }
         }
     }
 }

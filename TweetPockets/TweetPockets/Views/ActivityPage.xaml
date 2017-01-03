@@ -2,22 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resources="clr-namespace:TweetPockets.Resources;assembly=TweetPockets"
+             xmlns:controls="clr-namespace:TweetPockets.Controls;assembly=TweetPockets"
              x:Class="TweetPockets.Views.ActivityPage"
              Title="{resources:Translate ActivityPageTitle}">
-  <ListView ItemsSource="{Binding Events}">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding InitiatorName}" 
-                   FontFamily="Roboto-Medium" FontSize="14"/>
-            <Label Text="{Binding EventType}"
-                   FontFamily="Roboto-Medium" FontSize="14"/>
-            <Label Text="{Binding Text}" 
-                   FontFamily="Roboto-Medium" FontSize="14"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
+    <controls:TimelineListView ItemsSource="{Binding Events}"/>
 </ContentPage>

@@ -1,30 +1,20 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Timers;
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
-using Java.Net;
 using Java.Util.Concurrent;
 using TweetPockets.Controls;
-using TweetPockets.Droid.PlatformSpecificCode.ViewHolders;
+using TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
-using TweetPockets.ViewModels;
-using TweetPockets.ViewModels.Entities;
 using Math = System.Math;
 
-namespace TweetPockets.Droid.PlatformSpecificCode
+namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline
 {
     class TimelineAdapter : RecyclerView.Adapter
     {

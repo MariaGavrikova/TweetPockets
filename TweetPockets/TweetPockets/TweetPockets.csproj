@@ -42,6 +42,7 @@
     <Compile Include="Factories\UserDetailsFactory.cs" />
     <Compile Include="Interfaces\Entities\IEntity.cs" />
     <Compile Include="Interfaces\IEventManager.cs" />
+    <Compile Include="Interfaces\IGenericCollection.cs" />
     <Compile Include="Interfaces\ILocalize.cs" />
     <Compile Include="Interfaces\IPushNotificationsController.cs" />
     <Compile Include="Interfaces\IToastNotificationController.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Resources\TranslateExtension.cs" />
     <Compile Include="Utils\BatchedObservableCollection.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="Utils\TimestampHelper.cs" />
     <Compile Include="ViewModels\ActivityViewModel.cs" />
     <Compile Include="ViewModels\Collections\Bookmarks.cs" />
     <Compile Include="ViewModels\Collections\Events.cs" />

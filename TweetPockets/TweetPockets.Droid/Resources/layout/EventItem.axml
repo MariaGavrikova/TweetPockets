@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/Placeholder"
+    android:paddingTop="12dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/EventType"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_repeat_green_24dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Author"
+        android:layout_toRightOf="@+id/EventType"
+        android:textSize="20sp"
+        android:text="long author name long author name long author name long author name"
+        android:singleLine="true"
+        android:maxLength="30"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/EventTypeText"
+        android:layout_toRightOf="@+id/Author"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="32dp"
+        android:textSize="20sp"
+        android:text="retweeted"
+        android:singleLine="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:id="@+id/Timestamp"
+        android:text="6h"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/Placeholder"
+        android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Text"
+        android:minLines="2"
+        android:autoLink="web"
+        android:layout_toRightOf="@+id/EventType"
+        android:layout_marginRight="32dp"
+        android:layout_below="@+id/Author"
+        android:text="Status text Status text Status text Status text Status text Status text Status text Status text Status text Status text Status text Status text Status text Status text Status text " />
+</RelativeLayout>

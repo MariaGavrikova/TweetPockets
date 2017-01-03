@@ -125,6 +125,33 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to favorited:.
+        /// </summary>
+        public static string LabelFavorited {
+            get {
+                return ResourceManager.GetString("LabelFavorited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to quoted:.
+        /// </summary>
+        public static string LabelQuoted {
+            get {
+                return ResourceManager.GetString("LabelQuoted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to retweeted:.
+        /// </summary>
+        public static string LabelRetweeted {
+            get {
+                return ResourceManager.GetString("LabelRetweeted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}m.
         /// </summary>
         public static string MinutesLabel {
@@ -161,11 +188,29 @@ namespace TweetPockets.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quoted &quot;{0}&quot;.
+        /// </summary>
+        public static string NotificationFullQuoted {
+            get {
+                return ResourceManager.GetString("NotificationFullQuoted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retweeted &quot;{0}&quot;.
         /// </summary>
         public static string NotificationFullRetweeted {
             get {
                 return ResourceManager.GetString("NotificationFullRetweeted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} quoted &quot;{1}&quot;.
+        /// </summary>
+        public static string NotificationQuoted {
+            get {
+                return ResourceManager.GetString("NotificationQuoted", resourceCulture);
             }
         }
         

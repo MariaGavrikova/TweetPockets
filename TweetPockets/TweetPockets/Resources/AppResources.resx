@@ -171,4 +171,19 @@
   <data name="ActivityPageTitle" xml:space="preserve">
     <value>Recent activity</value>
   </data>
+  <data name="NotificationFullQuoted" xml:space="preserve">
+    <value>Quoted "{0}"</value>
+  </data>
+  <data name="NotificationQuoted" xml:space="preserve">
+    <value>{0} quoted "{1}"</value>
+  </data>
+  <data name="LabelFavorited" xml:space="preserve">
+    <value>favorited:</value>
+  </data>
+  <data name="LabelQuoted" xml:space="preserve">
+    <value>quoted:</value>
+  </data>
+  <data name="LabelRetweeted" xml:space="preserve">
+    <value>retweeted:</value>
+  </data>
 </root>

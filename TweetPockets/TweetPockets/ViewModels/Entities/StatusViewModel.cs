@@ -8,6 +8,7 @@ using SQLiteNetExtensions.Attributes;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.Managers;
 using TweetPockets.Resources;
+using TweetPockets.Utils;
 
 namespace TweetPockets.ViewModels.Entities
 {
@@ -78,34 +79,8 @@ namespace TweetPockets.ViewModels.Entities
         [Ignore]
         public string TimestampLabel
         {
-            get
-            {
-                var timespan = DateTime.UtcNow - CreatedAt;
-                string result;
-                if (timespan.Days > 0)
-                {
-                    result = String.Format(AppResources.DaysLabel, timespan.Days);
-                }
-                else
-                {
-                    if (timespan.Hours > 0)
-                    {
-                        result = String.Format(AppResources.HoursLabel, timespan.Hours);
-                    }
-                    else
-                    {
-                        if (timespan.Minutes > 0)
-                        {
-                            result = String.Format(AppResources.MinutesLabel, timespan.Minutes);
-                        }
-                        else
-                        {
-                            result = String.Format(AppResources.SecondsLabel, Math.Max(timespan.Seconds, 1));
-                        }
-                    }
-                }
-
-                return result;
+            get {
+                return TimestampHelper.GetText(CreatedAt);
             }
         }
 

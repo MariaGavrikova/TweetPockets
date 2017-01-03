@@ -19,7 +19,13 @@ using Java.Util;
 using TweetPockets;
 using TweetPockets.Controls;
 using TweetPockets.Droid.PlatformSpecificCode;
+using TweetPockets.Droid.PlatformSpecificCode.Adapters;
+using TweetPockets.Droid.PlatformSpecificCode.Adapters.Activity;
+using TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline;
 using TweetPockets.Droid.Renderers;
+using TweetPockets.Interfaces;
+using TweetPockets.Interfaces.Entities;
+using TweetPockets.ViewModels.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Android.Graphics.Color;
@@ -34,7 +40,14 @@ namespace TweetPockets.Droid.Renderers
     {
         private RecyclerView _recyclerView;
         private SwipeRefreshLayout _swipeRefreshLayout;
-        private TimelineAdapter _adapter;
+        private RecyclerView.Adapter _adapter;
+
+        private IDictionary<Type, Func<TimelineListView,RecyclerView, LinearLayoutManager, RecyclerView.Adapter>> _adapterFactories =
+            new Dictionary<Type, Func<TimelineListView, RecyclerView, LinearLayoutManager, RecyclerView.Adapter>>()
+            {
+                { typeof(ITimelineEntity), (e,r,l) => new TimelineAdapter(e, r, l) },
+                { typeof(EventViewModel), (e,r,l) => new ActivityAdapter(e, r, l) },
+            };
 
         protected override void OnElementChanged(ElementChangedEventArgs<TimelineListView> e)
         {
@@ -53,12 +66,23 @@ namespace TweetPockets.Droid.Renderers
                
                 var linearLayoutManager = new LinearLayoutManager(Forms.Context);
                 _recyclerView.SetLayoutManager(linearLayoutManager);
-                _adapter = new TimelineAdapter(element, _recyclerView, linearLayoutManager);
+                _adapter = CreateAdapter(element, _recyclerView, linearLayoutManager);
                 _recyclerView.SetAdapter(_adapter);
                 _recyclerView.AddOnScrollListener(new TimelineScrollListener(linearLayoutManager, element));
 
                 SetNativeControl(view);
             }
+        }
+
+        private RecyclerView.Adapter CreateAdapter(
+            TimelineListView element,
+            RecyclerView recyclerView, 
+            LinearLayoutManager linearLayoutManager)
+        {
+            var itemsSource = element.ItemsSource as IGenericCollection;
+            var itemType = itemsSource.ItemType;
+            var factory = _adapterFactories[itemType];
+            return factory.Invoke(element, recyclerView, linearLayoutManager);
         }
 
         private void ScrollToTopHandler(object sender, EventArgs e)

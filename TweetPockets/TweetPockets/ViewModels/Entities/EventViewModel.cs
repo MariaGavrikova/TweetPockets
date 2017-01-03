@@ -9,6 +9,7 @@ using LinqToTwitter.Common;
 using LitJson;
 using SQLite.Net.Attributes;
 using TweetPockets.Interfaces.Entities;
+using TweetPockets.Utils;
 
 namespace TweetPockets.ViewModels.Entities
 {
@@ -40,6 +41,12 @@ namespace TweetPockets.ViewModels.Entities
                 {
                     Text = status.RetweetedStatus.Text;
                     EventType = UserStreamEventType.Retweet;
+                }
+
+                if (status.QuotedStatus != null && status.QuotedStatus.StatusID != 0)
+                {
+                    Text = status.QuotedStatus.Text;
+                    EventType = UserStreamEventType.Quoted;
                 }
             }
             else if (content.Entity is Delete)
@@ -99,7 +106,13 @@ namespace TweetPockets.ViewModels.Entities
         public DateTime CreatedAt { get; set; }
 
         [Ignore]
-        public DateTime CreatedAtLocal => CreatedAt.ToLocalTime();
+        public string TimestampLabel
+        {
+            get
+            {
+                return TimestampHelper.GetText(CreatedAt);
+            }
+        }
 
         public UserStreamEventType EventType { get; set; }
 
@@ -120,6 +133,7 @@ namespace TweetPockets.ViewModels.Entities
         Favorite,
         Unfavorite,
         Retweet,
+        Quoted,
         Block,
         Unblock,
         ListCreated,
@@ -128,7 +142,7 @@ namespace TweetPockets.ViewModels.Entities
         ListMemberAdded,
         ListMemberRemoved,
         ListUserSubscribed,
-        ListUserUnsubscribed
+        ListUserUnsubscribed,
     }
 
 }
