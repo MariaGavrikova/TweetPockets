@@ -67,60 +67,43 @@
            HorizontalOptions="Start" VerticalOptions="Center"
            Grid.Column="1" Grid.Row="3"
            Aspect="AspectFit"
-           Source="{Binding Image}">
-      <Image.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Image.GestureRecognizers>
-    </Image>
+           Source="{Binding Image}"/>
     <Label BindingContext="{Binding Timeline}"
            WidthRequest="30"
            Grid.Column="2" Grid.Row="3"
            VerticalOptions="Center"
-           FontFamily="Roboto-Medium" FontSize="14">
-      <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Label.GestureRecognizers>
-    </Label>
+           FontFamily="Roboto-Medium" FontSize="14"/>
     <Label BindingContext="{Binding Timeline}"
            Text="{Binding Title}" Margin="30,0,16,0"
            Grid.Column="2" Grid.Row="3"
            TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
            VerticalOptions="Center"
-           FontFamily="Roboto-Medium" FontSize="14">
-      <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Label.GestureRecognizers>
-    </Label>
+           FontFamily="Roboto-Medium" FontSize="14"/>
+    <Button BackgroundColor="Transparent" BindingContext="{Binding Timeline}"
+            Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3"
+            Clicked="ItemTapped" />
 
     <!--Activity-->
     <Image BindingContext="{Binding Activity}"
            HorizontalOptions="Start" VerticalOptions="Center"
            Grid.Column="1" Grid.Row="4"
            Aspect="AspectFit"
-           Source="{Binding Image}">
-      <Image.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Image.GestureRecognizers>
-    </Image>
+           Source="{Binding Image}"/>
     <Label BindingContext="{Binding Activity}"
           WidthRequest="30"
           Grid.Column="2" Grid.Row="4"
           VerticalOptions="Center"
-          FontFamily="Roboto-Medium" FontSize="14">
-      <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Label.GestureRecognizers>
-    </Label>
+          FontFamily="Roboto-Medium" FontSize="14"/>
     <Label BindingContext="{Binding Activity}"
            Text="{Binding Title}" Margin="30,0,16,0"
            Grid.Column="2" Grid.Row="4"
            TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
            VerticalOptions="Center"
-           FontFamily="Roboto-Medium" FontSize="14">
-      <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Label.GestureRecognizers>
-    </Label>
+           FontFamily="Roboto-Medium" FontSize="14"/>
+    <Button BackgroundColor="Transparent" BorderColor="Transparent" BorderWidth="0"
+            BindingContext="{Binding Activity}"
+            Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="4"
+            Clicked="ItemTapped" />
 
     <BoxView Color="#D7D7D7" HeightRequest="1"
              VerticalOptions="Center"
@@ -132,29 +115,21 @@
            HorizontalOptions="Start" VerticalOptions="Center"
            Grid.Column="1" Grid.Row="6"
            Aspect="AspectFit"
-           Source="{Binding Image}">
-      <Image.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Image.GestureRecognizers>
-    </Image>
+           Source="{Binding Image}"/>
     <Label BindingContext="{Binding BookmarkList}"
           WidthRequest="30"
           Grid.Column="2" Grid.Row="6"
           VerticalOptions="Center"
-          FontFamily="Roboto-Medium" FontSize="14">
-      <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Label.GestureRecognizers>
-    </Label>
+          FontFamily="Roboto-Medium" FontSize="14"/>
     <Label BindingContext="{Binding BookmarkList}"
            Text="{Binding Title}" Margin="30,0,16,0"
            Grid.Column="2" Grid.Row="6"
            TextColor="{Binding IsSelected, Converter={StaticResource Clr}}"
            VerticalOptions="Center"
-           FontFamily="Roboto-Medium" FontSize="14">
-      <Label.GestureRecognizers>
-        <TapGestureRecognizer Tapped="ItemTapped"/>
-      </Label.GestureRecognizers>
-    </Label>
+           FontFamily="Roboto-Medium" FontSize="14"/>
+    <Button BackgroundColor="Transparent" BorderColor="Transparent" BorderWidth="0"
+            BindingContext="{Binding BookmarkList}"
+            Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6"
+            Clicked="ItemTapped" />
   </Grid>
 </ContentPage>

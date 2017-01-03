@@ -31,7 +31,10 @@ namespace TweetPockets.Views
                 mainPage.IsPresented = false;
 
                 _data.SelectedItem = item;
-                await item.Reload();
+                using (item.ActivityLoading())
+                {
+                    await item.Reload();
+                }
             }
         }
     }

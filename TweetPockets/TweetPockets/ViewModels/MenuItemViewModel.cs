@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,6 +15,7 @@ namespace TweetPockets.ViewModels
         private readonly string _defaultImage;
         private string _image;
         private bool _isSelected;
+        private bool _isLoading;
 
         protected MenuItemViewModel(string title, string defaultImage, string selectedImage)
         {
@@ -44,7 +46,23 @@ namespace TweetPockets.ViewModels
             }
         }
 
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Title { get; set; }
+
+        public IDisposable ActivityLoading()
+        {
+            IsLoading = true;
+            return Disposable.Create(() => IsLoading = false);
+        }
 
         public virtual async Task Reload()
         {
