@@ -1,0 +1,18 @@
+Features:
+
+--tweet chats
+
+-add tweet with photo 
+-display tweets with multiple photos
+-delete tweet
+-disable retweet for current user's tweet
+
+
+--open tweet on notification tap
+--follows
+
+Bugs:
+
+--favorite my retweet? no
+--retweet my retweet? no
+-cannot send immediate reply + new tweet
