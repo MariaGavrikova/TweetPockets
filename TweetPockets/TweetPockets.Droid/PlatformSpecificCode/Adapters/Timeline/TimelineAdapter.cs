@@ -66,7 +66,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline
                     if (i < _items.Count)
                     {
                         var item = _layoutManager.FindViewByPosition(i);
-                        var timestamp = item.FindViewById<TextView>(Resource.Id.Timestamp);
+                        var timestamp = item?.FindViewById<TextView>(Resource.Id.Timestamp);
                         if (timestamp != null)
                         {
                             timestamp.Text = _items[i].TimestampLabel;

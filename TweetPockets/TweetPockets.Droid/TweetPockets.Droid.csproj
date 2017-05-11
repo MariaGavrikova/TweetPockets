@@ -172,11 +172,11 @@
     <Compile Include="PlatformSpecificCode\AdjustableImageView.cs" />
     <Compile Include="PlatformSpecificCode\Cache\BitmapCache.cs" />
     <Compile Include="PlatformSpecificCode\BitmapUtils.cs" />
-    <Compile Include="PlatformSpecificCode\BitmapWorkerTask.cs" />
     <Compile Include="PlatformSpecificCode\Cache\DiskCache.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlatformSpecificCode\Cache\MemoryCache.cs" />
+    <Compile Include="PlatformSpecificCode\Timer.cs" />
     <Compile Include="PlatformSpecificCode\Localize.cs" />
     <Compile Include="PlatformSpecificCode\PushNotificationController.cs" />
     <Compile Include="PlatformSpecificCode\ToastNotificationController.cs" />

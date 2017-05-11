@@ -10,6 +10,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
         private static readonly MemoryCache _memoryCache;
         private static readonly DiskCache _diskCache;
         private readonly TimeSpan _diskCacheLifeTime = TimeSpan.FromDays(3);
+        private static BitmapCache _instance;
+        private static readonly object _syncRoot = new object();
 
         private const int CacheSize = 10 * 1024 * 1024; // 4MiB
         
@@ -17,6 +19,30 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
         {
             _memoryCache = new MemoryCache(CacheSize);
             _diskCache = DiskCache.CreateCache(Forms.Context, "DiskCache");
+        }
+
+        private BitmapCache()
+        {
+            
+        }
+
+        public static BitmapCache Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_syncRoot)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new BitmapCache();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
         }
 
         public Bitmap Get(string key)
@@ -29,7 +55,7 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Cache
 
                 if (bitmap == null)
                 {
-                    if (_diskCache.TryGet(key, out bitmap))
+                    if (_diskCache.TryGet(key, out bitmap) && bitmap != null)
                     {
                         _memoryCache.Put(key, bitmap);
                     }

@@ -1,9 +1,13 @@
 using System;
 using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
+using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using TweetPockets.Controls;
+using TweetPockets.Droid.PlatformSpecificCode.Cache;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.ViewModels.Entities;
 
@@ -13,6 +17,8 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders
     {
         private readonly TimelineListView _element;
         private ITimelineEntity _data;
+        private Task _authorImageLoadingTask;
+        private CancellationTokenSource _authorImageLoadingCancellation;
 
         public TimelineEntityViewHolder(View itemView, TimelineListView element) : base(itemView)
         {
@@ -64,6 +70,9 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders
 
         public virtual void Bind(ITimelineEntity data)
         {
+            _authorImageLoadingCancellation?.Cancel();
+            _authorImageLoadingTask?.Dispose();
+
             if (_data != null)
             {
                 _data.PropertyChanged -= PropertyChangedHandler;
@@ -74,8 +83,14 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders
             if (_data != null)
             {
                 AuthorImage.SetImageBitmap(null);
-                var worker = new BitmapWorkerTask(AuthorImage);
-                worker.Execute(_data.AuthorImageUrl);
+
+                _authorImageLoadingCancellation = new CancellationTokenSource();
+                _authorImageLoadingTask = Task
+                    .Run(() => BitmapCache.Instance.Get(_data.AuthorImageUrl), _authorImageLoadingCancellation.Token)
+                    .ContinueWith(t => LoadImage(t, AuthorImage),
+                        _authorImageLoadingCancellation.Token,
+                        TaskContinuationOptions.OnlyOnRanToCompletion,
+                        TaskScheduler.FromCurrentSynchronizationContext());
 
                 RefreshReplyButton(_data);
 
@@ -91,6 +106,11 @@ namespace TweetPockets.Droid.PlatformSpecificCode.Adapters.Timeline.ViewHolders
                 
                 _data.PropertyChanged += PropertyChangedHandler;
             }
+        }
+
+        protected void LoadImage(Task imageLoadingTask, ImageView image)
+        {
+            image.SetImageBitmap(((Task<Bitmap>)imageLoadingTask).Result);
         }
 
         private void RefreshReplyButton(ITimelineEntity data)

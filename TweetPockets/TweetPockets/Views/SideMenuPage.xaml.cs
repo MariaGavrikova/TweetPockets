@@ -30,7 +30,7 @@ namespace TweetPockets.Views
                 mainPage.Detail = new NavigationPage(App.Instance.ViewManager.GetView(item));
                 mainPage.IsPresented = false;
 
-                _data.SelectedItem = item;
+                //_data.SelectedItem = item;
                 await item.Reload();
             }
         }

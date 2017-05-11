@@ -145,6 +145,7 @@ namespace TweetPockets.ViewModels
 
         public async Task InitAsync()
         {
+           
             Timeline.AddRange(await _timelineManager.InitAsync());
             await _timelineManager.TriggerLoadingNew();
         }

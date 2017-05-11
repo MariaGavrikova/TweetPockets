@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TweetPockets.Interfaces;
 using TweetPockets.Interfaces.Entities;
 using TweetPockets.Utils;
 using TweetPockets.ViewModels;
@@ -18,6 +19,7 @@ namespace TweetPockets.Managers
         private readonly StatusLoadingManager _loadingManager;
         private bool _loadingNewStarted;
         private bool _loadingOldStarted;
+        private ITimer _timer;
 
         private const int ItemsChunk = 20;
 
@@ -25,6 +27,7 @@ namespace TweetPockets.Managers
         {
             _persistingManager = persistingManager;
             _loadingManager = loadingManager;
+            _timer = DependencyService.Get<ITimer>();
         }
 
         public event EventHandler LoadingNewStarted;
@@ -41,20 +44,35 @@ namespace TweetPockets.Managers
 
         public bool NotifyAboutNewItems { get; set; }
 
-        private bool OnTimerTick()
+        private async Task<bool> OnTimerTick()
         {
             if (NotifyAboutNewItems)
             {
-                TriggerLoadingNew();
+                await TriggerLoadingNew();
             }
             return true;
         }
 
         public Task<IList<ITimelineEntity>> InitAsync()
         {
-            Device.StartTimer(_loadingManager.Timeout, OnTimerTick);
+            var tcs = new TaskCompletionSource<IList<ITimelineEntity>>();
+            _timer.Interval = _loadingManager.Timeout;
+            _timer.Tick += async (sender, args) =>
+            {
+                await OnTimerTick();
+            };
+            _timer.Start();
             NotifyAboutNewItems = true;
-            return Task.FromResult(_persistingManager.GetMostRecent(ItemsChunk));
+            try
+            {
+                var result = _persistingManager.GetMostRecent(ItemsChunk);
+                tcs.SetResult(result);
+            }
+            catch (Exception e)
+            {
+                tcs.SetException(e);
+            }
+            return tcs.Task;
         }
 
         public async Task TriggerLoadingNew()

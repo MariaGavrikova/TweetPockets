@@ -26,91 +26,91 @@ namespace TweetPockets.ViewModels
             var persistingManager = new StatusPersistingManager();
             _bookmarkPersistingManager = new BookmarkPersistingManager(persistingManager);
             _loadingManager = new StatusLoadingManager(_bookmarkPersistingManager);
-            Info = new InfoViewModel(_loadingManager);
+            //Info = new InfoViewModel(_loadingManager);
             Timeline = new TimelineViewModel(this, _loadingManager, persistingManager, _bookmarkPersistingManager);
-            BookmarkList = new BookmarkListViewModel(this, _bookmarkPersistingManager);
-            Activity = new ActivityViewModel(this, new EventPersistingManager());
-            SelectedItem = Timeline;
+            //BookmarkList = new BookmarkListViewModel(this, _bookmarkPersistingManager);
+            //Activity = new ActivityViewModel(this, new EventPersistingManager());
+            //SelectedItem = Timeline;
 
-            MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "ChangeBookmarkState",
-                (s, status) => OnChangeBookmarkState(status));
-            MessagingCenter.Subscribe<MainViewModel, BookmarkViewModel>(this, "RemoveBookmark",
-                (s, status) => OnRemoveBookmark(status));
+            //MessagingCenter.Subscribe<MainViewModel, StatusViewModel>(this, "ChangeBookmarkState",
+            //    (s, status) => OnChangeBookmarkState(status));
+            //MessagingCenter.Subscribe<MainViewModel, BookmarkViewModel>(this, "RemoveBookmark",
+            //    (s, status) => OnRemoveBookmark(status));
         }
 
-        public InfoViewModel Info { get; set; }
+        //public InfoViewModel Info { get; set; }
 
         public TimelineViewModel Timeline { get; set; }
 
-        public BookmarkListViewModel BookmarkList { get; set; }
+        //public BookmarkListViewModel BookmarkList { get; set; }
 
-        public ActivityViewModel Activity { get; set; }
+        //public ActivityViewModel Activity { get; set; }
 
-        public MenuItemViewModel SelectedItem
-        {
-            get { return _selectedItem; }
-            set
-            {
-                if (_selectedItem != null)
-                {
-                    _selectedItem.IsSelected = false;
-                }
+        //public MenuItemViewModel SelectedItem
+        //{
+        //    get { return _selectedItem; }
+        //    set
+        //    {
+        //        if (_selectedItem != null)
+        //        {
+        //            _selectedItem.IsSelected = false;
+        //        }
 
-                _selectedItem = value;
-                _selectedItem.IsSelected = true;
-            }
-        }
+        //        _selectedItem = value;
+        //        _selectedItem.IsSelected = true;
+        //    }
+        //}
 
         public async Task InitAsync(Account account)
         {
             await _loadingManager.Init(account);
 
-            Info.InitAsync();
-            Timeline.InitAsync();
-            BookmarkList.InitAsync();
+            //Info.InitAsync();
+            await Timeline.InitAsync();
+            //BookmarkList.InitAsync();
         }
 
-        private void OnChangeBookmarkState(StatusViewModel status)
-        {
-            string pattern = null;
+        //private void OnChangeBookmarkState(StatusViewModel status)
+        //{
+        //    string pattern = null;
 
-            if (!status.IsBookmarked)
-            {
-                var newBookmark = _bookmarkPersistingManager.CreateBookmark(status);
-                BookmarkList.Bookmarks.Add(newBookmark);
+        //    if (!status.IsBookmarked)
+        //    {
+        //        var newBookmark = _bookmarkPersistingManager.CreateBookmark(status);
+        //        BookmarkList.Bookmarks.Add(newBookmark);
 
-                pattern = AppResources.AddedToBookmarksNotificationPattern;
-            }
-            else
-            {
-                var oldBookmark = _bookmarkPersistingManager.RemoveBookmarkWithStatus(status);
-                BookmarkList.Bookmarks.Remove(oldBookmark);
+        //        pattern = AppResources.AddedToBookmarksNotificationPattern;
+        //    }
+        //    else
+        //    {
+        //        var oldBookmark = _bookmarkPersistingManager.RemoveBookmarkWithStatus(status);
+        //        BookmarkList.Bookmarks.Remove(oldBookmark);
 
-                pattern = AppResources.RemovedFromBookmarksNotificationPattern;
-            }
+        //        pattern = AppResources.RemovedFromBookmarksNotificationPattern;
+        //    }
 
-            var manager = DependencyService.Get<IToastNotificationController>();
-            manager.ShowToast(String.Format(pattern, GetShortStatusText(status.Text)));
-        }
+        //    var manager = DependencyService.Get<IToastNotificationController>();
+        //    manager.ShowToast(String.Format(pattern, GetShortStatusText(status.Text)));
+        //}
 
-        private void OnRemoveBookmark(BookmarkViewModel bookmark)
-        {
-            _bookmarkPersistingManager.RemoveBookmark(bookmark);
-            BookmarkList.Bookmarks.Remove(bookmark);
+        //private void OnRemoveBookmark(BookmarkViewModel bookmark)
+        //{
+        //    _bookmarkPersistingManager.RemoveBookmark(bookmark);
+        //    BookmarkList.Bookmarks.Remove(bookmark);
 
-            var relatedStatus = Timeline.Timeline.GetById(bookmark.Id);
-            if (relatedStatus != null)
-            {
-                relatedStatus.IsBookmarked = false;
-            }
+        //    var relatedStatus = Timeline.Timeline.GetById(bookmark.Id);
+        //    if (relatedStatus != null)
+        //    {
+        //        relatedStatus.IsBookmarked = false;
+        //    }
 
-            var manager = DependencyService.Get<IToastNotificationController>();
-            manager.ShowToast(String.Format(AppResources.RemovedFromBookmarksNotificationPattern, GetShortStatusText(bookmark.Text)));
-        }
+        //    var manager = DependencyService.Get<IToastNotificationController>();
+        //    manager.ShowToast(String.Format(AppResources.RemovedFromBookmarksNotificationPattern, GetShortStatusText(bookmark.Text)));
+        //}
 
-        private string GetShortStatusText(string text)
-        {
-            return text.Length > StatusTextLength ? text.Substring(0, StatusTextLength - 3) + "..." : text;
-        }
+        //private string GetShortStatusText(string text)
+        //{
+        //    return text.Length > StatusTextLength ? text.Substring(0, StatusTextLength - 3) + "..." : text;
+        //}
     }
 }

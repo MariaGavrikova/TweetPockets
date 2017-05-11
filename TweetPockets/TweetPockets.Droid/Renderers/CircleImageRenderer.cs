@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Widget;
@@ -16,6 +18,7 @@ using Java.Util;
 using TweetPockets;
 using TweetPockets.Controls;
 using TweetPockets.Droid.PlatformSpecificCode;
+using TweetPockets.Droid.PlatformSpecificCode.Cache;
 using TweetPockets.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -28,6 +31,9 @@ namespace TweetPockets.Droid.Renderers
 {
     public class CircleImageRenderer : ViewRenderer<CircleImage, RoundedImageView>
     {
+        private CancellationTokenSource _photoLoadingCancellation;
+        private Task _photoLoadingTask;
+
         protected override void OnElementChanged(ElementChangedEventArgs<CircleImage> e)
         {
             base.OnElementChanged(e);
@@ -45,14 +51,22 @@ namespace TweetPockets.Droid.Renderers
 
             if (e.PropertyName == CircleImage.SourceProperty.PropertyName)
             {
-                LoadImageAsync();
+                _photoLoadingCancellation?.Cancel();
+                _photoLoadingTask?.Dispose();
+
+                _photoLoadingCancellation = new CancellationTokenSource();
+                _photoLoadingTask = Task
+                    .Run(() => BitmapCache.Instance.Get(Element.Source), _photoLoadingCancellation.Token)
+                    .ContinueWith(t => LoadImage(t, Control),
+                        _photoLoadingCancellation.Token,
+                        TaskContinuationOptions.OnlyOnRanToCompletion,
+                        TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 
-        private void LoadImageAsync()
+        protected void LoadImage(Task imageLoadingTask, ImageView image)
         {
-            var worker = new BitmapWorkerTask(Control);
-            worker.Execute(Element.Source);
+            image.SetImageBitmap(((Task<Bitmap>)imageLoadingTask).Result);
         }
     }
 }

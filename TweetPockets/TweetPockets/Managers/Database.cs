@@ -7,6 +7,7 @@ using SQLite.Net;
 using SQLite.Net.Interop;
 using TweetPockets.ViewModels;
 using TweetPockets.ViewModels.Entities;
+using SQLite.Net.Async;
 
 namespace TweetPockets.Managers
 {
